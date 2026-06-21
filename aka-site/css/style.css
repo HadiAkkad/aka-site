@@ -309,6 +309,37 @@ p { margin: 0 0 1rem; }
 /* Feature list (What we offer / Why AKA) */
 .feature h3 { color: var(--color-accent); font-size: 1.15rem; }
 
+/* Partner brand cards (Agencies page) */
+.partner { display: flex; flex-direction: column; }
+.partner img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1.1rem;
+}
+/* When the image is a brand logo rather than a photo: white tile, contained */
+.partner img.partner__logo {
+  object-fit: contain;
+  background: var(--color-white);
+  padding: 1.75rem;
+  border: 1px solid #e6ece6;
+}
+.partner h3 { color: var(--color-ink); margin-bottom: 0.4rem; }
+.partner p { flex: 1; }
+.partner .partner__link {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  align-self: flex-start;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.partner .partner__link:hover { border-color: var(--color-accent); }
+
 /* -------------------------------------------------------------------------
    8. FORMS  (contact / inquiry)
    ------------------------------------------------------------------------- */

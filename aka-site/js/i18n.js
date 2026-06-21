@@ -161,6 +161,30 @@ const I18N = (() => {
         "Get in touch to discuss representation, sourcing, or distribution.",
       "agencies.cta.btn": "Partner with us",
 
+      // ---- Agencies: partner brands ----
+      "agencies.partners.title": "Our partners",
+      "agencies.partners.lead":
+        "AKA is the authorized agent in Syria for leading international medical-equipment manufacturers.",
+      "partner.visit": "Visit website",
+      "partner.edan.desc":
+        "Patient monitoring, ECG, ultrasound, point-of-care testing, and maternal/fetal solutions.",
+      "partner.neurowerk.desc":
+        "Neurology diagnostic systems — EEG, EMG, and evoked potentials.",
+      "partner.custo.desc":
+        "Cardiopulmonary diagnostics — resting and stress ECG, Holter monitoring, and spirometry.",
+      "partner.ems.desc":
+        "Swiss precision devices for endourology lithotripsy, dental prophylaxis, and shockwave therapy.",
+      "partner.merivaara.desc":
+        "Operating tables, surgical lights, and operating-room and ICU solutions.",
+      "partner.neusoft.desc":
+        "Diagnostic imaging systems — CT, MRI, X-ray, and ultrasound.",
+      "partner.hermann.desc":
+        "German manufacturer of surgical instruments and implants — laparoscopy, endoscopy, electrosurgery, and arthroscopy.",
+      "partner.emos.desc":
+        "German manufacturer of high-quality rigid and flexible endoscopes for surgery, ENT, urology, and gastroenterology.",
+      "partner.imo.desc":
+        "Medical solutions provider.",
+
       // ---- Devices page ----
       "devices.hero.h1": "Devices",
       "devices.hero.lead":
@@ -575,6 +599,30 @@ const I18N = (() => {
       "agencies.cta.p":
         "تواصل معنا لمناقشة التمثيل أو التوريد أو التوزيع.",
       "agencies.cta.btn": "كن شريكًا لنا",
+
+      // ---- Agencies: partner brands ----
+      "agencies.partners.title": "وكلاؤنا",
+      "agencies.partners.lead":
+        "AKA هي الوكيل المعتمد في سوريا لكبرى الشركات العالمية المصنّعة للأجهزة الطبية.",
+      "partner.visit": "زيارة الموقع",
+      "partner.edan.desc":
+        "مراقبة المرضى وتخطيط القلب والإيكو وفحوص نقطة الرعاية وحلول الأمومة والأجنّة.",
+      "partner.neurowerk.desc":
+        "أنظمة تشخيص عصبية — تخطيط الدماغ والعضلات والكمونات المُثارة.",
+      "partner.custo.desc":
+        "تشخيص قلبي رئوي — تخطيط قلب بالراحة والجهد ومراقبة هولتر وقياس التنفّس.",
+      "partner.ems.desc":
+        "أجهزة سويسرية دقيقة لتفتيت حصى المسالك البولية والوقاية السنّية والعلاج بالموجات الصدمية.",
+      "partner.merivaara.desc":
+        "طاولات عمليات وإضاءة جراحية وحلول لغرف العمليات والعناية المركّزة.",
+      "partner.neusoft.desc":
+        "أنظمة تصوير تشخيصي — التصوير المقطعي والرنين المغناطيسي والأشعة والإيكو.",
+      "partner.hermann.desc":
+        "شركة ألمانية لتصنيع الأدوات الجراحية والزرعات — تنظير البطن والتنظير والجراحة الكهربائية وتنظير المفاصل.",
+      "partner.emos.desc":
+        "شركة ألمانية لتصنيع مناظير صلبة ومرنة عالية الجودة للجراحة والأنف والأذن والمسالك البولية والجهاز الهضمي.",
+      "partner.imo.desc":
+        "مزوّد حلول طبية.",
 
       // ---- Devices page ----
       "devices.hero.h1": "الأجهزة",
