@@ -32,16 +32,10 @@
         <h2 class="center" data-i18n="careers.apply.title">Apply now</h2>
         <p class="center measure-center form-intro" data-i18n="careers.apply.lead">Fill in the form below and attach your CV. Our team will review your application and get back to you.</p>
 
-        <!-- This form uses FormSubmit (https://formsubmit.co) so it works without a backend.
-             IMPORTANT: the FIRST time someone submits, FormSubmit emails hadi.alakkadd@gmail.com
-             a one-time confirmation link that must be clicked to activate the form. After that,
-             applications (with the attached CV) arrive by email automatically. -->
-        <form class="form" action="https://formsubmit.co/hadi.alakkadd@gmail.com" method="POST" enctype="multipart/form-data">
-          <!-- FormSubmit settings -->
-          <input type="hidden" name="_subject" value="New job application — AKA" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-
+        <!-- Submits to the AKA backend Worker (js/forms.js): the application is
+             saved to D1 and the CV is stored in R2. View them at the Worker's
+             /admin page. -->
+        <form class="form" data-api="apply" method="post" enctype="multipart/form-data">
           <label for="name" data-i18n="form.name">Name</label>
           <input type="text" id="name" name="name" required />
 
@@ -61,6 +55,7 @@
           <input type="file" id="cv" name="attachment" accept=".pdf,.doc,.docx" required />
 
           <button type="submit" class="btn" data-i18n="careers.form.submit">Submit application</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
@@ -69,5 +64,6 @@
   <div id="site-footer"></div>
   <script src="js/i18n.js?v=2"></script>
   <script src="js/components.js?v=4"></script>
+  <script src="js/forms.js?v=1"></script>
 </body>
 </html>

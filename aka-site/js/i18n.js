@@ -78,6 +78,10 @@ const I18N = (() => {
       "form.email": "Email",
       "form.message": "Message",
       "form.submit": "Submit",
+      "form.sending": "Sending…",
+      "form.success": "Thank you — your message has been sent.",
+      "form.applied": "Thank you — your application has been submitted.",
+      "form.error": "Something went wrong. Please try again or email us directly.",
 
       // Home — contact band
       "home.contact.title": "Contact AKA",
@@ -518,6 +522,10 @@ const I18N = (() => {
       "form.email": "البريد الإلكتروني",
       "form.message": "الرسالة",
       "form.submit": "إرسال",
+      "form.sending": "جارٍ الإرسال…",
+      "form.success": "شكرًا لك — تم إرسال رسالتك.",
+      "form.applied": "شكرًا لك — تم إرسال طلبك.",
+      "form.error": "حدث خطأ ما. يرجى المحاولة مرة أخرى أو مراسلتنا مباشرة.",
 
       // Home — contact band
       "home.contact.title": "تواصل مع AKA",

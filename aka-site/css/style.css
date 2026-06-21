@@ -359,6 +359,11 @@ p { margin: 0 0 1rem; }
 .form textarea:focus { outline: 2px solid var(--color-accent); border-color: var(--color-accent); }
 .form textarea { min-height: 150px; resize: vertical; }
 
+/* Inline submit status message */
+.form-status { margin-top: 1rem; font-weight: 700; min-height: 1.2em; }
+.form-status--ok  { color: #1a7f37; }
+.form-status--err { color: #b42318; }
+
 /* -------------------------------------------------------------------------
    9. FOOTER  (injected by js/components.js)
    ------------------------------------------------------------------------- */
