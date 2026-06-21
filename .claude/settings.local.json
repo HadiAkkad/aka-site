@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:8000/index.html)",
+      "Bash(curl -s \"http://localhost:8000/\")",
+      "Bash(node --check js/i18n.js)",
+      "Bash(node -e ' *)",
+      "WebFetch(domain:unsplash.com)",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "Bash(curl -s -o /dev/null -w \"localhost:8000 -> %{http_code}\\\\n\" http://localhost:8000/)",
+      "Bash(netstat -ano)",
+      "Bash(npx --yes serve -l 8000 .)",
+      "Bash(curl -sL -o /dev/null -w '%{http_code}' http://localhost:8000/patient-monitoring.html)",
+      "Bash(echo \"Diagnostic page \\(200 via redirect follow\\): $\\(curl -sL -o /dev/null -w '%{http_code}' http://localhost:8000/patient-monitoring.html\\)\")",
+      "WebFetch(domain:www.linkedin.com)",
+      "WebSearch",
+      "WebFetch(domain:sy.linkedin.com)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{content_type}\\\\n\" \"https://media.licdn.com/dms/image/v2/D4D1BAQETalZUJuBeNw/company-background_10000/company-background_10000/0/1656314713039/al_akkad_aka_group_cover?e=2147483647&v=beta&t=GhXrZZQN7ZHEkg0AuIF-Ac1xlXsDzYNgX1Q8v--b-nQ\")",
+      "WebFetch(domain:www.facebook.com)",
+      "WebFetch(domain:mbasic.facebook.com)",
+      "Bash(node --check js/components.js)",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' \"https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80\")",
+      "Bash(echo \"hero bg: $\\(curl -s -o /dev/null -w '%{http_code}' \"https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80\"\\)\")",
+      "Bash(curl -sL -o /dev/null -w '%{http_code}' http://localhost:8000/)",
+      "Bash(echo \"home page: $\\(curl -sL -o /dev/null -w '%{http_code}' http://localhost:8000/\\)\")",
+      "Read(//c/Users/hadia/Downloads/**)",
+      "Bash(cd \"C:\\\\Users\\\\hadia\\\\Desktop\\\\aka-site\\\\aka-site\" && cp \"C:\\\\Users\\\\hadia\\\\Downloads\\\\Gemini_Generated_Image_tmtzs6tmtzs6tmtz \\(1\\).svg\" images/aka-logo.svg && echo \"copied\" && wc -c images/aka-logo.svg && head -c 200 images/aka-logo.svg)",
+      "Bash(curl -s http://localhost:8000/images/aka-logo.svg)",
+      "Bash(echo \"has <circle> \\(new\\): $\\(curl -s http://localhost:8000/images/aka-logo.svg)"
+    ]
+  }
+}

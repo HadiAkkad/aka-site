@@ -1,0 +1,570 @@
+/* =========================================================================
+   AKA — Medical Devices, Supplements & Agency Services
+   Main stylesheet
+   -------------------------------------------------------------------------
+   HOW TO EDIT:
+   - Colors and fonts are defined once in :root below. Change them there and
+     they update across the whole site.
+   - Each section of the CSS is labelled. Use Ctrl+F to jump to a section.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. DESIGN TOKENS  (edit these to re-skin the whole site)
+   ------------------------------------------------------------------------- */
+:root {
+  /* Brand colors */
+  --color-white:      #ffffff;
+  --color-surface:    #f2f6f2;  /* light section background */
+  --color-accent:     #228bc0;  /* AKA blue */
+  --color-ink:        #0f1111;  /* main text */
+  --color-black:      #000000;
+
+  /* Typography */
+  --font-display: "Fjalla One", system-ui, sans-serif;  /* headings (uppercase) */
+  --font-body:    "Roboto", system-ui, sans-serif;       /* body text */
+
+  /* Layout */
+  --maxw:        1200px;   /* max content width */
+  --maxw-narrow: 760px;    /* narrow text column */
+  --radius:      100px;    /* pill buttons */
+  --gap:         clamp(1.5rem, 4vw, 3rem);
+
+  /* Spacing scale */
+  --space-section: clamp(3rem, 8vw, 6rem);
+}
+
+/* -------------------------------------------------------------------------
+   2. RESET & BASE
+   ------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--color-ink);
+  background: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.5em;
+  font-weight: 400;
+}
+
+h1 { font-size: clamp(2.2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.8rem, 4.5vw, 3rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+
+p { margin: 0 0 1rem; }
+
+/* -------------------------------------------------------------------------
+   3. LAYOUT HELPERS
+   ------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
+}
+
+.section { padding-block: var(--space-section); }
+.section--surface { background: var(--color-surface); }
+.section--dark { background: var(--color-black); color: var(--color-white); }
+
+/* Consistent gap below a section's intro heading/lead before its content */
+.section > .container > h2 { margin-bottom: 0.6em; }
+.section > .container > .lead { margin-bottom: 0; }
+
+.center { text-align: center; }
+.lead { font-size: 1.15rem; }
+
+/* Small uppercase accent line above a heading */
+.eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+
+/* Centered, width-limited text block */
+.measure-center { max-width: 680px; margin-inline: auto; }
+/* Spacing above a button row that follows a paragraph */
+.cta-row { margin-top: 2rem; }
+/* Intro paragraph above a centered form */
+.form-intro { margin: 0 auto 3rem; }
+
+/* Two-column split (image + text) */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  align-items: center;
+}
+.split img { border-radius: 8px; }
+
+/* Generic responsive card grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+.grid--gap-top { margin-top: clamp(2rem, 4vw, 3rem); }
+
+/* -------------------------------------------------------------------------
+   4. BUTTONS
+   ------------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 0.85em 2em;
+  border-radius: var(--radius);
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 2px solid var(--color-black);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.btn:hover { background: var(--color-accent); border-color: var(--color-accent); }
+.btn:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+
+.btn--outline { background: transparent; color: var(--color-ink); }
+.btn--outline:hover { background: var(--color-black); color: var(--color-white); }
+
+.btn--on-dark { background: var(--color-white); color: var(--color-black); border-color: var(--color-white); }
+.btn--on-dark:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-white); }
+
+/* -------------------------------------------------------------------------
+   5. HEADER  (injected by js/components.js)
+   ------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;            /* sticky works fine in real browsers — no WP sanitizer here */
+  top: 0;
+  z-index: 100;
+  background: var(--color-black);
+  color: var(--color-white);
+  transition: transform 0.35s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+/* Compact + shadow once the user scrolls down a bit */
+.site-header.is-scrolled {
+  background: rgba(15, 17, 17, 0.92);
+  backdrop-filter: saturate(140%) blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+/* Hide when scrolling down, slide back in when scrolling up */
+.site-header.is-hidden { transform: translateY(-100%); }
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+  transition: padding-block 0.3s ease;
+}
+.site-header.is-scrolled .site-header__inner { padding-block: 0.55rem; }
+/* Brand shrinks slightly when compact */
+.site-title { transition: font-size 0.3s ease; }
+.site-header.is-scrolled .site-title { font-size: 1.3rem; }
+.site-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: var(--color-white);
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+/* Circular logo (the SVG is already round; border-radius crops a PNG too) */
+.site-logo {
+  height: 56px;
+  width: 56px;
+  object-fit: contain;
+  display: block;
+  transition: height 0.3s ease, width 0.3s ease;
+}
+.site-header.is-scrolled .site-logo { height: 46px; width: 46px; }
+/* Push the nav + actions cluster to the end (right in LTR, left in RTL) */
+.site-nav { display: flex; gap: clamp(1rem, 2.5vw, 2.25rem); align-items: center; margin-inline-start: auto; }
+.header-actions { margin-inline-start: clamp(1rem, 2.5vw, 2.25rem); }
+.site-nav a {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--color-white);
+  padding-block: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { border-color: var(--color-accent); color: var(--color-accent); }
+
+/* Right-side header actions (language toggle + mobile menu button) */
+.header-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+/* Language toggle (AR / EN) */
+.lang-toggle {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  color: var(--color-white);
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius);
+  padding: 0.35em 1em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.lang-toggle:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.lang-toggle:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  color: var(--color-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* -------------------------------------------------------------------------
+   6. HERO
+   ------------------------------------------------------------------------- */
+.hero { background: var(--color-surface); padding-block: clamp(2.5rem, 6vw, 5rem); }
+.hero .split { min-height: 60vh; }
+.hero h1 { margin-bottom: 0.4em; }
+.hero .lead { margin-bottom: 2rem; }
+
+/* -------------------------------------------------------------------------
+   7. CATEGORY / IMAGE CARDS
+   ------------------------------------------------------------------------- */
+.card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-decoration: none;
+  isolation: isolate;
+}
+.card img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+.card::after {                 /* dark overlay for legible label */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: -1;
+  transition: background-color 0.25s ease;
+}
+.card:hover::after { background: rgba(34,139,192,0.55); }
+.card__label {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  background: var(--color-black);
+  padding: 0.7em 1.2em;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  text-align: center;
+}
+.card:hover .card__label { background: var(--color-accent); }
+
+/* Feature list (What we offer / Why AKA) */
+.feature h3 { color: var(--color-accent); font-size: 1.15rem; }
+
+/* -------------------------------------------------------------------------
+   8. FORMS  (contact / inquiry)
+   ------------------------------------------------------------------------- */
+.form { max-width: var(--maxw-narrow); margin-inline: auto; }
+.form label { display: block; font-weight: 700; margin-bottom: 0.35rem; }
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #cfd6cf;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+.form input:focus,
+.form textarea:focus { outline: 2px solid var(--color-accent); border-color: var(--color-accent); }
+.form textarea { min-height: 150px; resize: vertical; }
+
+/* -------------------------------------------------------------------------
+   9. FOOTER  (injected by js/components.js)
+   ------------------------------------------------------------------------- */
+.site-footer { background: var(--color-black); color: var(--color-white); }
+.logo-strip {
+  overflow: hidden;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.logo-strip__track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: scroll-logos 28s linear infinite;
+  align-items: center;
+}
+.logo-strip__track span {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.65);
+  white-space: nowrap;
+  font-size: 1.1rem;
+}
+@keyframes scroll-logos {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--gap);
+  padding-block: 3rem;
+}
+.site-footer h4 { color: var(--color-white); margin-bottom: 1rem; }
+.site-footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+.site-footer a:hover { color: var(--color-accent); }
+.site-footer ul { list-style: none; padding: 0; margin: 0; line-height: 2.1; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-block: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* -------------------------------------------------------------------------
+   10. RESPONSIVE
+   ------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .split { grid-template-columns: 1fr; }
+  .hero .split { min-height: auto; }
+  .grid, .grid--2, .grid--4 { grid-template-columns: 1fr 1fr; }
+  .footer-main { grid-template-columns: 1fr; }
+
+  .nav-toggle { display: block; }
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--color-black);
+    padding: 1rem clamp(1.25rem, 5vw, 3rem) 1.5rem;
+  }
+  .site-nav.is-open { display: flex; }
+  .site-header__inner { position: relative; }
+}
+
+@media (max-width: 520px) {
+  .grid, .grid--2, .grid--4 { grid-template-columns: 1fr; }
+}
+
+/* -------------------------------------------------------------------------
+   11. ANIMATIONS & MICRO-INTERACTIONS
+   ------------------------------------------------------------------------- */
+
+/* Scroll reveal: elements start hidden and slide up into place.
+   The .is-visible class is added by js/components.js via IntersectionObserver. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Hero entrance (plays once on load) */
+.hero h1,
+.hero .lead,
+.hero .btn,
+.hero img {
+  animation: hero-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero .lead { animation-delay: 0.12s; }
+.hero .btn  { animation-delay: 0.24s; }
+.hero img   { animation-delay: 0.1s; }
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Feature cards lift on hover */
+.feature {
+  transition: transform 0.25s ease;
+}
+.feature:hover { transform: translateY(-6px); }
+
+/* Buttons lift slightly on hover (adds to existing color transition) */
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+/* Image cards zoom subtly on hover */
+.card img { transition: transform 0.5s ease; }
+.card:hover img { transform: scale(1.06); }
+
+/* Hero image gentle float */
+.hero img { animation: hero-in 0.8s cubic-bezier(0.22,1,0.36,1) both, float 6s ease-in-out 0.8s infinite; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* -------------------------------------------------------------------------
+   12. ACCESSIBILITY
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  /* Make sure scroll-reveal content is never left hidden */
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* -------------------------------------------------------------------------
+   13. ARABIC / RTL
+   Applied when js/i18n.js sets <html lang="ar" dir="rtl">.
+   Keeps the exact same layout & styling, just mirrored and with an
+   Arabic-friendly font (Cairo) instead of the Latin display font.
+   ------------------------------------------------------------------------- */
+html[lang="ar"] body { font-family: "Cairo", "Roboto", system-ui, sans-serif; }
+
+/* Arabic has no uppercase — drop the transforms and tight tracking so the
+   text renders naturally, while keeping the same sizes and weights/look. */
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] .btn,
+html[lang="ar"] .site-nav a,
+html[lang="ar"] .eyebrow,
+html[lang="ar"] .card__label,
+html[lang="ar"] .logo-strip__track span {
+  font-family: "Cairo", "Roboto", system-ui, sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+/* Keep the HEADER identical in both languages: same left-to-right order.
+   The logo and toggle keep their English styling automatically (they're not
+   in the Cairo list above). Only the nav labels differ. */
+html[lang="ar"] .site-header__inner { direction: ltr; }
+
+/* The rest of the page mirrors automatically under dir="rtl". */
+
+/* -------------------------------------------------------------------------
+   14. BACKGROUND MOSAIC PATTERN  (all pages)
+   A Syrian / Islamic geometric tessellation (octagon + 8-point star, the
+   classic "khatam" motif seen in Damascus mosaics). It is drawn as a small
+   tiling SVG and laid OVER each section's existing background color in a
+   shade only a hair different from that color, so it reads as subtle texture.
+   This adds background-image ONLY — it does not touch any colors, fonts,
+   spacing, or layout. Applied site-wide.
+   ------------------------------------------------------------------------- */
+
+/* Pattern over the light "surface" sections (hero + section--surface) */
+.hero,
+.section--surface {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23dde8de' stroke-width='1'%3E%3Cpath d='M14.06,0L33.94,0L48,14.06L48,33.94L33.94,48L14.06,48L0,33.94L0,14.06Z'/%3E%3Cpath d='M24,4L44,24L24,44L4,24Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 48px 48px;
+}
+
+/* Pattern over the plain white sections */
+.section:not(.section--surface):not(.section--dark) {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23eef1ee' stroke-width='1'%3E%3Cpath d='M14.06,0L33.94,0L48,14.06L48,33.94L33.94,48L14.06,48L0,33.94L0,14.06Z'/%3E%3Cpath d='M24,4L44,24L24,44L4,24Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 48px 48px;
+}
+
+/* Pattern over the dark sections — faint light lines on black */
+.section--dark {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.06' stroke-width='1'%3E%3Cpath d='M14.06,0L33.94,0L48,14.06L48,33.94L33.94,48L14.06,48L0,33.94L0,14.06Z'/%3E%3Cpath d='M24,4L44,24L24,44L4,24Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 48px 48px;
+}
+
+/* -------------------------------------------------------------------------
+   15. HOME HERO — full-bleed background image with overlaid text
+   The header sits transparently over the image until the user scrolls.
+   ------------------------------------------------------------------------- */
+.hero--home {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  /* Dark gradient over the photo keeps the white text readable */
+  background-image:
+    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
+    url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+  color: var(--color-white);
+}
+.hero--home .hero__content {
+  text-align: center;
+  max-width: 860px;
+  margin-inline: auto;
+}
+.hero--home h1 {
+  color: var(--color-white);
+  font-size: clamp(2.8rem, 7vw, 5.25rem);
+  margin-bottom: 0.4em;
+}
+.hero--home .lead {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.3rem;
+  max-width: 640px;
+  margin: 0 auto 2.25rem;
+}
+
+/* Header overlays the hero (fixed) and is transparent until scrolled */
+body[data-page="index.html"] .site-header { position: fixed; left: 0; right: 0; top: 0; }
+body[data-page="index.html"] .site-header:not(.is-scrolled):not(.is-hidden) {
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
