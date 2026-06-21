@@ -44,7 +44,7 @@ const I18N = (() => {
       "footer.rights": "All rights reserved.",
 
       // Home — hero
-      "home.hero.h1": "AKA — Your Medical Technology Partner",
+      "home.hero.h1": "Your Partner in Healthcare",
       "home.hero.lead":
         "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — backed by installation, training, and dependable local service.",
       "home.hero.cta": "Browse our devices",
@@ -488,7 +488,7 @@ const I18N = (() => {
       "footer.rights": "جميع الحقوق محفوظة.",
 
       // Home — hero
-      "home.hero.h1": "AKA — شريكك في التكنولوجيا الطبية",
+      "home.hero.h1": "شريكك في الرعاية الصحية",
       "home.hero.lead":
         "منذ عام 1998، وفّرت AKA بشكل موثوق أجهزة ومعدات طبية معتمدة للمشافي والعيادات والمختبرات في جميع أنحاء سوريا — مدعومة بالتركيب والتدريب وخدمة محلية يُعتمد عليها.",
       "home.hero.cta": "تصفّح أجهزتنا",
@@ -911,7 +911,8 @@ const I18N = (() => {
   }
 
   function getLang() {
-    return localStorage.getItem(STORAGE_KEY) || "en";
+    // Default to Arabic for first-time visitors (no saved choice yet).
+    return localStorage.getItem(STORAGE_KEY) || "ar";
   }
 
   // Apply the chosen language to the whole document.
