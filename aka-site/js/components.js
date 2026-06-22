@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initScrollReveal();
   initStickyHeader();
+  initNgoSlideshow();
 
   // If the logo is clicked while already on the homepage, smooth-scroll to top
   // instead of doing a full page reload.
@@ -186,6 +187,71 @@ function initStickyHeader() {
   );
 
   update();
+}
+
+/* -------------------------------------------------------------------------
+   NGO partners slideshow (Agencies page)
+   - Cycles one slide at a time via prev/next buttons or dots.
+   - Autoplays, pausing while the mouse is over the slideshow.
+   ------------------------------------------------------------------------- */
+function initNgoSlideshow() {
+  const root = document.querySelector(".ngo-slideshow");
+  if (!root) return;
+
+  const track = root.querySelector(".ngo-slideshow__track");
+  const slides = [...root.querySelectorAll(".ngo-slide")];
+  const dotsWrap = root.querySelector(".ngo-slideshow__dots");
+  const prevBtn = root.querySelector(".ngo-slideshow__btn--prev");
+  const nextBtn = root.querySelector(".ngo-slideshow__btn--next");
+  if (!track || slides.length === 0) return;
+
+  let index = 0;
+  let autoplay;
+
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement("button");
+    dot.className = "ngo-slideshow__dot";
+    dot.type = "button";
+    dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+    dot.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
+
+  function render() {
+    const isRtl = document.documentElement.dir === "rtl";
+    track.style.transform = `translateX(${isRtl ? index * 100 : -index * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle("is-active", i === index));
+  }
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    render();
+  }
+
+  function next() {
+    goTo(index + 1);
+  }
+
+  function prev() {
+    goTo(index - 1);
+  }
+
+  function startAutoplay() {
+    autoplay = window.setInterval(next, 6000);
+  }
+
+  function stopAutoplay() {
+    window.clearInterval(autoplay);
+  }
+
+  if (prevBtn) prevBtn.addEventListener("click", () => { prev(); stopAutoplay(); startAutoplay(); });
+  if (nextBtn) nextBtn.addEventListener("click", () => { next(); stopAutoplay(); startAutoplay(); });
+  root.addEventListener("mouseenter", stopAutoplay);
+  root.addEventListener("mouseleave", startAutoplay);
+
+  render();
+  startAutoplay();
 }
 
 /* -------------------------------------------------------------------------
