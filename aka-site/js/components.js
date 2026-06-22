@@ -12,7 +12,7 @@
 const NAV_LINKS = [
   { key: "nav.home",        href: "index.html" },
   { key: "nav.devices",     href: "devices.html" },
-  { key: "nav.agencies",    href: "agencies.html" },
+  { key: "nav.partners",    href: "partners.html" },
   { key: "nav.projects",    href: "projects.html" },
   { key: "nav.about",       href: "about.html" },
   { key: "nav.support",     href: "support.html" },
@@ -75,7 +75,7 @@ function buildFooter() {
         <ul>
           <li><a href="devices.html" data-i18n="footer.devices">Devices</a></li>
           <li><a href="categories.html" data-i18n="footer.categories">Categories</a></li>
-          <li><a href="agencies.html" data-i18n="footer.agencies">Agencies</a></li>
+          <li><a href="partners.html" data-i18n="footer.partners">Partners</a></li>
           <li><a href="projects.html" data-i18n="footer.projects">Projects</a></li>
           <li><a href="about.html" data-i18n="footer.about">About</a></li>
           <li><a href="support.html" data-i18n="footer.support">Services</a></li>

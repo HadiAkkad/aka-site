@@ -22,7 +22,7 @@ const I18N = (() => {
       "nav.home": "Home",
       "nav.devices": "Devices",
       "nav.supplements": "Supplements",
-      "nav.agencies": "Agencies",
+      "nav.partners": "Partners",
       "nav.projects": "Projects",
       "nav.about": "About",
       "nav.support": "Services",
@@ -38,7 +38,7 @@ const I18N = (() => {
       "footer.devices": "Devices",
       "footer.categories": "Categories",
       "footer.supplements": "Supplements",
-      "footer.agencies": "Agencies",
+      "footer.partners": "Partners",
       "footer.projects": "Projects",
       "footer.about": "About",
       "footer.support": "Services",
@@ -221,11 +221,11 @@ const I18N = (() => {
         "Tell us what your facility needs and we'll get back to you with a tailored quotation.",
       "about.cta.btn": "Send an inquiry",
 
-      // ---- Agencies page ----
-      "agencies.hero.h1": "Agencies",
+      // ---- Partners page ----
+      "agencies.hero.h1": "Partners",
       "agencies.hero.lead":
-        "AKA acts as a trusted agency partner, connecting Syrian hospitals, clinics, and distributors with established international medical manufacturers.",
-      "agencies.hero.cta": "See our agencies",
+        "AKA acts as a trusted partner — representing international medical manufacturers and working alongside leading NGOs and humanitarian organizations across Syria.",
+      "agencies.hero.cta": "See our partners",
       "agencies.overview.title": "Overview",
       "agencies.overview.p":
         "Through our agency services, AKA represents and sources from international manufacturers, handling procurement, import, and local distribution so healthcare providers in Syria can access genuine, certified products with confidence.",
@@ -239,10 +239,10 @@ const I18N = (() => {
       "agencies.help.dist.title": "Local distribution",
       "agencies.help.dist.text":
         "Delivery, installation, and after-sales support on the ground.",
-      "agencies.cta.title": "Looking for an agency partner?",
+      "agencies.cta.title": "Looking for a partner?",
       "agencies.cta.p":
         "Get in touch to discuss representation, sourcing, or distribution.",
-      "agencies.cta.btn": "Partner with us",
+      "agencies.cta.btn": "Contact us",
 
       // ---- Agencies: partner brands ----
       "agencies.partners.title": "Our partners",
@@ -545,7 +545,7 @@ const I18N = (() => {
       "nav.home": "الرئيسية",
       "nav.devices": "الأجهزة",
       "nav.supplements": "المكمّلات",
-      "nav.agencies": "الوكالات",
+      "nav.partners": "شركاؤنا",
       "nav.projects": "المشاريع",
       "nav.about": "من نحن",
       "nav.support": "خدماتنا",
@@ -561,7 +561,7 @@ const I18N = (() => {
       "footer.devices": "الأجهزة",
       "footer.categories": "الفئات",
       "footer.supplements": "المكمّلات",
-      "footer.agencies": "الوكالات",
+      "footer.partners": "شركاؤنا",
       "footer.projects": "المشاريع",
       "footer.about": "من نحن",
       "footer.support": "خدماتنا",
@@ -743,11 +743,11 @@ const I18N = (() => {
         "أخبرنا باحتياجات منشأتك وسنعاود التواصل معك بعرض سعر مخصّص.",
       "about.cta.btn": "أرسل استفسارًا",
 
-      // ---- Agencies page ----
-      "agencies.hero.h1": "الوكالات",
+      // ---- Partners page ----
+      "agencies.hero.h1": "شركاؤنا",
       "agencies.hero.lead":
-        "تعمل AKA كشريك وكالة موثوق، يربط المشافي والعيادات والموزّعين في سوريا بشركات التصنيع الطبية الدولية المعروفة.",
-      "agencies.hero.cta": "تعرّف على وكلائنا",
+        "تعمل AKA كشريك موثوق — تمثّل شركات التصنيع الطبية الدولية، وتتعاون مع كبرى المنظمات الإنسانية والمنظمات غير الحكومية في سوريا.",
+      "agencies.hero.cta": "تعرّف على شركائنا",
       "agencies.overview.title": "نظرة عامة",
       "agencies.overview.p":
         "من خلال خدمات الوكالة، تمثّل AKA الشركات المصنّعة الدولية وتورّد منها، وتتولى الشراء والاستيراد والتوزيع المحلي بحيث يتمكّن مقدّمو الرعاية الصحية في سوريا من الحصول على منتجات أصلية ومعتمدة بثقة.",
@@ -761,10 +761,10 @@ const I18N = (() => {
       "agencies.help.dist.title": "التوزيع المحلي",
       "agencies.help.dist.text":
         "التوصيل والتركيب ودعم ما بعد البيع ميدانيًا.",
-      "agencies.cta.title": "تبحث عن شريك وكالة؟",
+      "agencies.cta.title": "تبحث عن شريك؟",
       "agencies.cta.p":
         "تواصل معنا لمناقشة التمثيل أو التوريد أو التوزيع.",
-      "agencies.cta.btn": "كن شريكًا لنا",
+      "agencies.cta.btn": "تواصل معنا",
 
       // ---- Agencies: partner brands ----
       "agencies.partners.title": "وكلاؤنا",

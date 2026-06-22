@@ -32,7 +32,7 @@ If the admin password is ever exposed, change it (see *Backend → Change the ad
 6. [Adding a new page](#6-adding-a-new-page)
 7. [Adding / editing a product category](#7-adding--editing-a-product-category)
 8. [Images & the logo](#8-images--the-logo)
-9. [Partner brands (Agencies page)](#9-partner-brands-agencies-page)
+9. [Partner brands (Partners page)](#9-partner-brands-partners-page)
 10. [The backend (Cloudflare)](#10-the-backend-cloudflare)
 11. [The admin page (view applications & CVs)](#11-the-admin-page)
 12. [Credentials & resource IDs](#12-credentials--resource-ids)
@@ -50,7 +50,7 @@ aka-site/                      ← repo root (GitHub: HadiAkkad/aka-site)
 │   ├── index.html             Home (full-bleed hero)
 │   ├── about.html             About (story, specialties, location, contact)
 │   ├── devices.html           Devices overview
-│   ├── agencies.html          Agencies + "Our partners" section
+│   ├── partners.html          NGOs + "Our partners" manufacturer section
 │   ├── support.html           "Services" page (file name kept as support.html)
 │   ├── careers.html           Careers — application form + CV upload
 │   ├── categories.html        Category grid
@@ -156,7 +156,7 @@ The header and footer are injected on every page by `aka-site/js/components.js`
   ```js
   const NAV_LINKS = [
     { key: "nav.devices",   href: "devices.html" },
-    { key: "nav.agencies",  href: "agencies.html" },
+    { key: "nav.partners",  href: "partners.html" },
     { key: "nav.about",     href: "about.html" },
     { key: "nav.support",   href: "support.html" },   // labelled "Services"
     { key: "nav.careers",   href: "careers.html" },
@@ -225,9 +225,9 @@ own page. `diagnostic-devices.html` is the **template**.
 
 ---
 
-## 9. Partner brands (Agencies page)
+## 9. Partner brands (Partners page)
 
-The "Our partners" section is on `agencies.html`. Each partner is a card with a
+The "Our partners" section is on `partners.html`, below the NGO slideshow. Each partner is a card with a
 logo/photo, a description (`data-i18n="partner.<name>.desc"`), and a "Visit website"
 link.
 
