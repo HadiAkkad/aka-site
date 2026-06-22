@@ -90,6 +90,22 @@ p { margin: 0 0 1rem; }
 .center { text-align: center; }
 .lead { font-size: 1.15rem; }
 
+/* Company timeline (About page) */
+.timeline { list-style: none; margin: 2.5rem 0 0; padding: 0; }
+.timeline li {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #e6ece6;
+  align-items: baseline;
+}
+.timeline__year {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 1.25rem;
+  min-width: 4rem;
+}
+
 /* Small uppercase accent line above a heading */
 .eyebrow {
   font-family: var(--font-display);

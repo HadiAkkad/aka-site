@@ -22,6 +22,7 @@ const I18N = (() => {
       "nav.devices": "Devices",
       "nav.supplements": "Supplements",
       "nav.agencies": "Agencies",
+      "nav.projects": "Projects",
       "nav.about": "About",
       "nav.support": "Services",
       "nav.careers": "Careers",
@@ -37,6 +38,7 @@ const I18N = (() => {
       "footer.categories": "Categories",
       "footer.supplements": "Supplements",
       "footer.agencies": "Agencies",
+      "footer.projects": "Projects",
       "footer.about": "About",
       "footer.support": "Services",
       "footer.careers": "Careers",
@@ -88,6 +90,73 @@ const I18N = (() => {
       "home.contact.lead":
         "Questions about products, specifications, or partnerships?",
       "home.contact.cta": "Email us",
+
+      // ---- AKA Group: sectors (home) ----
+      "home.sectors.title": "Our sectors",
+      "home.sectors.lead": "AKA Group is a multidisciplinary group serving healthcare through four specialized sectors.",
+      "sector.projects.title": "Projects (Turnkey)",
+      "sector.projects.text": "Turnkey healthcare infrastructure — from planning and design to installation and commissioning of complete hospitals and medical centers.",
+      "sector.tenders.title": "Tenders",
+      "sector.tenders.text": "Strategic participation in public and private tenders inside and outside Syria — across Europe, Asia, and Africa — with full regulatory compliance.",
+      "sector.medical.title": "Medical Equipment & Services",
+      "sector.medical.text": "Supply, installation, and maintenance of advanced medical devices through FutureMed and affiliated companies, partnering with leading global manufacturers.",
+      "sector.humanitarian.title": "Humanitarian & Charitable",
+      "sector.humanitarian.text": "Charitable activities and annual humanitarian campaigns that improve healthcare access in underserved regions, including emergency response through MerMed.",
+
+      // ---- Projects page ----
+      "proj.hero.h1": "Projects & Clients",
+      "proj.hero.lead": "AKA Group has delivered large-scale healthcare projects across Syria — building, equipping, and commissioning hospitals and medical centers.",
+      "proj.hospitals.title": "Hospitals we've delivered",
+      "proj.hospitals.lead": "A selection of hospitals AKA Group has built and/or equipped across Syria.",
+      "proj.ct.title": "CT imaging installations",
+      "proj.ct.text": "Supplied and installed CT scanning systems at Zahi Azraq Hospital, Homs Hospital, Al Sayda Hospital (Latakia), and Aga Khan Medical Center.",
+      "proj.ministry.title": "Public-sector partnerships",
+      "proj.ministry.text": "AKA Group works with hospitals affiliated with the Ministry of Health and the Ministry of Higher Education and Scientific Research.",
+      "proj.investments.title": "Our investments",
+      "proj.investments.text": "Al-Ridaa Hospital (Deir Al-Zour) and Al-Hayat Hospital (Damascus).",
+      "proj.cta.title": "Have a project in mind?",
+      "proj.cta.p": "From turnkey hospitals to a single department, AKA Group can plan, equip, and commission it.",
+
+      // ---- Values & vision (About) ----
+      "about.values.title": "Our values & vision",
+      "about.values.lead": "Core values that guide the quality of our products and services locally and regionally.",
+      "about.values.customer.title": "Customer focus",
+      "about.values.customer.text": "We prioritize understanding and meeting customer needs, and addressing risks to product conformity and satisfaction.",
+      "about.values.support.title": "Support",
+      "about.values.support.text": "We provide the resources, people, and infrastructure to deliver excellent service and build team competence.",
+      "about.values.quality.title": "Quality",
+      "about.values.quality.text": "We deliver organized, well-managed services that meet modern standards and satisfy our customers.",
+      "about.values.improvement.title": "Continuous improvement",
+      "about.values.improvement.text": "We collaborate with reputable partners to enhance our capabilities and drive continuous development.",
+
+      // ---- Timeline (About) ----
+      "about.timeline.title": "Our journey",
+      "tl.1950": "AKA Group founded",
+      "tl.1960": "Family business — construction industries",
+      "tl.1962": "AKA fabric stores",
+      "tl.1997": "Tenders, import contracts & water-purification plants",
+      "tl.1998": "FutureMed Syria started",
+      "tl.2003": "Zaher Al-Akkad Co.",
+      "tl.2013": "MerMed started",
+      "tl.2018": "FutureMed Sweden",
+      "tl.2025": "FutureMed Albania",
+
+      // ---- NGO partners (Agencies) ----
+      "agencies.ngo.title": "Trusted by leading organizations",
+      "agencies.ngo.lead": "Through our Tenders sector, AKA Group has partnered with major international organizations.",
+
+      // ---- Additional manufacturer partners ----
+      "agencies.more.title": "More of our partners",
+      "partner.cisa.desc": "Sterilization systems for hospitals and industry — over 60 years of manufacturing expertise.",
+      "partner.micromed.desc": "Neurophysiology solutions — EEG, EMG, and evoked potentials.",
+      "partner.kasios.desc": "Synthetic bone substitutes for orthopedic and dental surgery.",
+      "partner.aspel.desc": "High-quality electrocardiograph (ECG) systems and devices.",
+      "partner.luxsutures.desc": "Surgical sutures recognized by surgeons worldwide.",
+      "partner.steelpower.desc": "Steam sterilizers and stainless-steel hospital furniture.",
+      "partner.siem.desc": "Designs and manufactures medical emergency equipment.",
+      "partner.item.desc": "Orthopedic implants for surgery and neurosurgery — spine, foot, and hand.",
+      "partner.insightra.desc": "Cardiovascular medical devices, since 2001.",
+      "partner.sama.desc": "Helium/nitrogen supply and MRI/CT installation and service.",
 
       // ---- Careers page ----
       "careers.hero.h1": "Careers at AKA",
@@ -187,7 +256,7 @@ const I18N = (() => {
       "partner.emos.desc":
         "German manufacturer of high-quality rigid and flexible endoscopes for surgery, ENT, urology, and gastroenterology.",
       "partner.imo.desc":
-        "Medical solutions provider.",
+        "ICU and hospital beds and furniture.",
 
       // ---- Devices page ----
       "devices.hero.h1": "Devices",
@@ -466,6 +535,7 @@ const I18N = (() => {
       "nav.devices": "الأجهزة",
       "nav.supplements": "المكمّلات",
       "nav.agencies": "الوكالات",
+      "nav.projects": "المشاريع",
       "nav.about": "من نحن",
       "nav.support": "خدماتنا",
       "nav.careers": "الوظائف",
@@ -481,6 +551,7 @@ const I18N = (() => {
       "footer.categories": "الفئات",
       "footer.supplements": "المكمّلات",
       "footer.agencies": "الوكالات",
+      "footer.projects": "المشاريع",
       "footer.about": "من نحن",
       "footer.support": "خدماتنا",
       "footer.careers": "الوظائف",
@@ -531,6 +602,73 @@ const I18N = (() => {
       "home.contact.title": "تواصل مع AKA",
       "home.contact.lead": "لديك أسئلة عن المنتجات أو المواصفات أو الشراكات؟",
       "home.contact.cta": "راسلنا",
+
+      // ---- AKA Group: sectors (home) ----
+      "home.sectors.title": "قطاعاتنا",
+      "home.sectors.lead": "مجموعة AKA مجموعة متعددة التخصّصات تخدم القطاع الصحي عبر أربعة قطاعات متخصّصة.",
+      "sector.projects.title": "المشاريع (تسليم مفتاح)",
+      "sector.projects.text": "بنية تحتية صحية متكاملة — من التخطيط والتصميم إلى التركيب والتشغيل لمشافٍ ومراكز طبية كاملة.",
+      "sector.tenders.title": "المناقصات",
+      "sector.tenders.text": "مشاركة استراتيجية في المناقصات العامة والخاصة داخل سوريا وخارجها — في أوروبا وآسيا وأفريقيا — مع التزام كامل بالأنظمة.",
+      "sector.medical.title": "التجهيزات والخدمات الطبية",
+      "sector.medical.text": "توريد وتركيب وصيانة الأجهزة الطبية المتقدّمة عبر FutureMed والشركات التابعة، بالشراكة مع كبرى الشركات المصنّعة العالمية.",
+      "sector.humanitarian.title": "الإنساني والخيري",
+      "sector.humanitarian.text": "أنشطة خيرية وحملات إنسانية سنوية تُحسّن الوصول إلى الرعاية الصحية في المناطق المحرومة، بما في ذلك الاستجابة الطارئة عبر MerMed.",
+
+      // ---- Projects page ----
+      "proj.hero.h1": "المشاريع والعملاء",
+      "proj.hero.lead": "نفّذت مجموعة AKA مشاريع صحية واسعة النطاق في جميع أنحاء سوريا — بناءً وتجهيزًا وتشغيلًا للمشافي والمراكز الطبية.",
+      "proj.hospitals.title": "مشافٍ نفّذناها",
+      "proj.hospitals.lead": "مجموعة مختارة من المشافي التي بنتها و/أو جهّزتها مجموعة AKA في أنحاء سوريا.",
+      "proj.ct.title": "تركيبات التصوير المقطعي",
+      "proj.ct.text": "توريد وتركيب أنظمة التصوير المقطعي في مشفى زاهي أزرق، ومشفى حمص، ومشفى السيدة (اللاذقية)، ومركز الآغا خان الطبي.",
+      "proj.ministry.title": "شراكات القطاع العام",
+      "proj.ministry.text": "تتعامل مجموعة AKA مع مشافٍ تابعة لوزارة الصحة ووزارة التعليم العالي والبحث العلمي.",
+      "proj.investments.title": "استثماراتنا",
+      "proj.investments.text": "مشفى الرضا (دير الزور) ومشفى الحياة (دمشق).",
+      "proj.cta.title": "لديك مشروع في ذهنك؟",
+      "proj.cta.p": "من المشافي المتكاملة إلى قسم واحد، تستطيع مجموعة AKA تخطيطه وتجهيزه وتشغيله.",
+
+      // ---- Values & vision (About) ----
+      "about.values.title": "قيمنا ورؤيتنا",
+      "about.values.lead": "قيم جوهرية توجّه جودة منتجاتنا وخدماتنا محليًا وإقليميًا.",
+      "about.values.customer.title": "التركيز على العميل",
+      "about.values.customer.text": "نولي الأولوية لفهم احتياجات العملاء وتلبيتها، ومعالجة المخاطر التي تؤثّر على مطابقة المنتجات والرضا.",
+      "about.values.support.title": "الدعم",
+      "about.values.support.text": "نوفّر الموارد والكوادر والبنية التحتية لتقديم خدمة متميّزة وبناء كفاءة الفريق.",
+      "about.values.quality.title": "الجودة",
+      "about.values.quality.text": "نقدّم خدمات منظّمة ومُدارة بإتقان تلبّي المعايير الحديثة وتُرضي عملاءنا.",
+      "about.values.improvement.title": "التحسين المستمر",
+      "about.values.improvement.text": "نتعاون مع شركاء مرموقين لتعزيز قدراتنا ودفع التطوير المستمر.",
+
+      // ---- Timeline (About) ----
+      "about.timeline.title": "مسيرتنا",
+      "tl.1950": "تأسّست مجموعة AKA",
+      "tl.1960": "أعمال عائلية — صناعات الإنشاء",
+      "tl.1962": "متاجر AKA للأقمشة",
+      "tl.1997": "المناقصات وعقود الاستيراد ومحطات تنقية المياه",
+      "tl.1998": "انطلاق FutureMed سوريا",
+      "tl.2003": "شركة زاهر العقاد",
+      "tl.2013": "انطلاق MerMed",
+      "tl.2018": "FutureMed السويد",
+      "tl.2025": "FutureMed ألبانيا",
+
+      // ---- NGO partners (Agencies) ----
+      "agencies.ngo.title": "موضع ثقة كبرى المنظمات",
+      "agencies.ngo.lead": "عبر قطاع المناقصات، عقدت مجموعة AKA شراكات مع كبرى المنظمات الدولية.",
+
+      // ---- Additional manufacturer partners ----
+      "agencies.more.title": "المزيد من شركائنا",
+      "partner.cisa.desc": "أنظمة تعقيم للمشافي والصناعة — أكثر من 60 عامًا من خبرة التصنيع.",
+      "partner.micromed.desc": "حلول الفيزيولوجيا العصبية — تخطيط الدماغ والعضلات والكمونات المُثارة.",
+      "partner.kasios.desc": "بدائل عظمية صناعية لجراحة العظام والأسنان.",
+      "partner.aspel.desc": "أنظمة وأجهزة تخطيط قلب (ECG) عالية الجودة.",
+      "partner.luxsutures.desc": "خيوط جراحية معترف بها من الجرّاحين حول العالم.",
+      "partner.steelpower.desc": "معقّمات بخارية وأثاث مشافٍ من الستانلس ستيل.",
+      "partner.siem.desc": "تصميم وتصنيع معدات الطوارئ الطبية.",
+      "partner.item.desc": "زرعات عظمية لجراحة العظام والأعصاب — العمود الفقري والقدم واليد.",
+      "partner.insightra.desc": "أجهزة طبية للقلب والأوعية، منذ عام 2001.",
+      "partner.sama.desc": "توريد الهيليوم والنيتروجين وتركيب وصيانة أنظمة الرنين والتصوير المقطعي.",
 
       // ---- Careers page ----
       "careers.hero.h1": "الوظائف في AKA",
@@ -630,7 +768,7 @@ const I18N = (() => {
       "partner.emos.desc":
         "شركة ألمانية لتصنيع مناظير صلبة ومرنة عالية الجودة للجراحة والأنف والأذن والمسالك البولية والجهاز الهضمي.",
       "partner.imo.desc":
-        "مزوّد حلول طبية.",
+        "أسرّة وأثاث للعناية المركّزة والمشافي.",
 
       // ---- Devices page ----
       "devices.hero.h1": "الأجهزة",
