@@ -108,7 +108,8 @@
       "Bash(git mv *)",
       "Bash(mv \"s&p.png\" \"steel-power.png\")",
       "Bash(mv \"Logo_Micromed_BlueSlogan_2018_CMYK-1-1200x334.png\" \"micromed.png\")",
-      "Bash(mv \"insightra.PNG\" \"insightra.png\")"
+      "Bash(mv \"insightra.PNG\" \"insightra.png\")",
+      "Bash(xargs -I{} git show {} -- aka-site/css/style.css)"
     ]
   }
 }
