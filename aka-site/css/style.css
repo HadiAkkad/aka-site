@@ -547,17 +547,42 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
 
   .nav-toggle { display: block; }
   .site-nav {
-    display: none;
-    position: absolute;
-    top: 100%; left: 0; right: 0;
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: min(78vw, 320px);
     flex-direction: column;
+    align-items: flex-start;
     gap: 0;
     background: var(--color-black);
-    padding: 1rem clamp(1.25rem, 5vw, 3rem) 1.5rem;
+    padding: 6rem clamp(1.5rem, 6vw, 2.5rem) 2rem;
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
   }
-  .site-nav.is-open { display: flex; }
+  .site-nav.is-open { transform: translateX(0); }
+  .site-nav a { padding-block: 0.85rem; width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+  /* Dimmed backdrop behind the side panel; click it to close */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+  }
+  .nav-overlay.is-open { display: block; }
+
   .site-header__inner { position: relative; }
 }
+
+/* Lock background scroll while the mobile side panel is open */
+body.nav-locked { overflow: hidden; }
 
 @media (max-width: 520px) {
   .grid, .grid--2, .grid--4 { grid-template-columns: 1fr; }

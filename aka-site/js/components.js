@@ -52,6 +52,7 @@ function buildHeader() {
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
       </div>
     </div>
+    <div class="nav-overlay"></div>
   </header>`;
 }
 
@@ -120,10 +121,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".site-nav");
+  const overlay = document.querySelector(".nav-overlay");
   if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const open = nav.classList.toggle("is-open");
+    const setOpen = (open) => {
+      nav.classList.toggle("is-open", open);
+      if (overlay) overlay.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", String(open));
+      document.body.classList.toggle("nav-locked", open);
+    };
+
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+    if (overlay) overlay.addEventListener("click", () => setOpen(false));
+    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
     });
   }
 
