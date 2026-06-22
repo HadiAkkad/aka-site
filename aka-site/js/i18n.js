@@ -104,6 +104,13 @@ const I18N = (() => {
         "Questions about products, specifications, or partnerships?",
       "home.contact.cta": "Email us",
 
+      // Home — section eyebrows (small accent label above each heading)
+      "home.sectors.eyebrow": "What we do",
+      "home.products.eyebrow": "Our products",
+      "home.why.eyebrow": "Why AKA",
+      "home.featured.eyebrow": "Our track record",
+      "home.inquiry.eyebrow": "Get in touch",
+
       // ---- AKA Group: sectors (home) ----
       "home.sectors.title": "Our sectors",
       "home.sectors.lead": "AKA Group is a multidisciplinary group serving healthcare through four specialized sectors.",
@@ -637,6 +644,13 @@ const I18N = (() => {
       "home.contact.title": "تواصل مع AKA",
       "home.contact.lead": "لديك أسئلة عن المنتجات أو المواصفات أو الشراكات؟",
       "home.contact.cta": "راسلنا",
+
+      // Home — section eyebrows
+      "home.sectors.eyebrow": "ماذا نقدّم",
+      "home.products.eyebrow": "منتجاتنا",
+      "home.why.eyebrow": "لماذا AKA",
+      "home.featured.eyebrow": "سجلّنا الحافل",
+      "home.inquiry.eyebrow": "تواصل معنا",
 
       // ---- AKA Group: sectors (home) ----
       "home.sectors.title": "قطاعاتنا",
