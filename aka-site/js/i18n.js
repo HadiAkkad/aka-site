@@ -48,7 +48,7 @@ const I18N = (() => {
       // Home — hero
       "home.hero.h1": "Your Partner in Healthcare",
       "home.hero.lead":
-        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — backed by installation, training, and dependable local service.",
+        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria  backed by installation, training, and dependable local service.",
       "home.hero.cta": "Browse our devices",
 
       // Home — services
