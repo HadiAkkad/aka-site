@@ -87,7 +87,23 @@
       "Bash(curl -s __TRACKED_VAR__/index.html?cb=__TRACKED_VAR__)",
       "Bash(curl -s -L https://aka1.hadi-alakkadd.workers.dev/index.html -o /tmp/i.html)",
       "Bash(curl -s -L https://aka1.hadi-alakkadd.workers.dev/agencies.html -o /tmp/a.html)",
-      "Bash(curl -s -L \"https://aka1.hadi-alakkadd.workers.dev/agencies.html\" -o /tmp/ag.html)"
+      "Bash(curl -s -L \"https://aka1.hadi-alakkadd.workers.dev/agencies.html\" -o /tmp/ag.html)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "mcp__Claude_in_Chrome__navigate",
+      "Bash(python -m http.server 8000)",
+      "PowerShell(Start-Process \"msedge\" \"http://localhost:8000/index.html\")",
+      "Bash(git checkout *)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(npx --yes http-server -p 8123 -c-1)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8123/about.html)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"http-server\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(pkill -f \"8123\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8123/about.html)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 8123 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue; \"killed $_\" }; Start-Sleep 1; \"done\")",
+      "Bash(git commit *)"
     ]
   }
 }
