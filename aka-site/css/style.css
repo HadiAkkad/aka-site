@@ -492,6 +492,11 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
   padding-block: 0.5rem;
   margin-top: 1.5rem;
   overflow: hidden;
+  /* Always lay out LTR: in RTL, flex overflow anchors to the opposite
+     side, which combined with the translateX keyframe parks the whole
+     (wider-than-viewport) track off-screen. The marquee direction has
+     no semantic meaning, so it doesn't need to mirror with the page. */
+  direction: ltr;
   /* Fade the logos in/out at the strip edges */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
           mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
