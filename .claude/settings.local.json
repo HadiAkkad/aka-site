@@ -104,7 +104,11 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8123/about.html)",
       "PowerShell(Get-NetTCPConnection -LocalPort 8123 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue; \"killed $_\" }; Start-Sleep 1; \"done\")",
       "Bash(git commit *)",
-      "Bash(wrangler --version)"
+      "Bash(wrangler --version)",
+      "Bash(git mv *)",
+      "Bash(mv \"s&p.png\" \"steel-power.png\")",
+      "Bash(mv \"Logo_Micromed_BlueSlogan_2018_CMYK-1-1200x334.png\" \"micromed.png\")",
+      "Bash(mv \"insightra.PNG\" \"insightra.png\")"
     ]
   }
 }
