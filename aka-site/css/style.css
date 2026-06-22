@@ -586,6 +586,11 @@ body.nav-locked { overflow: hidden; }
 
 @media (max-width: 520px) {
   .grid, .grid--2, .grid--4 { grid-template-columns: 1fr; }
+
+  /* Shrink the home-page NGO strip so several logos fit on a phone screen */
+  .ngo-strip { padding-block: 1.25rem; margin-top: 2.5rem; }
+  .ngo-strip__track { gap: 1.75rem; }
+  .ngo-logo { height: 70px; width: 70px; }
 }
 
 /* -------------------------------------------------------------------------
