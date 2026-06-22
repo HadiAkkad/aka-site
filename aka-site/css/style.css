@@ -85,7 +85,14 @@ body:not([data-page="index.html"]) main { padding-top: 64px; }
 
 .section { padding-block: var(--space-section); }
 .section--surface { background: var(--color-surface); }
-.section--dark { background: var(--color-black); color: var(--color-white); }
+.section--dark {
+  background: var(--color-black);
+  color: var(--color-white);
+  position: relative;
+  z-index: 1;
+  /* Soft "lift" instead of a hard edge against the sections above/below */
+  box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.4), 0 -12px 30px -12px rgba(0, 0, 0, 0.4);
+}
 
 /* Consistent gap below a section's intro heading/lead before its content */
 .section > .container > h2 { margin-bottom: 0.6em; }
