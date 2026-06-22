@@ -72,6 +72,8 @@ p { margin: 0 0 1rem; }
 /* -------------------------------------------------------------------------
    3. LAYOUT HELPERS
    ------------------------------------------------------------------------- */
+main { padding-top: 100px; }
+
 .container {
   width: 100%;
   max-width: var(--maxw);
@@ -173,8 +175,10 @@ p { margin: 0 0 1rem; }
    5. HEADER  (injected by js/components.js)
    ------------------------------------------------------------------------- */
 .site-header {
-  position: sticky;            /* sticky works fine in real browsers — no WP sanitizer here */
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   background: var(--color-black);
   color: var(--color-white);
@@ -182,8 +186,6 @@ p { margin: 0 0 1rem; }
 }
 /* Compact + shadow once the user scrolls down a bit */
 .site-header.is-scrolled {
-  background: rgba(15, 17, 17, 0.92);
-  backdrop-filter: saturate(140%) blur(8px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 /* Hide when scrolling down, slide back in when scrolling up */
@@ -613,8 +615,7 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
   margin: 0 auto 2.25rem;
 }
 
-/* Header overlays the hero (fixed) and is transparent until scrolled */
-body[data-page="index.html"] .site-header { position: fixed; left: 0; right: 0; top: 0; }
+/* Home page header: transparent until scrolled */
 body[data-page="index.html"] .site-header:not(.is-scrolled):not(.is-hidden) {
   background: transparent;
   box-shadow: none;
