@@ -72,9 +72,10 @@ p { margin: 0 0 1rem; }
 /* -------------------------------------------------------------------------
    3. LAYOUT HELPERS
    ------------------------------------------------------------------------- */
-/* Non-home pages have a solid fixed header, so push their content below it.
-   The home page hero sits full-bleed under its transparent header (no padding). */
-body:not([data-page="index.html"]) main { padding-top: 64px; }
+/* Pages without a full-bleed hero have a solid fixed header, so push their
+   content below it. Pages with a full-bleed hero (.has-fullbleed-hero on
+   <body>) sit under a transparent header instead (no padding needed). */
+body:not(.has-fullbleed-hero) main { padding-top: 64px; }
 
 .container {
   width: 100%;
@@ -233,12 +234,12 @@ body:not([data-page="index.html"]) main { padding-top: 64px; }
 /* Hide when scrolling down, slide back in when scrolling up */
 .site-header.is-hidden { transform: translateY(-100%); }
 
-/* On every page EXCEPT home, render the header in the same compact black style
-   the home page shows once scrolled — so the black header looks identical
-   everywhere instead of being the larger "top" size. */
-body:not([data-page="index.html"]) .site-header__inner { padding-block: 0.55rem; }
-body:not([data-page="index.html"]) .site-title { font-size: 1.3rem; }
-body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
+/* On pages without a full-bleed hero, render the header in the same compact
+   black style the full-bleed-hero pages show once scrolled — so the black
+   header looks identical everywhere instead of being the larger "top" size. */
+body:not(.has-fullbleed-hero) .site-header__inner { padding-block: 0.55rem; }
+body:not(.has-fullbleed-hero) .site-title { font-size: 1.3rem; }
+body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
 
 .site-header__inner {
   display: flex;
@@ -761,41 +762,73 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
 }
 
 /* -------------------------------------------------------------------------
-   15. HOME HERO — full-bleed background image with overlaid text
-   The header sits transparently over the image until the user scrolls.
+   15. FULL-BLEED HERO — background image with overlaid text
+   Used on Home, Devices, Partners, and Projects. The header sits
+   transparently over the image until the user scrolls (see
+   .has-fullbleed-hero rules above).
    ------------------------------------------------------------------------- */
-.hero--home {
+.hero--home,
+.hero--devices,
+.hero--partners,
+.hero--projects {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  /* Dark gradient over the photo keeps the white text readable */
-  background-image:
-    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
-    url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80");
   background-size: cover;
   background-position: center;
   color: var(--color-white);
 }
-.hero--home .hero__content {
+/* Dark gradient over each photo keeps the white text readable */
+.hero--home {
+  background-image:
+    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
+    url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80");
+}
+.hero--devices {
+  background-image:
+    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
+    url("https://hadialakkadd-etapm.wordpress.com/wp-content/uploads/2026/06/sleek-patient-monitor-professional-operating-room-with-precise-data_1264082-257005.jpg");
+}
+.hero--partners {
+  background-image:
+    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
+    url("https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80");
+}
+.hero--projects {
+  background-image:
+    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
+    url("https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1600&q=80");
+}
+
+.hero--home .hero__content,
+.hero--devices .hero__content,
+.hero--partners .hero__content,
+.hero--projects .hero__content {
   text-align: center;
   max-width: 860px;
   margin-inline: auto;
 }
-.hero--home h1 {
+.hero--home h1,
+.hero--devices h1,
+.hero--partners h1,
+.hero--projects h1 {
   color: var(--color-white);
   font-size: clamp(2.8rem, 7vw, 5.25rem);
   margin-bottom: 0.4em;
 }
-.hero--home .lead {
+.hero--home .lead,
+.hero--devices .lead,
+.hero--partners .lead,
+.hero--projects .lead {
   color: rgba(255, 255, 255, 0.92);
   font-size: 1.3rem;
   max-width: 640px;
   margin: 0 auto 2.25rem;
 }
 
-/* Home page header: transparent until scrolled */
-body[data-page="index.html"] .site-header:not(.is-scrolled):not(.is-hidden) {
+/* Full-bleed-hero pages: transparent header until scrolled */
+body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;

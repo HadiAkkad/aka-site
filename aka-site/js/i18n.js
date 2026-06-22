@@ -126,12 +126,15 @@ const I18N = (() => {
       // ---- Projects page ----
       "proj.hero.h1": "Projects & Clients",
       "proj.hero.lead": "AKA Group has delivered large-scale healthcare projects across Syria building, equipping, and commissioning hospitals and medical centers.",
+      "proj.hero.cta": "See our projects",
+      "proj.hospitals.eyebrow": "Our work",
       "proj.hospitals.title": "Hospitals we've delivered",
       "proj.hospitals.lead": "A selection of hospitals AKA Group has built and/or equipped across Syria.",
       "proj.ct.title": "CT imaging installations",
       "proj.ct.text": "Supplied and installed CT scanning systems at Zahi Azraq Hospital, Homs Hospital, Al Sayda Hospital (Latakia), and Aga Khan Medical Center.",
       "proj.ministry.title": "Public-sector partnerships",
       "proj.ministry.text": "AKA Group works with hospitals affiliated with the Ministry of Health and the Ministry of Higher Education and Scientific Research.",
+      "proj.investments.eyebrow": "Investments",
       "proj.investments.title": "Our investments",
       "proj.investments.text": "Al-Ridaa Hospital (Deir Al-Zour) and Al-Hayat Hospital (Damascus).",
       "proj.cta.title": "Have a project in mind?",
@@ -162,6 +165,7 @@ const I18N = (() => {
       "tl.2025": "FutureMed Albania",
 
       // ---- NGO partners (Agencies) ----
+      "agencies.ngo.eyebrow": "Our network",
       "agencies.ngo.title": "Trusted by leading organizations",
       "agencies.ngo.lead": "Through our Tenders sector, AKA Group has partnered with major international organizations.",
       "ngo.agakhan.desc": "A global development agency working to improve quality of life through health, education, and economic initiatives.",
@@ -245,9 +249,11 @@ const I18N = (() => {
       "agencies.hero.lead":
         "AKA acts as a trusted partner — representing international medical manufacturers and working alongside leading NGOs and humanitarian organizations across Syria.",
       "agencies.hero.cta": "See our partners",
+      "agencies.overview.eyebrow": "What we do",
       "agencies.overview.title": "Overview",
       "agencies.overview.p":
         "Through our agency services, AKA represents and sources from international manufacturers, handling procurement, import, and local distribution so healthcare providers in Syria can access genuine, certified products with confidence.",
+      "agencies.help.eyebrow": "How it works",
       "agencies.help.title": "How we help",
       "agencies.help.sourcing.title": "Sourcing",
       "agencies.help.sourcing.text":
@@ -264,6 +270,7 @@ const I18N = (() => {
       "agencies.cta.btn": "Contact us",
 
       // ---- Agencies: partner brands ----
+      "agencies.partners.eyebrow": "Manufacturers",
       "agencies.partners.title": "Our partners",
       "agencies.partners.lead":
         "AKA is the authorized agent in Syria for leading international medical-equipment manufacturers.",
@@ -292,9 +299,11 @@ const I18N = (() => {
       "devices.hero.lead":
         "Browse our medical devices by clinical use. AKA supplies certified equipment for diagnostics, monitoring, surgery, and hospital care each backed by installation, training, and local support.",
       "devices.hero.cta": "Browse categories",
+      "devices.portfolio.eyebrow": "Our catalog",
       "devices.portfolio.title": "A certified device portfolio",
       "devices.portfolio.p":
         "Every device AKA delivers is selected for reliability, ease of use, and compliance with international quality standards. From compact bedside units to full hospital installations, we help Syrian healthcare providers equip their facilities with confidence and keep them running with maintenance, spare parts, and dependable after-sales service.",
+      "devices.docs.eyebrow": "Documentation",
       "devices.docs.title": "Device documentation for Syria",
       "devices.docs.btn": "View details",
       "devices.docs.p1":
@@ -667,12 +676,15 @@ const I18N = (() => {
       // ---- Projects page ----
       "proj.hero.h1": "المشاريع والعملاء",
       "proj.hero.lead": "نفّذت مجموعة AKA مشاريع صحية واسعة النطاق في جميع أنحاء سوريا بناءً وتجهيزًا وتشغيلًا للمشافي والمراكز الطبية.",
+      "proj.hero.cta": "شاهد مشاريعنا",
+      "proj.hospitals.eyebrow": "أعمالنا",
       "proj.hospitals.title": "مشافٍ نفّذناها",
       "proj.hospitals.lead": "مجموعة مختارة من المشافي التي بنتها و/أو جهّزتها مجموعة AKA في أنحاء سوريا.",
       "proj.ct.title": "تركيبات التصوير المقطعي",
       "proj.ct.text": "توريد وتركيب أنظمة التصوير المقطعي في مشفى زاهي أزرق، ومشفى حمص، ومشفى السيدة (اللاذقية)، ومركز الآغا خان الطبي.",
       "proj.ministry.title": "شراكات القطاع العام",
       "proj.ministry.text": "تتعامل مجموعة AKA مع مشافٍ تابعة لوزارة الصحة ووزارة التعليم العالي والبحث العلمي.",
+      "proj.investments.eyebrow": "استثماراتنا",
       "proj.investments.title": "استثماراتنا",
       "proj.investments.text": "مشفى الرضا (دير الزور) ومشفى الحياة (دمشق).",
       "proj.cta.title": "لديك مشروع في ذهنك؟",
@@ -703,6 +715,7 @@ const I18N = (() => {
       "tl.2025": "FutureMed ألبانيا",
 
       // ---- NGO partners (Agencies) ----
+      "agencies.ngo.eyebrow": "شبكتنا",
       "agencies.ngo.title": "موضع ثقة كبرى المنظمات",
       "agencies.ngo.lead": "عبر قطاع المناقصات، عقدت مجموعة AKA شراكات مع كبرى المنظمات الدولية.",
       "ngo.agakhan.desc": "وكالة تنمية عالمية تعمل على تحسين نوعية الحياة من خلال مبادرات في الصحة والتعليم والاقتصاد.",
@@ -786,9 +799,11 @@ const I18N = (() => {
       "agencies.hero.lead":
         "تعمل AKA كشريك موثوق — تمثّل شركات التصنيع الطبية الدولية، وتتعاون مع كبرى المنظمات الإنسانية والمنظمات غير الحكومية في سوريا.",
       "agencies.hero.cta": "تعرّف على شركائنا",
+      "agencies.overview.eyebrow": "ماذا نقدّم",
       "agencies.overview.title": "نظرة عامة",
       "agencies.overview.p":
         "من خلال خدمات الوكالة، تمثّل AKA الشركات المصنّعة الدولية وتورّد منها، وتتولى الشراء والاستيراد والتوزيع المحلي بحيث يتمكّن مقدّمو الرعاية الصحية في سوريا من الحصول على منتجات أصلية ومعتمدة بثقة.",
+      "agencies.help.eyebrow": "كيف نعمل",
       "agencies.help.title": "كيف نساعد",
       "agencies.help.sourcing.title": "التوريد",
       "agencies.help.sourcing.text":
@@ -805,6 +820,7 @@ const I18N = (() => {
       "agencies.cta.btn": "تواصل معنا",
 
       // ---- Agencies: partner brands ----
+      "agencies.partners.eyebrow": "الشركات المصنّعة",
       "agencies.partners.title": "وكلاؤنا",
       "agencies.partners.lead":
         "AKA هي الوكيل المعتمد في سوريا لكبرى الشركات العالمية المصنّعة للأجهزة الطبية.",
@@ -833,9 +849,11 @@ const I18N = (() => {
       "devices.hero.lead":
         "تصفّح أجهزتنا الطبية حسب الاستخدام السريري. توفّر AKA معدات معتمدة للتشخيص والمراقبة والجراحة ورعاية المشافي كلٌّ منها مدعوم بالتركيب والتدريب والدعم المحلي.",
       "devices.hero.cta": "تصفّح الفئات",
+      "devices.portfolio.eyebrow": "كتالوجنا",
       "devices.portfolio.title": "مجموعة أجهزة معتمدة",
       "devices.portfolio.p":
         "كل جهاز تقدّمه AKA يُختار من أجل الموثوقية وسهولة الاستخدام والامتثال لمعايير الجودة الدولية. من الوحدات الصغيرة بجانب السرير إلى التجهيزات الكاملة للمشافي، نساعد مقدّمي الرعاية الصحية في سوريا على تجهيز منشآتهم بثقة وإبقائها تعمل عبر الصيانة وقطع الغيار وخدمة ما بعد البيع الموثوقة.",
+      "devices.docs.eyebrow": "الوثائق",
       "devices.docs.title": "وثائق الأجهزة لسوريا",
       "devices.docs.btn": "عرض التفاصيل",
       "devices.docs.p1":
