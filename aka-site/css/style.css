@@ -419,6 +419,29 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+/* -------------------------------------------------------------------------
+   NGO Logo Strip (transparent animated scrolling)
+   -------------------------------------------------------------------------
+.ngo-strip {
+  background: transparent;
+  padding-block: 2rem;
+  overflow: hidden;
+}
+.ngo-strip__track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  animation: scroll-logos 30s linear infinite;
+  align-items: center;
+}
+.ngo-logo {
+  flex-shrink: 0;
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+}
+
 .footer-main {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
