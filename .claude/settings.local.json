@@ -86,7 +86,8 @@
       "Bash(curl -s -L -o /dev/null -w '%{http_code}' __TRACKED_VAR__/projects.html?cb=__TRACKED_VAR__)",
       "Bash(curl -s __TRACKED_VAR__/index.html?cb=__TRACKED_VAR__)",
       "Bash(curl -s -L https://aka1.hadi-alakkadd.workers.dev/index.html -o /tmp/i.html)",
-      "Bash(curl -s -L https://aka1.hadi-alakkadd.workers.dev/agencies.html -o /tmp/a.html)"
+      "Bash(curl -s -L https://aka1.hadi-alakkadd.workers.dev/agencies.html -o /tmp/a.html)",
+      "Bash(curl -s -L \"https://aka1.hadi-alakkadd.workers.dev/agencies.html\" -o /tmp/ag.html)"
     ]
   }
 }
