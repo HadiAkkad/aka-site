@@ -225,7 +225,7 @@ const I18N = (() => {
       "agencies.hero.h1": "Agencies",
       "agencies.hero.lead":
         "AKA acts as a trusted agency partner, connecting Syrian hospitals, clinics, and distributors with established international medical manufacturers.",
-      "agencies.hero.cta": "Partner with us",
+      "agencies.hero.cta": "See our agencies",
       "agencies.overview.title": "Overview",
       "agencies.overview.p":
         "Through our agency services, AKA represents and sources from international manufacturers, handling procurement, import, and local distribution so healthcare providers in Syria can access genuine, certified products with confidence.",
@@ -747,7 +747,7 @@ const I18N = (() => {
       "agencies.hero.h1": "الوكالات",
       "agencies.hero.lead":
         "تعمل AKA كشريك وكالة موثوق، يربط المشافي والعيادات والموزّعين في سوريا بشركات التصنيع الطبية الدولية المعروفة.",
-      "agencies.hero.cta": "كن شريكًا لنا",
+      "agencies.hero.cta": "تعرّف على وكلائنا",
       "agencies.overview.title": "نظرة عامة",
       "agencies.overview.p":
         "من خلال خدمات الوكالة، تمثّل AKA الشركات المصنّعة الدولية وتورّد منها، وتتولى الشراء والاستيراد والتوزيع المحلي بحيث يتمكّن مقدّمو الرعاية الصحية في سوريا من الحصول على منتجات أصلية ومعتمدة بثقة.",
