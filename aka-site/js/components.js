@@ -10,6 +10,7 @@
 
 // Navigation menu items (i18n key -> file). Labels come from js/i18n.js.
 const NAV_LINKS = [
+  { key: "nav.home",        href: "index.html" },
   { key: "nav.devices",     href: "devices.html" },
   { key: "nav.agencies",    href: "agencies.html" },
   { key: "nav.projects",    href: "projects.html" },

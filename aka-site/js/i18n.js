@@ -19,6 +19,7 @@ const I18N = (() => {
   const dict = {
     en: {
       // Header / nav
+      "nav.home": "Home",
       "nav.devices": "Devices",
       "nav.supplements": "Supplements",
       "nav.agencies": "Agencies",
@@ -532,6 +533,7 @@ const I18N = (() => {
 
     ar: {
       // Header / nav
+      "nav.home": "الرئيسية",
       "nav.devices": "الأجهزة",
       "nav.supplements": "المكمّلات",
       "nav.agencies": "الوكالات",
