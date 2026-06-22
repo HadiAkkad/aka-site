@@ -489,8 +489,8 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
   background: transparent;
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  padding-block: 0.5rem;
-  margin-top: 1.5rem;
+  padding-block: 3rem;
+  margin-top: 5rem;
   overflow: hidden;
   /* Always lay out LTR: in RTL, flex overflow anchors to the opposite
      side, which combined with the translateX keyframe parks the whole
