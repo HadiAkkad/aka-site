@@ -426,7 +426,11 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
 .ngo-strip {
   background: transparent;
   padding-block: 1rem;
+  margin-top: 2.5rem;
   overflow: hidden;
+  /* Fade the logos in/out at the strip edges */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
 }
 .ngo-strip__track {
   display: flex;
