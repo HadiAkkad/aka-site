@@ -22,7 +22,7 @@ const NAV_LINKS = [
 // Partner names shown in the scrolling footer strip.
 // Replace with logo <img> tags once you have the image files (see README).
 const PARTNERS = [
-  "EDAN", "NEUSOFT", "CUSTOMED", "HERMANN", "EMOS",
+  "EDAN", "NEUSOFT", "CUSTOMED", "HERMANN",
   "EMS", "IMO", "MERIVAARA", "NEUSOFT", "CISA", "MICROMED",
   "LUXSUTURES", "ASPEL", "KASIOS", "STEEL&POWER", "INSIGHTRA",
   "S.I.E.M", "ELVATION", "ITEM", "PERLOVE", "STERNMED", "ESUMEDICS",
