@@ -145,6 +145,11 @@ const I18N = (() => {
       // ---- NGO partners (Agencies) ----
       "agencies.ngo.title": "Trusted by leading organizations",
       "agencies.ngo.lead": "Through our Tenders sector, AKA Group has partnered with major international organizations.",
+      "ngo.agakhan.desc": "A global development agency working to improve quality of life through health, education, and economic initiatives.",
+      "ngo.who.desc": "The United Nations agency that directs international health within the UN system, setting standards and coordinating health responses worldwide.",
+      "ngo.undp.desc": "The UN's lead agency on international development, helping countries build resilient health systems and recover from crises.",
+      "ngo.unhcr.desc": "The UN Refugee Agency, providing medical equipment and healthcare support to displaced populations across Syria.",
+      "ngo.imc.desc": "A global humanitarian organization delivering emergency medical relief and healthcare training in crisis-affected regions.",
 
       // ---- Additional manufacturer partners ----
       "agencies.more.title": "More of our partners",
@@ -158,6 +163,10 @@ const I18N = (() => {
       "partner.item.desc": "Orthopedic implants for surgery and neurosurgery spine, foot, and hand.",
       "partner.insightra.desc": "Cardiovascular medical devices, since 2001.",
       "partner.sama.desc": "Helium/nitrogen supply and MRI/CT installation and service.",
+      "partner.elvation.desc": "A leading German medical technology company specializing in endoscopic instruments and system solutions for minimally invasive procedures. Founded in 1906, the company has grown into a global organization with 18 branches and over 130 distributors worldwide.",
+      "partner.esumedics.desc": "Esumedics stands for \"european sustainable medical solutions.\" Their focus is the development and distribution of long-lasting medical product solutions made in Germany, built on the wealth of experience and competence of their employees.",
+      "partner.sternmed.desc": "Medical device manufacturer and solution provider for healthcare turnkey projects, with head office in Baden-Württemberg. Established in 2011, manufacturing affordable and durable medical devices with German quality standards to enhance healthcare globally.",
+      "partner.perlove.desc": "A high-tech enterprise specialized in the development, manufacturing, and distribution of medical imaging systems, including X-ray machines, digital radiography systems, and mammography machines, with an emphasis on a variety of C-arm machine options.",
 
       // ---- Careers page ----
       "careers.hero.h1": "Careers at AKA",
@@ -658,6 +667,11 @@ const I18N = (() => {
       // ---- NGO partners (Agencies) ----
       "agencies.ngo.title": "موضع ثقة كبرى المنظمات",
       "agencies.ngo.lead": "عبر قطاع المناقصات، عقدت مجموعة AKA شراكات مع كبرى المنظمات الدولية.",
+      "ngo.agakhan.desc": "وكالة تنمية عالمية تعمل على تحسين نوعية الحياة من خلال مبادرات في الصحة والتعليم والاقتصاد.",
+      "ngo.who.desc": "وكالة الأمم المتحدة التي تقود الصحة الدولية ضمن منظومة الأمم المتحدة، وتضع المعايير وتنسّق الاستجابات الصحية حول العالم.",
+      "ngo.undp.desc": "الوكالة الرائدة للأمم المتحدة في التنمية الدولية، تساعد الدول على بناء أنظمة صحية مرنة والتعافي من الأزمات.",
+      "ngo.unhcr.desc": "المفوضية السامية للأمم المتحدة لشؤون اللاجئين، توفّر معدات طبية ودعمًا صحيًا للنازحين في سوريا.",
+      "ngo.imc.desc": "منظمة إنسانية عالمية تقدّم الإغاثة الطبية الطارئة والتدريب الصحي في المناطق المتأثرة بالأزمات.",
 
       // ---- Additional manufacturer partners ----
       "agencies.more.title": "المزيد من شركائنا",
@@ -671,6 +685,10 @@ const I18N = (() => {
       "partner.item.desc": "زرعات عظمية لجراحة العظام والأعصاب — العمود الفقري والقدم واليد.",
       "partner.insightra.desc": "أجهزة طبية للقلب والأوعية، منذ عام 2001.",
       "partner.sama.desc": "توريد الهيليوم والنيتروجين وتركيب وصيانة أنظمة الرنين والتصوير المقطعي.",
+      "partner.elvation.desc": "شركة ألمانية رائدة في التكنولوجيا الطبية، متخصصة في أدوات وأنظمة التنظير للعمليات قليلة التداخل. تأسست عام 1906، وأصبحت اليوم منظمة عالمية تضم 18 فرعًا وأكثر من 130 موزعًا حول العالم.",
+      "partner.esumedics.desc": "تعني Esumedics \"حلول طبية أوروبية مستدامة\". يتركز عملها على تطوير وتوزيع حلول طبية متينة وطويلة الأمد مصنوعة في ألمانيا، بالاستفادة من خبرة وكفاءة فريقها.",
+      "partner.sternmed.desc": "شركة مصنّعة للأجهزة الطبية ومزوّدة لحلول مشاريع الرعاية الصحية الجاهزة، ومقرها في بادن-فورتمبيرغ بألمانيا. تأسست عام 2011، وتصنّع أجهزة طبية موثوقة وبأسعار مناسبة وفق معايير الجودة الألمانية لتعزيز الرعاية الصحية عالميًا.",
+      "partner.perlove.desc": "شركة تقنية عالية متخصصة في تطوير وتصنيع وتوزيع أنظمة التصوير الطبي، بما فيها أجهزة الأشعة السينية وأنظمة التصوير الرقمي وأجهزة تصوير الثدي، مع تركيز خاص على مجموعة متنوعة من أجهزة C-arm.",
 
       // ---- Careers page ----
       "careers.hero.h1": "الوظائف في AKA",
