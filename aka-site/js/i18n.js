@@ -67,11 +67,23 @@ const I18N = (() => {
       "home.services.service.text":
         "Installation, training, maintenance, and spare parts dependable after-sales service for every device we supply.",
 
+      // Home — stats bar
+      "home.stats.years.label": "Years of experience",
+      "home.stats.hospitals.label": "Hospitals delivered",
+      "home.stats.partners.label": "International partners",
+      "home.stats.ngo.label": "NGO & UN partnerships",
+
       // Home — products teaser
       "home.products.title": "Our medical products",
       "home.products.lead":
         "Explore our device portfolio by clinical category from patient monitoring and diagnostics to surgical and hospital equipment.",
       "home.products.cta": "Browse categories",
+
+      // Home — featured projects
+      "home.featured.title": "Hospitals we've equipped",
+      "home.featured.lead":
+        "A selection of hospitals AKA Group has built and/or equipped across Syria.",
+      "home.featured.cta": "See all our projects",
 
       // Home — inquiry form
       "home.inquiry.title": "Send an inquiry",
@@ -590,11 +602,23 @@ const I18N = (() => {
       "home.services.service.text":
         "تركيب وتدريب وصيانة وقطع غيار — خدمة ما بعد بيع موثوقة لكل جهاز نورّده.",
 
+      // Home — stats bar
+      "home.stats.years.label": "سنة من الخبرة",
+      "home.stats.hospitals.label": "مشافٍ تم تجهيزها",
+      "home.stats.partners.label": "شريك دولي",
+      "home.stats.ngo.label": "شراكة مع منظمات أممية وغير حكومية",
+
       // Home — products teaser
       "home.products.title": "منتجاتنا الطبية",
       "home.products.lead":
         "استكشف مجموعتنا من الأجهزة حسب الفئة السريرية من مراقبة المرضى والتشخيص إلى المعدات الجراحية ومعدات المشافي.",
       "home.products.cta": "تصفّح الفئات",
+
+      // Home — featured projects
+      "home.featured.title": "مشافٍ قمنا بتجهيزها",
+      "home.featured.lead":
+        "مجموعة من المشافي التي أنشأتها و/أو جهّزتها مجموعة AKA في سوريا.",
+      "home.featured.cta": "عرض جميع مشاريعنا",
 
       // Home — inquiry form
       "home.inquiry.title": "أرسل استفسارًا",

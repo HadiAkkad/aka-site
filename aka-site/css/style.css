@@ -110,6 +110,22 @@ body:not([data-page="index.html"]) main { padding-top: 64px; }
   min-width: 4rem;
 }
 
+/* Stats bar (Home page) */
+.stat { text-align: center; }
+.stat__number {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: clamp(2.2rem, 5vw, 3.25rem);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+.stat__label {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
 /* Small uppercase accent line above a heading */
 .eyebrow {
   font-family: var(--font-display);

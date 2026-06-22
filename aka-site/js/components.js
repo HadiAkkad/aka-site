@@ -110,6 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Home page stats bar: years of experience since AKA's 1998 founding.
+  const yearsEl = document.getElementById("stat-years");
+  if (yearsEl) yearsEl.textContent = `${new Date().getFullYear() - 1998}+`;
+
   // Apply the saved language to the whole page (header, footer, and content).
   I18N.apply();
 
