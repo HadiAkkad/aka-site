@@ -489,8 +489,8 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
   background: transparent;
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  padding-block: 1rem;
-  margin-top: 10rem;
+  padding-block: 0.5rem;
+  margin-top: 1.5rem;
   overflow: hidden;
   /* Fade the logos in/out at the strip edges */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
