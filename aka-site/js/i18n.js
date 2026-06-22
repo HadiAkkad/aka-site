@@ -31,7 +31,7 @@ const I18N = (() => {
 
       // Footer
       "footer.about.text":
-        "Certified medical devices and equipment for hospitals, clinics, and laboratories across Syria — backed by agency services, installation, training, and dependable local support.",
+        "Certified medical devices and equipment for hospitals, clinics, and laboratories across Syria backed by agency services, installation, training, and dependable local support.",
       "footer.explore": "Explore",
       "footer.contact": "Contact",
       "footer.devices": "Devices",
@@ -64,12 +64,12 @@ const I18N = (() => {
         "International agency and procurement support connecting Syrian healthcare to global manufacturers.",
       "home.services.service.title": "Service & support",
       "home.services.service.text":
-        "Installation, training, maintenance, and spare parts — dependable after-sales service for every device we supply.",
+        "Installation, training, maintenance, and spare parts dependable after-sales service for every device we supply.",
 
       // Home — products teaser
       "home.products.title": "Our medical products",
       "home.products.lead":
-        "Explore our device portfolio by clinical category — from patient monitoring and diagnostics to surgical and hospital equipment.",
+        "Explore our device portfolio by clinical category from patient monitoring and diagnostics to surgical and hospital equipment.",
       "home.products.cta": "Browse categories",
 
       // Home — inquiry form
@@ -81,8 +81,8 @@ const I18N = (() => {
       "form.message": "Message",
       "form.submit": "Submit",
       "form.sending": "Sending…",
-      "form.success": "Thank you — your message has been sent.",
-      "form.applied": "Thank you — your application has been submitted.",
+      "form.success": "Thank you your message has been sent.",
+      "form.applied": "Thank you your application has been submitted.",
       "form.error": "Something went wrong. Please try again or email us directly.",
 
       // Home — contact band
@@ -95,9 +95,9 @@ const I18N = (() => {
       "home.sectors.title": "Our sectors",
       "home.sectors.lead": "AKA Group is a multidisciplinary group serving healthcare through four specialized sectors.",
       "sector.projects.title": "Projects (Turnkey)",
-      "sector.projects.text": "Turnkey healthcare infrastructure — from planning and design to installation and commissioning of complete hospitals and medical centers.",
+      "sector.projects.text": "Turnkey healthcare infrastructure from planning and design to installation and commissioning of complete hospitals and medical centers.",
       "sector.tenders.title": "Tenders",
-      "sector.tenders.text": "Strategic participation in public and private tenders inside and outside Syria — across Europe, Asia, and Africa — with full regulatory compliance.",
+      "sector.tenders.text": "Strategic participation in public and private tenders inside and outside Syria across Europe, Asia, and Africa with full regulatory compliance.",
       "sector.medical.title": "Medical Equipment & Services",
       "sector.medical.text": "Supply, installation, and maintenance of advanced medical devices through FutureMed and affiliated companies, partnering with leading global manufacturers.",
       "sector.humanitarian.title": "Humanitarian & Charitable",
@@ -105,7 +105,7 @@ const I18N = (() => {
 
       // ---- Projects page ----
       "proj.hero.h1": "Projects & Clients",
-      "proj.hero.lead": "AKA Group has delivered large-scale healthcare projects across Syria — building, equipping, and commissioning hospitals and medical centers.",
+      "proj.hero.lead": "AKA Group has delivered large-scale healthcare projects across Syria building, equipping, and commissioning hospitals and medical centers.",
       "proj.hospitals.title": "Hospitals we've delivered",
       "proj.hospitals.lead": "A selection of hospitals AKA Group has built and/or equipped across Syria.",
       "proj.ct.title": "CT imaging installations",
@@ -147,14 +147,14 @@ const I18N = (() => {
 
       // ---- Additional manufacturer partners ----
       "agencies.more.title": "More of our partners",
-      "partner.cisa.desc": "Sterilization systems for hospitals and industry — over 60 years of manufacturing expertise.",
-      "partner.micromed.desc": "Neurophysiology solutions — EEG, EMG, and evoked potentials.",
+      "partner.cisa.desc": "Sterilization systems for hospitals and industry over 60 years of manufacturing expertise.",
+      "partner.micromed.desc": "Neurophysiology solutions EEG, EMG, and evoked potentials.",
       "partner.kasios.desc": "Synthetic bone substitutes for orthopedic and dental surgery.",
       "partner.aspel.desc": "High-quality electrocardiograph (ECG) systems and devices.",
       "partner.luxsutures.desc": "Surgical sutures recognized by surgeons worldwide.",
       "partner.steelpower.desc": "Steam sterilizers and stainless-steel hospital furniture.",
       "partner.siem.desc": "Designs and manufactures medical emergency equipment.",
-      "partner.item.desc": "Orthopedic implants for surgery and neurosurgery — spine, foot, and hand.",
+      "partner.item.desc": "Orthopedic implants for surgery and neurosurgery spine, foot, and hand.",
       "partner.insightra.desc": "Cardiovascular medical devices, since 2001.",
       "partner.sama.desc": "Helium/nitrogen supply and MRI/CT installation and service.",
 
@@ -184,11 +184,11 @@ const I18N = (() => {
       "about.spec.8": "Sterilization department setup",
       "about.hero.h1": "About AKA",
       "about.hero.lead":
-        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — backed by installation, training, and dependable local service.",
+        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria backed by installation, training, and dependable local service.",
       "about.hero.cta": "Contact us",
       "about.who.title": "Who we are",
       "about.who.p":
-        "Founded in 1998 in Damascus, AKA (Al-Akkad) is a medical agencies group dedicated to advancing healthcare through modern medical equipment at the best quality and value. We supply ultrasound systems, surgical instruments, endoscopy and sterilization equipment, cardiac and neurological monitoring devices, and laboratory equipment — backed by installation, training, repair, and dependable after-sales service across Syria.",
+        "Founded in 1998 in Damascus, AKA (Al-Akkad) is a medical agencies group dedicated to advancing healthcare through modern medical equipment at the best quality and value. We supply ultrasound systems, surgical instruments, endoscopy and sterilization equipment, cardiac and neurological monitoring devices, and laboratory equipment backed by installation, training, repair, and dependable after-sales service across Syria.",
       "about.why.title": "Why choose AKA",
       "about.why.certified.title": "Certified products",
       "about.why.certified.text":
@@ -201,7 +201,7 @@ const I18N = (() => {
         "Years of dependable supply to healthcare providers who count on us for the long term.",
       "about.contact.title": "Find & contact us",
       "about.contact.lead":
-        "Reach out by phone or email, or visit us — our team is ready to help with products, specifications, and quotations.",
+        "Reach out by phone or email, or visit us our team is ready to help with products, specifications, and quotations.",
       "about.location.title": "Location",
       "about.phone.title": "Phone",
       "about.emailhours.title": "Email & hours",
@@ -242,9 +242,9 @@ const I18N = (() => {
       "partner.edan.desc":
         "Patient monitoring, ECG, ultrasound, point-of-care testing, and maternal/fetal solutions.",
       "partner.neurowerk.desc":
-        "Neurology diagnostic systems — EEG, EMG, and evoked potentials.",
+        "Neurology diagnostic systems EEG, EMG, and evoked potentials.",
       "partner.custo.desc":
-        "Cardiopulmonary diagnostics — resting and stress ECG, Holter monitoring, and spirometry.",
+        "Cardiopulmonary diagnostics resting and stress ECG, Holter monitoring, and spirometry.",
       "partner.ems.desc":
         "Swiss precision devices for endourology lithotripsy, dental prophylaxis, and shockwave therapy.",
       "partner.merivaara.desc":
