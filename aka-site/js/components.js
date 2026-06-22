@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Home page stats bar: years of experience since AKA's 1998 founding.
   const yearsEl = document.getElementById("stat-years");
-  if (yearsEl) yearsEl.textContent = `${new Date().getFullYear() - 1998}+`;
+  if (yearsEl) yearsEl.dataset.count = String(new Date().getFullYear() - 1998);
 
   // Apply the saved language to the whole page (header, footer, and content).
   I18N.apply();
@@ -145,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   initStickyHeader();
   initNgoSlideshow();
+  initStatsCounter();
 
   // If the logo is clicked while already on the homepage, smooth-scroll to top
   // instead of doing a full page reload.
@@ -314,4 +315,58 @@ function initScrollReveal() {
   );
 
   targets.forEach((el) => observer.observe(el));
+}
+
+/* -------------------------------------------------------------------------
+   Stats counter (Home page)
+   Counts each .stat__number up from 0 to its data-count value once it
+   scrolls into view (or immediately, if already visible on load).
+   ------------------------------------------------------------------------- */
+function initStatsCounter() {
+  const stats = document.querySelectorAll(".stat__number[data-count]");
+  if (stats.length === 0) return;
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  function setFinal(el) {
+    el.textContent = `${el.dataset.count}${el.dataset.suffix || ""}`;
+  }
+
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    stats.forEach(setFinal);
+    return;
+  }
+
+  const DURATION = 1400; // ms
+
+  function animate(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || "";
+    const start = performance.now();
+
+    function tick(now) {
+      const progress = Math.min((now - start) / DURATION, 1);
+      // Ease-out so the count settles smoothly instead of stopping abruptly.
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (progress < 1) window.requestAnimationFrame(tick);
+    }
+
+    window.requestAnimationFrame(tick);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animate(entry.target);
+        obs.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  stats.forEach((el) => observer.observe(el));
 }
