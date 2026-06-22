@@ -425,24 +425,26 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
    -------------------------------------------------------------------------  */
 .ngo-strip {
   background: transparent;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
   padding-block: 1rem;
   margin-top: 2.5rem;
   overflow: hidden;
   /* Fade the logos in/out at the strip edges */
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 .ngo-strip__track {
   display: flex;
-  gap: 2rem;
+  gap: 3.5rem;
   width: max-content;
   animation: scroll-logos-ltr 25s linear infinite;
   align-items: center;
 }
 .ngo-logo {
   flex-shrink: 0;
-  height: 60px;
-  width: 60px;
+  height: 110px;
+  width: 110px;
   object-fit: contain;
 }
 @keyframes scroll-logos-ltr {
