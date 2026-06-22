@@ -72,7 +72,9 @@ p { margin: 0 0 1rem; }
 /* -------------------------------------------------------------------------
    3. LAYOUT HELPERS
    ------------------------------------------------------------------------- */
-main { padding-top: 100px; }
+/* Non-home pages have a solid fixed header, so push their content below it.
+   The home page hero sits full-bleed under its transparent header (no padding). */
+body:not([data-page="index.html"]) main { padding-top: 64px; }
 
 .container {
   width: 100%;
@@ -190,6 +192,13 @@ main { padding-top: 100px; }
 }
 /* Hide when scrolling down, slide back in when scrolling up */
 .site-header.is-hidden { transform: translateY(-100%); }
+
+/* On every page EXCEPT home, render the header in the same compact black style
+   the home page shows once scrolled — so the black header looks identical
+   everywhere instead of being the larger "top" size. */
+body:not([data-page="index.html"]) .site-header__inner { padding-block: 0.55rem; }
+body:not([data-page="index.html"]) .site-title { font-size: 1.3rem; }
+body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
 
 .site-header__inner {
   display: flex;

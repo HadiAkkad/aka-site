@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "aka-static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "http-server", "aka-site", "-p", "8123", "-c-1"],
+      "port": 8123
+    }
+  ]
+}
