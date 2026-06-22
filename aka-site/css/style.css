@@ -438,13 +438,13 @@ body:not([data-page="index.html"]) .site-logo { height: 46px; width: 46px; }
   display: flex;
   gap: 3.5rem;
   width: max-content;
-  animation: scroll-logos-ltr 25s linear infinite;
+  animation: scroll-logos-ltr 90s linear infinite;
   align-items: center;
 }
 .ngo-logo {
   flex-shrink: 0;
-  height: 110px;
-  width: 110px;
+  height: 150px;
+  width: 150px;
   object-fit: contain;
 }
 @keyframes scroll-logos-ltr {
