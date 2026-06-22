@@ -262,7 +262,7 @@ const I18N = (() => {
       "partner.neusoft.desc":
         "Diagnostic imaging systems — CT, MRI, X-ray, and ultrasound.",
       "partner.hermann.desc":
-        "German manufacturer of surgical instruments and implants — laparoscopy, endoscopy, electrosurgery, and arthroscopy.",
+        "German manufacturer of surgical instruments and implants laparoscopy, endoscopy, electrosurgery, and arthroscopy.",
       "partner.emos.desc":
         "German manufacturer of high-quality rigid and flexible endoscopes for surgery, ENT, urology, and gastroenterology.",
       "partner.imo.desc":
@@ -271,15 +271,15 @@ const I18N = (() => {
       // ---- Devices page ----
       "devices.hero.h1": "Devices",
       "devices.hero.lead":
-        "Browse our medical devices by clinical use. AKA supplies certified equipment for diagnostics, monitoring, surgery, and hospital care — each backed by installation, training, and local support.",
+        "Browse our medical devices by clinical use. AKA supplies certified equipment for diagnostics, monitoring, surgery, and hospital care each backed by installation, training, and local support.",
       "devices.hero.cta": "Browse categories",
       "devices.portfolio.title": "A certified device portfolio",
       "devices.portfolio.p":
-        "Every device AKA delivers is selected for reliability, ease of use, and compliance with international quality standards. From compact bedside units to full hospital installations, we help Syrian healthcare providers equip their facilities with confidence — and keep them running with maintenance, spare parts, and dependable after-sales service.",
+        "Every device AKA delivers is selected for reliability, ease of use, and compliance with international quality standards. From compact bedside units to full hospital installations, we help Syrian healthcare providers equip their facilities with confidence and keep them running with maintenance, spare parts, and dependable after-sales service.",
       "devices.docs.title": "Device documentation for Syria",
       "devices.docs.btn": "View details",
       "devices.docs.p1":
-        "Access technical files, user manuals, compatibility notes, and safety information for every AKA medical device supplied in Syria — including installation requirements and Syrian regulatory references for biomedical engineers, hospital teams, and distributors.",
+        "Access technical files, user manuals, compatibility notes, and safety information for every AKA medical device supplied in Syria including installation requirements and Syrian regulatory references for biomedical engineers, hospital teams, and distributors.",
       "devices.docs.p2":
         "Verify whether each device suits your facility, with clear compatibility charts, power and networking standards for Syria, and documentation ready for tenders, audits, and Ministry of Health inspections.",
 
@@ -314,7 +314,7 @@ const I18N = (() => {
       "support.how.title": "How we support you",
       "support.doc.title": "Documentation",
       "support.doc.text":
-        "User manuals, technical files, compatibility notes, and safety information — with Syrian regulatory references for tenders, audits, and Ministry of Health inspections.",
+        "User manuals, technical files, compatibility notes, and safety information with Syrian regulatory references for tenders, audits, and Ministry of Health inspections.",
       "support.install.title": "Installation",
       "support.install.text":
         "On-site installation and commissioning by trained technicians, with power and networking standards suited to Syria.",
@@ -345,7 +345,7 @@ const I18N = (() => {
       // ---- Diagnostic Devices page ----
       "diag.hero.h1": "Diagnostic Devices",
       "diag.hero.lead":
-        "Accurate, reliable diagnostic equipment for hospitals, clinics, and laboratories across Syria — supplied, installed, and serviced by AKA.",
+        "Accurate, reliable diagnostic equipment for hospitals, clinics, and laboratories across Syria supplied, installed, and serviced by AKA.",
       "diag.overview.title": "Overview",
       "diag.overview.p":
         "Diagnostic devices are the foundation of accurate clinical decision-making. AKA supplies a broad range of certified diagnostic equipment that helps Syrian healthcare providers detect, measure, and monitor patient conditions with confidence. Every device we deliver is selected for reliability, ease of use, and compliance with international quality standards, and is backed by local installation, training, and ongoing technical support.",
@@ -385,7 +385,7 @@ const I18N = (() => {
 
       // ---- Endoscopy ----
       "endo.lead":
-        "Endoscopy systems and instruments for diagnostic and surgical use in hospitals and clinics across Syria — supplied, installed, and serviced by AKA.",
+        "Endoscopy systems and instruments for diagnostic and surgical use in hospitals and clinics across Syria supplied, installed, and serviced by AKA.",
       "endo.overview":
         "Endoscopy enables minimally invasive diagnosis and treatment. AKA supplies certified endoscopy systems, scopes, and accessories — selected for image quality and reliability and backed by local installation, training, and technical support.",
       "endo.o1t": "Endoscopy towers",
@@ -397,7 +397,7 @@ const I18N = (() => {
 
       // ---- Sterilization (CSSD) ----
       "steril.lead":
-        "Sterilization and CSSD equipment for hospitals and surgical centers across Syria — supplied, installed, and serviced by AKA.",
+        "Sterilization and CSSD equipment for hospitals and surgical centers across Syria supplied, installed, and serviced by AKA.",
       "steril.overview":
         "Reliable sterilization protects patients and staff. AKA supplies certified autoclaves, washer-disinfectors, and CSSD equipment, selected for safety and compliance and backed by local installation, training, and service. We also help plan and equip complete sterilization departments.",
       "steril.o1t": "Autoclaves & sterilizers",
@@ -409,7 +409,7 @@ const I18N = (() => {
 
       // ---- Patient Monitoring ----
       "mon.lead":
-        "Continuous, accurate monitoring of vital signs for critical care, operating rooms, and general wards across Syria — supplied and serviced by AKA.",
+        "Continuous, accurate monitoring of vital signs for critical care, operating rooms, and general wards across Syria supplied and serviced by AKA.",
       "mon.overview":
         "Patient monitoring systems give clinicians a real-time picture of a patient's condition. AKA supplies certified bedside and central monitoring solutions — from compact vital-signs units to multi-parameter ICU monitors — selected for accuracy, reliability, and ease of use, and backed by local installation, training, and technical support.",
       "mon.o1t": "Bedside monitors",
@@ -421,7 +421,7 @@ const I18N = (() => {
 
       // ---- Respiratory Care ----
       "resp.lead":
-        "Reliable respiratory and ventilation equipment for hospitals, clinics, and emergency care across Syria — supplied and serviced by AKA.",
+        "Reliable respiratory and ventilation equipment for hospitals, clinics, and emergency care across Syria supplied and serviced by AKA.",
       "resp.overview":
         "Respiratory care equipment supports patients who need help breathing, from emergencies to long-term care. AKA supplies certified ventilators, oxygen therapy, and airway-management devices, chosen for safety and reliability and backed by local installation, training, and ongoing service.",
       "resp.o1t": "Ventilators",
@@ -433,7 +433,7 @@ const I18N = (() => {
 
       // ---- Cardiology ----
       "card.lead":
-        "Certified cardiac diagnostic and monitoring equipment for hospitals and clinics across Syria — supplied and serviced by AKA.",
+        "Certified cardiac diagnostic and monitoring equipment for hospitals and clinics across Syria supplied and serviced by AKA.",
       "card.overview":
         "Cardiology equipment helps detect, monitor, and manage heart conditions. AKA supplies certified ECG, defibrillation, and cardiac monitoring devices, selected for accuracy and reliability and backed by local installation, training, and technical support.",
       "card.o1t": "ECG machines",
@@ -445,7 +445,7 @@ const I18N = (() => {
 
       // ---- Hospital Equipment ----
       "hosp.lead":
-        "Durable hospital and ward equipment for healthcare facilities across Syria — supplied, installed, and serviced by AKA.",
+        "Durable hospital and ward equipment for healthcare facilities across Syria supplied, installed, and serviced by AKA.",
       "hosp.overview":
         "From patient beds to ward furniture and mobility equipment, AKA supplies the essential infrastructure that keeps hospitals and clinics running. Every item is selected for durability and safety and backed by local delivery, installation, and after-sales support.",
       "hosp.o1t": "Hospital beds",
@@ -457,7 +457,7 @@ const I18N = (() => {
 
       // ---- Surgical Equipment ----
       "surg.lead":
-        "Certified surgical instruments and operating-room equipment for hospitals across Syria — supplied and serviced by AKA.",
+        "Certified surgical instruments and operating-room equipment for hospitals across Syria supplied and serviced by AKA.",
       "surg.overview":
         "Surgical equipment must perform flawlessly under pressure. AKA supplies certified operating-room equipment, electrosurgical units, and instruments, selected for precision and reliability and backed by local installation, training, and service.",
       "surg.o1t": "Operating tables & lights",
@@ -469,7 +469,7 @@ const I18N = (() => {
 
       // ---- Medical Imaging ----
       "imag.lead":
-        "Diagnostic imaging systems for hospitals, clinics, and radiology centers across Syria — supplied, installed, and serviced by AKA.",
+        "Diagnostic imaging systems for hospitals, clinics, and radiology centers across Syria supplied, installed, and serviced by AKA.",
       "imag.overview":
         "Medical imaging is essential to accurate diagnosis. AKA supplies certified imaging systems — from X-ray and ultrasound to specialized modalities — selected for image quality and reliability and backed by local installation, training, and technical support.",
       "imag.o1t": "X-ray systems",
@@ -481,7 +481,7 @@ const I18N = (() => {
 
       // ---- Laboratory Equipment ----
       "lab.lead":
-        "Certified laboratory analyzers and equipment for hospitals, clinics, and labs across Syria — supplied and serviced by AKA.",
+        "Certified laboratory analyzers and equipment for hospitals, clinics, and labs across Syria supplied and serviced by AKA.",
       "lab.overview":
         "Reliable laboratory equipment underpins accurate testing. AKA supplies certified analyzers, centrifuges, and lab instruments, selected for precision and durability and backed by local installation, training, and ongoing support.",
       "lab.o1t": "Analyzers",
@@ -493,9 +493,9 @@ const I18N = (() => {
 
       // ---- Dental Equipment ----
       "dent.lead":
-        "Complete dental equipment for clinics and practices across Syria — supplied, installed, and serviced by AKA.",
+        "Complete dental equipment for clinics and practices across Syria supplied, installed, and serviced by AKA.",
       "dent.overview":
-        "AKA supplies certified dental equipment for clinics of every size — from dental chairs and units to imaging and handpieces — selected for reliability and patient comfort and backed by local installation, training, and service.",
+        "AKA supplies certified dental equipment for clinics of every size from dental chairs and units to imaging and handpieces — selected for reliability and patient comfort and backed by local installation, training, and service.",
       "dent.o1t": "Dental chairs & units",
       "dent.o1d": "Complete treatment units for general and specialist practice.",
       "dent.o2t": "Dental imaging",
@@ -519,7 +519,7 @@ const I18N = (() => {
       "gyn.lead":
         "Equipment for women's health, maternity, and delivery care across Syria — supplied, installed, and serviced by AKA.",
       "gyn.overview":
-        "AKA supplies certified gynecology and obstetrics equipment for clinics and maternity units — from examination and ultrasound to delivery and neonatal care — selected for safety and reliability and backed by local installation, training, and service.",
+        "AKA supplies certified gynecology and obstetrics equipment for clinics and maternity units — from examination and ultrasound to delivery and neonatal care selected for safety and reliability and backed by local installation, training, and service.",
       "gyn.o1t": "Ultrasound & diagnostics",
       "gyn.o1d": "OB/GYN ultrasound and examination equipment.",
       "gyn.o2t": "Delivery & maternity",
@@ -531,7 +531,7 @@ const I18N = (() => {
       "uro.lead":
         "Urology diagnostic and treatment equipment for hospitals and clinics across Syria — supplied and serviced by AKA.",
       "uro.overview":
-        "AKA supplies certified urology equipment for diagnosis and treatment — from endoscopy and ultrasound to lithotripsy and consumables — selected for reliability and backed by local installation, training, and technical support.",
+        "AKA supplies certified urology equipment for diagnosis and treatment — from endoscopy and ultrasound to lithotripsy and consumables selected for reliability and backed by local installation, training, and technical support.",
       "uro.o1t": "Endoscopy",
       "uro.o1d": "Cystoscopes and endoscopic systems for urology.",
       "uro.o2t": "Diagnostics",
@@ -555,7 +555,7 @@ const I18N = (() => {
 
       // Footer
       "footer.about.text":
-        "أجهزة ومعدات طبية معتمدة للمشافي والعيادات والمختبرات في جميع أنحاء سوريا — مدعومة بخدمات الوكالة والتركيب والتدريب والدعم المحلي الموثوق.",
+        "أجهزة ومعدات طبية معتمدة للمشافي والعيادات والمختبرات في جميع أنحاء سوريا مدعومة بخدمات الوكالة والتركيب والتدريب والدعم المحلي الموثوق.",
       "footer.explore": "استكشف",
       "footer.contact": "تواصل معنا",
       "footer.devices": "الأجهزة",
@@ -572,7 +572,7 @@ const I18N = (() => {
       // Home — hero
       "home.hero.h1": "شريكك في الرعاية الصحية",
       "home.hero.lead":
-        "منذ عام 1998، وفّرت AKA بشكل موثوق أجهزة ومعدات طبية معتمدة للمشافي والعيادات والمختبرات في جميع أنحاء سوريا — مدعومة بالتركيب والتدريب وخدمة محلية يُعتمد عليها.",
+        "منذ عام 1998، وفّرت AKA بشكل موثوق أجهزة ومعدات طبية معتمدة للمشافي والعيادات والمختبرات في جميع أنحاء سوريا مدعومة بالتركيب والتدريب وخدمة محلية يُعتمد عليها.",
       "home.hero.cta": "تصفّح أجهزتنا",
 
       // Home — services
@@ -593,7 +593,7 @@ const I18N = (() => {
       // Home — products teaser
       "home.products.title": "منتجاتنا الطبية",
       "home.products.lead":
-        "استكشف مجموعتنا من الأجهزة حسب الفئة السريرية — من مراقبة المرضى والتشخيص إلى المعدات الجراحية ومعدات المشافي.",
+        "استكشف مجموعتنا من الأجهزة حسب الفئة السريرية من مراقبة المرضى والتشخيص إلى المعدات الجراحية ومعدات المشافي.",
       "home.products.cta": "تصفّح الفئات",
 
       // Home — inquiry form
@@ -618,9 +618,9 @@ const I18N = (() => {
       "home.sectors.title": "قطاعاتنا",
       "home.sectors.lead": "مجموعة AKA مجموعة متعددة التخصّصات تخدم القطاع الصحي عبر أربعة قطاعات متخصّصة.",
       "sector.projects.title": "المشاريع (تسليم مفتاح)",
-      "sector.projects.text": "بنية تحتية صحية متكاملة — من التخطيط والتصميم إلى التركيب والتشغيل لمشافٍ ومراكز طبية كاملة.",
+      "sector.projects.text": "بنية تحتية صحية متكاملة من التخطيط والتصميم إلى التركيب والتشغيل لمشافٍ ومراكز طبية كاملة.",
       "sector.tenders.title": "المناقصات",
-      "sector.tenders.text": "مشاركة استراتيجية في المناقصات العامة والخاصة داخل سوريا وخارجها — في أوروبا وآسيا وأفريقيا — مع التزام كامل بالأنظمة.",
+      "sector.tenders.text": "مشاركة استراتيجية في المناقصات العامة والخاصة داخل سوريا وخارجها في أوروبا وآسيا وأفريقيا مع التزام كامل بالأنظمة.",
       "sector.medical.title": "التجهيزات والخدمات الطبية",
       "sector.medical.text": "توريد وتركيب وصيانة الأجهزة الطبية المتقدّمة عبر FutureMed والشركات التابعة، بالشراكة مع كبرى الشركات المصنّعة العالمية.",
       "sector.humanitarian.title": "الإنساني والخيري",
@@ -628,7 +628,7 @@ const I18N = (() => {
 
       // ---- Projects page ----
       "proj.hero.h1": "المشاريع والعملاء",
-      "proj.hero.lead": "نفّذت مجموعة AKA مشاريع صحية واسعة النطاق في جميع أنحاء سوريا — بناءً وتجهيزًا وتشغيلًا للمشافي والمراكز الطبية.",
+      "proj.hero.lead": "نفّذت مجموعة AKA مشاريع صحية واسعة النطاق في جميع أنحاء سوريا بناءً وتجهيزًا وتشغيلًا للمشافي والمراكز الطبية.",
       "proj.hospitals.title": "مشافٍ نفّذناها",
       "proj.hospitals.lead": "مجموعة مختارة من المشافي التي بنتها و/أو جهّزتها مجموعة AKA في أنحاء سوريا.",
       "proj.ct.title": "تركيبات التصوير المقطعي",
@@ -655,7 +655,7 @@ const I18N = (() => {
       // ---- Timeline (About) ----
       "about.timeline.title": "مسيرتنا",
       "tl.1950": "تأسّست مجموعة AKA",
-      "tl.1960": "أعمال عائلية — صناعات الإنشاء",
+      "tl.1960": "أعمال عائلية صناعات الإنشاء",
       "tl.1962": "متاجر AKA للأقمشة",
       "tl.1997": "المناقصات وعقود الاستيراد ومحطات تنقية المياه",
       "tl.1998": "انطلاق FutureMed سوريا",
@@ -675,14 +675,14 @@ const I18N = (() => {
 
       // ---- Additional manufacturer partners ----
       "agencies.more.title": "المزيد من شركائنا",
-      "partner.cisa.desc": "أنظمة تعقيم للمشافي والصناعة — أكثر من 60 عامًا من خبرة التصنيع.",
-      "partner.micromed.desc": "حلول الفيزيولوجيا العصبية — تخطيط الدماغ والعضلات والكمونات المُثارة.",
+      "partner.cisa.desc": "أنظمة تعقيم للمشافي والصناعة أكثر من 60 عامًا من خبرة التصنيع.",
+      "partner.micromed.desc": "حلول الفيزيولوجيا العصبية تخطيط الدماغ والعضلات والكمونات المُثارة.",
       "partner.kasios.desc": "بدائل عظمية صناعية لجراحة العظام والأسنان.",
       "partner.aspel.desc": "أنظمة وأجهزة تخطيط قلب (ECG) عالية الجودة.",
       "partner.luxsutures.desc": "خيوط جراحية معترف بها من الجرّاحين حول العالم.",
       "partner.steelpower.desc": "معقّمات بخارية وأثاث مشافٍ من الستانلس ستيل.",
       "partner.siem.desc": "تصميم وتصنيع معدات الطوارئ الطبية.",
-      "partner.item.desc": "زرعات عظمية لجراحة العظام والأعصاب — العمود الفقري والقدم واليد.",
+      "partner.item.desc": "زرعات عظمية لجراحة العظام والأعصاب العمود الفقري والقدم واليد.",
       "partner.insightra.desc": "أجهزة طبية للقلب والأوعية، منذ عام 2001.",
       "partner.sama.desc": "توريد الهيليوم والنيتروجين وتركيب وصيانة أنظمة الرنين والتصوير المقطعي.",
       "partner.elvation.desc": "شركة ألمانية رائدة في التكنولوجيا الطبية، متخصصة في أدوات وأنظمة التنظير للعمليات قليلة التداخل. تأسست عام 1906، وأصبحت اليوم منظمة عالمية تضم 18 فرعًا وأكثر من 130 موزعًا حول العالم.",
@@ -716,11 +716,11 @@ const I18N = (() => {
       "about.spec.8": "تجهيز أقسام التعقيم",
       "about.hero.h1": "من نحن",
       "about.hero.lead":
-        "منذ عام 1998، وفّرت AKA بشكل موثوق أجهزة ومعدات طبية معتمدة للمشافي والعيادات والمختبرات في جميع أنحاء سوريا — مدعومة بالتركيب والتدريب وخدمة محلية يُعتمد عليها.",
+        "منذ عام 1998، وفّرت AKA بشكل موثوق أجهزة ومعدات طبية معتمدة للمشافي والعيادات والمختبرات في جميع أنحاء سوريا مدعومة بالتركيب والتدريب وخدمة محلية يُعتمد عليها.",
       "about.hero.cta": "تواصل معنا",
       "about.who.title": "من نحن",
       "about.who.p":
-        "تأسست مجموعة AKA (العقاد) للوكالات الطبية عام 1998 في دمشق، وتكرّس جهودها للارتقاء بالرعاية الصحية عبر تجهيزات طبية حديثة بأفضل جودة وقيمة. نوفّر أجهزة الإيكو والأدوات الجراحية ومعدات التنظير والتعقيم وأجهزة مراقبة القلب والأعصاب ومعدات المختبرات — مدعومة بالتركيب والتدريب والإصلاح وخدمة ما بعد البيع الموثوقة في جميع أنحاء سوريا.",
+        "تأسست مجموعة AKA (العقاد) للوكالات الطبية عام 1998 في دمشق، وتكرّس جهودها للارتقاء بالرعاية الصحية عبر تجهيزات طبية حديثة بأفضل جودة وقيمة. نوفّر أجهزة الإيكو والأدوات الجراحية ومعدات التنظير والتعقيم وأجهزة مراقبة القلب والأعصاب ومعدات المختبرات مدعومة بالتركيب والتدريب والإصلاح وخدمة ما بعد البيع الموثوقة في جميع أنحاء سوريا.",
       "about.why.title": "لماذا تختار AKA",
       "about.why.certified.title": "منتجات معتمدة",
       "about.why.certified.text":
@@ -774,7 +774,7 @@ const I18N = (() => {
       "partner.edan.desc":
         "مراقبة المرضى وتخطيط القلب والإيكو وفحوص نقطة الرعاية وحلول الأمومة والأجنّة.",
       "partner.neurowerk.desc":
-        "أنظمة تشخيص عصبية — تخطيط الدماغ والعضلات والكمونات المُثارة.",
+        "أنظمة تشخيص عصبية تخطيط الدماغ والعضلات والكمونات المُثارة.",
       "partner.custo.desc":
         "تشخيص قلبي رئوي — تخطيط قلب بالراحة والجهد ومراقبة هولتر وقياس التنفّس.",
       "partner.ems.desc":
@@ -782,9 +782,9 @@ const I18N = (() => {
       "partner.merivaara.desc":
         "طاولات عمليات وإضاءة جراحية وحلول لغرف العمليات والعناية المركّزة.",
       "partner.neusoft.desc":
-        "أنظمة تصوير تشخيصي — التصوير المقطعي والرنين المغناطيسي والأشعة والإيكو.",
+        "أنظمة تصوير تشخيصي التصوير المقطعي والرنين المغناطيسي والأشعة والإيكو.",
       "partner.hermann.desc":
-        "شركة ألمانية لتصنيع الأدوات الجراحية والزرعات — تنظير البطن والتنظير والجراحة الكهربائية وتنظير المفاصل.",
+        "شركة ألمانية لتصنيع الأدوات الجراحية والزرعات تنظير البطن والتنظير والجراحة الكهربائية وتنظير المفاصل.",
       "partner.emos.desc":
         "شركة ألمانية لتصنيع مناظير صلبة ومرنة عالية الجودة للجراحة والأنف والأذن والمسالك البولية والجهاز الهضمي.",
       "partner.imo.desc":
@@ -793,11 +793,11 @@ const I18N = (() => {
       // ---- Devices page ----
       "devices.hero.h1": "الأجهزة",
       "devices.hero.lead":
-        "تصفّح أجهزتنا الطبية حسب الاستخدام السريري. توفّر AKA معدات معتمدة للتشخيص والمراقبة والجراحة ورعاية المشافي — كلٌّ منها مدعوم بالتركيب والتدريب والدعم المحلي.",
+        "تصفّح أجهزتنا الطبية حسب الاستخدام السريري. توفّر AKA معدات معتمدة للتشخيص والمراقبة والجراحة ورعاية المشافي كلٌّ منها مدعوم بالتركيب والتدريب والدعم المحلي.",
       "devices.hero.cta": "تصفّح الفئات",
       "devices.portfolio.title": "مجموعة أجهزة معتمدة",
       "devices.portfolio.p":
-        "كل جهاز تقدّمه AKA يُختار من أجل الموثوقية وسهولة الاستخدام والامتثال لمعايير الجودة الدولية. من الوحدات الصغيرة بجانب السرير إلى التجهيزات الكاملة للمشافي، نساعد مقدّمي الرعاية الصحية في سوريا على تجهيز منشآتهم بثقة — وإبقائها تعمل عبر الصيانة وقطع الغيار وخدمة ما بعد البيع الموثوقة.",
+        "كل جهاز تقدّمه AKA يُختار من أجل الموثوقية وسهولة الاستخدام والامتثال لمعايير الجودة الدولية. من الوحدات الصغيرة بجانب السرير إلى التجهيزات الكاملة للمشافي، نساعد مقدّمي الرعاية الصحية في سوريا على تجهيز منشآتهم بثقة وإبقائها تعمل عبر الصيانة وقطع الغيار وخدمة ما بعد البيع الموثوقة.",
       "devices.docs.title": "وثائق الأجهزة لسوريا",
       "devices.docs.btn": "عرض التفاصيل",
       "devices.docs.p1":
@@ -919,7 +919,7 @@ const I18N = (() => {
 
       // ---- Sterilization (CSSD) ----
       "steril.lead":
-        "معدات تعقيم وأقسام تعقيم مركزية (CSSD) للمشافي والمراكز الجراحية في سوريا — توردها وتركّبها وتصونها AKA.",
+        "معدات تعقيم وأقسام تعقيم مركزية (CSSD) للمشافي والمراكز الجراحية في سوريا توردها وتركّبها وتصونها AKA.",
       "steril.overview":
         "يحمي التعقيم الموثوق المرضى والكوادر. توفّر AKA أجهزة تعقيم وغسّالات-مطهّرات ومعدات CSSD معتمدة، مختارة للأمان والمطابقة ومدعومة بالتركيب والتدريب والخدمة محليًا. كما نساعد في تخطيط وتجهيز أقسام تعقيم متكاملة.",
       "steril.o1t": "أجهزة التعقيم (الأوتوكلاف)",
