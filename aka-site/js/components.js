@@ -78,7 +78,7 @@ function buildFooter() {
         <h4 data-i18n="footer.explore">Explore</h4>
         <ul>
           <li><a href="devices.html" data-i18n="footer.devices">Devices</a></li>
-          <li><a href="categories.html" data-i18n="footer.categories">Categories</a></li>
+          <li><a href="devices.html#categories" data-i18n="footer.categories">Categories</a></li>
           <li><a href="partners.html" data-i18n="footer.partners">Partners</a></li>
           <li><a href="projects.html" data-i18n="footer.projects">Projects</a></li>
           <li><a href="about.html" data-i18n="footer.about">About</a></li>

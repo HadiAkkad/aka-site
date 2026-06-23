@@ -357,7 +357,8 @@ const I18N = (() => {
         "Our team is ready to assist with documentation, service, and spare parts.",
       "support.cta.btn": "Email support",
 
-      // ---- Categories page ----
+      // ---- Categories (merged into Devices page) ----
+      "cat.eyebrow": "Browse by category",
       "cat.title": "Categories",
       "cat.diagnostic": "Diagnostic Devices",
       "cat.monitoring": "Patient Monitoring",
@@ -907,7 +908,8 @@ const I18N = (() => {
         "فريقنا جاهز لمساعدتك في الوثائق والخدمة وقطع الغيار.",
       "support.cta.btn": "راسل الدعم",
 
-      // ---- Categories page ----
+      // ---- Categories (merged into Devices page) ----
+      "cat.eyebrow": "تصفّح حسب الفئة",
       "cat.title": "الفئات",
       "cat.diagnostic": "أجهزة التشخيص",
       "cat.monitoring": "مراقبة المرضى",

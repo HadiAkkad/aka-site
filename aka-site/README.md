@@ -49,11 +49,10 @@ aka-site/                      ← repo root (GitHub: HadiAkkad/aka-site)
 ├── aka-site/                  ← THE WEBSITE (served by the "aka1" Worker)
 │   ├── index.html             Home (full-bleed hero)
 │   ├── about.html             About (story, specialties, location, contact)
-│   ├── devices.html           Devices overview
+│   ├── devices.html           Devices overview + category grid (#categories)
 │   ├── partners.html          NGOs + "Our partners" manufacturer section
 │   ├── support.html           "Services" page (file name kept as support.html)
 │   ├── careers.html           Careers — application form + CV upload
-│   ├── categories.html        Category grid
 │   ├── diagnostic-devices.html  A category page (also the TEMPLATE)
 │   ├── patient-monitoring.html  ┐
 │   ├── cardiology.html          │ one page per category
@@ -193,17 +192,18 @@ The header and footer are injected on every page by `aka-site/js/components.js`
 
 ## 7. Adding / editing a product category
 
-Categories are listed on `categories.html` (a grid of image cards), and each has its
-own page. `diagnostic-devices.html` is the **template**.
+Categories are listed in the `#categories` grid on `devices.html` (a grid of image
+cards), and each has its own page. `diagnostic-devices.html` is the **template**.
 
 **To edit a category's text:** change its keys in `i18n.js` (e.g. `mon.lead`,
 `card.cardiology`, etc.).
 
 **To add a new category:**
-1. Copy `diagnostic-devices.html` → `my-category.html`.
+1. Copy `diagnostic-devices.html` → `my-category.html`. Set
+   `data-page="devices.html"` on its `<body>` so the Devices nav tab highlights.
 2. Change the hero image, the `data-i18n` keys, and the "What we offer" items.
 3. Add the new keys to `i18n.js` (EN + AR).
-4. In `categories.html`, add a card:
+4. In `devices.html`, add a card to the `#category-grid`:
    ```html
    <a class="card" href="my-category.html">
      <img src="images/..." alt="My Category" />
@@ -376,7 +376,7 @@ version number in its references so visitors get the new version:
 | Change the menu | `js/components.js` → `NAV_LINKS` |
 | Change footer brand strip | `js/components.js` → `PARTNERS` |
 | Add a page | Copy a page, rename, add nav link + i18n keys |
-| Add a category | Copy `diagnostic-devices.html`, add a card in `categories.html` |
+| Add a category | Copy `diagnostic-devices.html`, add a card in `devices.html`'s `#category-grid` |
 | Swap the logo | Replace `images/aka-logo.svg`, bump `?v=` |
 | Read job applications / CVs | Open the **/admin** page (section 11) |
 | Edit form behaviour | `js/forms.js` (frontend) / `api/src/index.js` (backend) |
