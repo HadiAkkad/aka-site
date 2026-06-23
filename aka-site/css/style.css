@@ -624,6 +624,11 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
 .site-nav a:hover,
 .site-nav a[aria-current="page"] { border-color: var(--color-accent); color: var(--color-accent); }
 
+/* Close arrow + in-panel language toggle exist only for the mobile
+   side panel (see the max-width:860px block) — hidden by default. */
+.nav-close,
+.nav-lang-toggle { display: none; }
+
 /* Right-side header actions (language toggle + mobile menu button) */
 .header-actions { display: flex; align-items: center; gap: 0.75rem; }
 
@@ -949,6 +954,7 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
 
   /* Close arrow inside the side panel */
   .nav-close {
+    display: block;
     position: absolute;
     top: 1.5rem;
     inset-inline-end: 1.5rem;
@@ -964,6 +970,7 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
 
   /* Language toggle inside the side panel (the header one hides on mobile) */
   .nav-lang-toggle {
+    display: inline-block;
     margin-top: 1.5rem;
     align-self: flex-start;
   }
