@@ -947,6 +947,28 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
   .site-nav.is-open { transform: translateX(0); }
   .site-nav a { padding-block: 0.85rem; width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 
+  /* Close arrow inside the side panel */
+  .nav-close {
+    position: absolute;
+    top: 1.5rem;
+    inset-inline-end: 1.5rem;
+    background: none;
+    border: 0;
+    color: var(--color-white);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+  .nav-close:hover { color: var(--color-accent); }
+
+  /* Language toggle inside the side panel (the header one hides on mobile) */
+  .nav-lang-toggle {
+    margin-top: 1.5rem;
+    align-self: flex-start;
+  }
+  .header-actions .lang-toggle { display: none; }
+
   /* Dimmed backdrop behind the side panel; click it to close */
   .nav-overlay {
     display: none;

@@ -44,7 +44,13 @@ function buildHeader() {
       <a class="site-title" href="index.html" aria-label="AKA Associates — home">
         <img class="site-logo" src="images/aka-logo.svg?v=4" alt="AKA Associates" />
       </a>
-      <nav class="site-nav">${links}</nav>
+      <nav class="site-nav">
+        <button class="nav-close" aria-label="Close menu" type="button">&#8594;</button>
+        ${links}
+        <button class="lang-toggle nav-lang-toggle" type="button"
+          data-i18n="lang.toggle"
+          data-i18n-attr="aria-label:lang.toggleLabel">${I18N.t("lang.toggle")}</button>
+      </nav>
       <div class="header-actions">
         <button class="lang-toggle" type="button"
           data-i18n="lang.toggle"
@@ -117,13 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Apply the saved language to the whole page (header, footer, and content).
   I18N.apply();
 
-  // Language toggle (AR / EN)
-  const langToggle = document.querySelector(".lang-toggle");
-  if (langToggle) {
-    langToggle.addEventListener("click", () => I18N.toggle());
-  }
+  // Language toggle (AR / EN) — one copy in the header, one inside the
+  // mobile side panel; both call the same toggle.
+  document.querySelectorAll(".lang-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => I18N.toggle());
+  });
 
   const toggle = document.querySelector(".nav-toggle");
+  const close = document.querySelector(".nav-close");
   const nav = document.querySelector(".site-nav");
   const overlay = document.querySelector(".nav-overlay");
   if (toggle && nav) {
@@ -135,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+    if (close) close.addEventListener("click", () => setOpen(false));
     if (overlay) overlay.addEventListener("click", () => setOpen(false));
     nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("keydown", (e) => {
