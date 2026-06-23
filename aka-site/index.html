@@ -77,18 +77,22 @@
       <div class="container">
         <div class="grid grid--4">
           <div class="stat">
+            <svg class="stat__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
             <div class="stat__number" id="stat-years" data-count="27" data-suffix="+">0+</div>
             <div class="stat__label" data-i18n="home.stats.years.label">Years of experience</div>
           </div>
           <div class="stat">
+            <svg class="stat__icon" viewBox="0 0 24 24"><path d="M5 21V7l7-4 7 4v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg>
             <div class="stat__number" data-count="10" data-suffix="+">0+</div>
             <div class="stat__label" data-i18n="home.stats.hospitals.label">Hospitals delivered</div>
           </div>
           <div class="stat">
+            <svg class="stat__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></svg>
             <div class="stat__number" data-count="21">0</div>
             <div class="stat__label" data-i18n="home.stats.partners.label">International partners</div>
           </div>
           <div class="stat">
+            <svg class="stat__icon" viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5.5 6 5.5c2 0 3.5 1.2 4 2.5.5-1.3 2-2.5 4-2.5 3.5 0 5 3.5 3.5 7C19 16.65 12 21 12 21Z"/></svg>
             <div class="stat__number" data-count="5">0</div>
             <div class="stat__label" data-i18n="home.stats.ngo.label">NGO &amp; UN partnerships</div>
           </div>
@@ -103,19 +107,31 @@
         <h2 class="center heading-accent" data-i18n="home.sectors.title">Our sectors</h2>
         <p class="center measure-center" data-i18n="home.sectors.lead">AKA Group is a multidisciplinary group serving healthcare through four specialized sectors.</p>
         <div class="grid grid--4 grid--gap-top">
-          <div class="feature">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg>
+            </div>
             <h3 data-i18n="sector.projects.title">Projects (Turnkey)</h3>
             <p data-i18n="sector.projects.text">Turnkey healthcare infrastructure — from planning and design to installation and commissioning of complete hospitals and medical centers.</p>
           </div>
-          <div class="feature">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1ZM6 5h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>
+            </div>
             <h3 data-i18n="sector.tenders.title">Tenders</h3>
             <p data-i18n="sector.tenders.text">Strategic participation in public and private tenders inside and outside Syria — across Europe, Asia, and Africa — with full regulatory compliance.</p>
           </div>
-          <div class="feature">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+            </div>
             <h3 data-i18n="sector.medical.title">Medical Equipment &amp; Services</h3>
             <p data-i18n="sector.medical.text">Supply, installation, and maintenance of advanced medical devices through FutureMed and affiliated companies, partnering with leading global manufacturers.</p>
           </div>
-          <div class="feature">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5.5 6 5.5c2 0 3.5 1.2 4 2.5.5-1.3 2-2.5 4-2.5 3.5 0 5 3.5 3.5 7C19 16.65 12 21 12 21Z"/></svg>
+            </div>
             <h3 data-i18n="sector.humanitarian.title">Humanitarian &amp; Charitable</h3>
             <p data-i18n="sector.humanitarian.text">Charitable activities and annual humanitarian campaigns that improve healthcare access in underserved regions, including emergency response through MerMed.</p>
           </div>
@@ -125,11 +141,18 @@
 
     <!-- PRODUCTS / CATEGORIES TEASER -->
     <section class="section">
-      <div class="container center">
-        <p class="eyebrow" data-i18n="home.products.eyebrow">Our products</p>
-        <h2 class="heading-accent" data-i18n="home.products.title">Our medical products</h2>
-        <p class="lead measure-center" data-i18n="home.products.lead">Explore our device portfolio by clinical category — from patient monitoring and diagnostics to surgical and hospital equipment.</p>
-        <p class="cta-row"><a class="btn" href="devices.html#categories" data-i18n="home.products.cta">Browse categories</a></p>
+      <div class="container split">
+        <div>
+          <p class="eyebrow" data-i18n="home.products.eyebrow">Our products</p>
+          <h2 class="heading-accent" data-i18n="home.products.title">Our medical products</h2>
+          <p class="lead" data-i18n="home.products.lead">Explore our device portfolio by clinical category — from patient monitoring and diagnostics to surgical and hospital equipment.</p>
+          <p class="cta-row"><a class="btn" href="devices.html#categories" data-i18n="home.products.cta">Browse categories</a></p>
+        </div>
+        <div class="photo-cluster">
+          <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=700&q=70" alt="Surgical equipment" />
+          <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=700&q=70" alt="Diagnostic devices" />
+          <img src="https://images.unsplash.com/photo-1579165466949-3180a3d056d5?auto=format&fit=crop&w=700&q=70" alt="Laboratory equipment" />
+        </div>
       </div>
     </section>
 
@@ -139,15 +162,21 @@
         <p class="eyebrow center" data-i18n="home.why.eyebrow">Why AKA</p>
         <h2 class="center heading-accent" data-i18n="about.why.title">Why choose AKA</h2>
         <div class="grid grid--gap-top">
-          <div class="feature">
+          <div class="feature feature--numbered">
+            <span class="feature__num">01</span>
+            <svg class="icon-line" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
             <h3 data-i18n="about.why.certified.title">Certified products</h3>
             <p data-i18n="about.why.certified.text">Genuine, certified equipment and supplies sourced from trusted international manufacturers.</p>
           </div>
-          <div class="feature">
+          <div class="feature feature--numbered">
+            <span class="feature__num">02</span>
+            <svg class="icon-line" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
             <h3 data-i18n="about.why.local.title">Local service</h3>
             <p data-i18n="about.why.local.text">Installation, training, maintenance, and after-sales support delivered on the ground in Syria.</p>
           </div>
-          <div class="feature">
+          <div class="feature feature--numbered">
+            <span class="feature__num">03</span>
+            <svg class="icon-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
             <h3 data-i18n="about.why.reliable.title">Reliable partner</h3>
             <p data-i18n="about.why.reliable.text">Years of dependable supply to healthcare providers who count on us for the long term.</p>
           </div>
@@ -162,10 +191,22 @@
         <h2 class="center heading-accent" data-i18n="home.featured.title">Hospitals we've equipped</h2>
         <p class="center measure-center" data-i18n="home.featured.lead">A selection of hospitals AKA Group has built and/or equipped across Syria.</p>
         <div class="grid grid--4 grid--gap-top">
-          <div class="feature center"><h3>Al Noor Hospital — Tartous</h3></div>
-          <div class="feature center"><h3>Sheikh Zayed Hospital</h3></div>
-          <div class="feature center"><h3>Latakia National Hospital</h3></div>
-          <div class="feature center"><h3>Tartous National Hospital</h3></div>
+          <a class="hospital-card" href="projects.html">
+            <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=700&q=70" alt="Al Noor Hospital — Tartous" />
+            <span class="hospital-card__caption">Al Noor Hospital — Tartous</span>
+          </a>
+          <a class="hospital-card" href="projects.html">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=70" alt="Sheikh Zayed Hospital" />
+            <span class="hospital-card__caption">Sheikh Zayed Hospital</span>
+          </a>
+          <a class="hospital-card" href="projects.html">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=700&q=70" alt="Latakia National Hospital" />
+            <span class="hospital-card__caption">Latakia National Hospital</span>
+          </a>
+          <a class="hospital-card" href="projects.html">
+            <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=700&q=70" alt="Tartous National Hospital" />
+            <span class="hospital-card__caption">Tartous National Hospital</span>
+          </a>
         </div>
         <p class="cta-row center"><a class="btn" href="projects.html" data-i18n="home.featured.cta">See all our projects</a></p>
       </div>
