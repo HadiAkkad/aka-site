@@ -287,6 +287,188 @@ body:not(.has-fullbleed-hero) main { padding-top: 64px; }
   font-size: 0.95rem;
 }
 
+/* -------------------------------------------------------------------------
+   Process strip (Devices page) — horizontal "how it works" steps with
+   square icon badges connected by a line. Differs from the home page's
+   round icon-circle treatment.
+   ------------------------------------------------------------------------- */
+.process-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  position: relative;
+}
+.process-strip::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: repeating-linear-gradient(to right, var(--color-accent) 0 8px, transparent 8px 16px);
+  z-index: 0;
+}
+.step { flex: 1; text-align: center; position: relative; z-index: 1; }
+.step__badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: var(--color-white);
+  border: 2px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.step__badge svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--color-accent);
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+.step:hover .step__badge { transform: translateY(-4px) rotate(3deg); background: var(--color-accent); }
+.step:hover .step__badge svg { stroke: var(--color-white); }
+.step__title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+}
+
+/* -------------------------------------------------------------------------
+   Category card icon medallion (Devices page) — small icon layered onto
+   the photo itself, combining icon + photo in one composition.
+   ------------------------------------------------------------------------- */
+.card__icon {
+  position: absolute;
+  top: 0.75rem;
+  inset-inline-start: 0.75rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background-color 0.25s ease;
+}
+.card__icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-ink);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.card:hover .card__icon { background: var(--color-accent); }
+.card:hover .card__icon svg { stroke: var(--color-white); }
+
+/* -------------------------------------------------------------------------
+   Device photo marquee (Devices page) — continuously scrolling strip of
+   larger captioned device photos. Same mechanic as the home NGO strip,
+   different visual scale/treatment (bigger cards, slower, captioned).
+   ------------------------------------------------------------------------- */
+.device-marquee {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  overflow: hidden;
+  /* Always LTR: in RTL, the flex track's overflow anchors to the
+     opposite side, which combined with the translateX keyframe parks
+     the whole track off-screen (same issue fixed on the NGO strip). */
+  direction: ltr;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.device-marquee__track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scroll-logos-ltr 55s linear infinite;
+}
+.device-marquee__card {
+  position: relative;
+  flex-shrink: 0;
+  width: 240px;
+  height: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.device-marquee__card img { width: 100%; height: 100%; object-fit: cover; }
+.device-marquee__card span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.6rem 0.8rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.82rem;
+}
+
+/* -------------------------------------------------------------------------
+   Video teaser card (Devices page) — thumbnail with a play-button overlay.
+   ------------------------------------------------------------------------- */
+.video-teaser {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  cursor: pointer;
+}
+.video-teaser img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.video-teaser:hover img { transform: scale(1.05); }
+.video-teaser::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 12, 0.35);
+}
+.video-teaser__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+.video-teaser__play::after {
+  content: "";
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent var(--color-black);
+  margin-inline-start: 3px;
+}
+.video-teaser:hover .video-teaser__play { transform: translate(-50%, -50%) scale(1.12); }
+.video-teaser__label {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.9rem;
+}
+
 /* Small uppercase accent line above a heading */
 .eyebrow {
   font-family: var(--font-display);
@@ -738,6 +920,9 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
   .hero .split { min-height: auto; }
   .grid, .grid--2, .grid--4 { grid-template-columns: 1fr 1fr; }
   .footer-main { grid-template-columns: 1fr; }
+
+  .process-strip { flex-direction: column; gap: 2rem; }
+  .process-strip::before { display: none; }
 
   .nav-toggle { display: block; }
   .site-nav {
