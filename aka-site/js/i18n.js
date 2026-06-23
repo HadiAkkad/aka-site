@@ -380,6 +380,32 @@ const I18N = (() => {
       "cat.lab": "Laboratory Equipment",
       "cat.endoscopy": "Endoscopy",
       "cat.sterilization": "Sterilization (CSSD)",
+      "cat.neurology": "Neurology",
+      "cat.orthopedics": "Orthopedics",
+
+      // ---- Neurology page ----
+      "neuro.lead":
+        "Certified neurophysiology equipment for hospitals and clinics across Syria — supplied and serviced by AKA.",
+      "neuro.overview":
+        "Neurology equipment supports the diagnosis and monitoring of neurological conditions. AKA supplies certified EEG, EMG, and evoked-potential systems, selected for accuracy and reliability and backed by local installation, training, and technical support.",
+      "neuro.o1t": "EEG systems",
+      "neuro.o1d": "Electroencephalography systems for diagnosing neurological and seizure disorders.",
+      "neuro.o2t": "EMG & nerve conduction",
+      "neuro.o2d": "Electromyography and nerve conduction studies for neuromuscular assessment.",
+      "neuro.o3t": "Evoked potentials",
+      "neuro.o3d": "Evoked-potential systems for assessing sensory and neural pathway function.",
+
+      // ---- Orthopedics page ----
+      "ortho.lead":
+        "Certified orthopedic implants and surgical solutions for hospitals and clinics across Syria — supplied and serviced by AKA.",
+      "ortho.overview":
+        "Orthopedic solutions support bone and joint surgery with reliable, certified products. AKA supplies bone substitutes and spine, foot, and hand implants, selected for safety and surgical precision and backed by local installation, training, and technical support.",
+      "ortho.o1t": "Bone substitutes",
+      "ortho.o1d": "Synthetic bone graft substitutes for orthopedic and dental surgery.",
+      "ortho.o2t": "Spine implants",
+      "ortho.o2d": "Implants and instrumentation for spinal surgery and neurosurgery.",
+      "ortho.o3t": "Foot & hand implants",
+      "ortho.o3d": "Implants for extremity surgery — foot, ankle, and hand procedures.",
 
       // ---- Diagnostic Devices page ----
       "diag.hero.h1": "Diagnostic Devices",
@@ -941,6 +967,32 @@ const I18N = (() => {
       "cat.lab": "معدات المختبرات",
       "cat.endoscopy": "التنظير",
       "cat.sterilization": "التعقيم (CSSD)",
+      "cat.neurology": "طب الأعصاب",
+      "cat.orthopedics": "جراحة العظام",
+
+      // ---- Neurology page ----
+      "neuro.lead":
+        "معدات فيزيولوجيا عصبية معتمدة للمشافي والعيادات في سوريا — توريد وخدمة AKA.",
+      "neuro.overview":
+        "تدعم معدات طب الأعصاب تشخيص ومراقبة الحالات العصبية. توفّر AKA أنظمة تخطيط الدماغ (EEG) والعضلات (EMG) والكمونات المُثارة، تُختار للدقة والموثوقية وتُدعم بالتركيب والتدريب والدعم التقني المحلي.",
+      "neuro.o1t": "أنظمة تخطيط الدماغ (EEG)",
+      "neuro.o1d": "أنظمة تخطيط كهربية الدماغ لتشخيص الاضطرابات العصبية والنوبات.",
+      "neuro.o2t": "تخطيط العضلات وسرعة التوصيل العصبي",
+      "neuro.o2d": "فحوص تخطيط كهربية العضلات وسرعة التوصيل العصبي لتقييم الجهاز العصبي العضلي.",
+      "neuro.o3t": "الكمونات المُثارة",
+      "neuro.o3d": "أنظمة الكمونات المُثارة لتقييم وظيفة المسارات الحسية والعصبية.",
+
+      // ---- Orthopedics page ----
+      "ortho.lead":
+        "زرعات عظمية وحلول جراحية معتمدة للمشافي والعيادات في سوريا — توريد وخدمة AKA.",
+      "ortho.overview":
+        "تدعم حلول جراحة العظام عمليات العظام والمفاصل بمنتجات معتمدة وموثوقة. توفّر AKA بدائل العظام وزرعات العمود الفقري والقدم واليد، تُختار للسلامة والدقة الجراحية وتُدعم بالتركيب والتدريب والدعم التقني المحلي.",
+      "ortho.o1t": "بدائل العظام",
+      "ortho.o1d": "بدائل عظمية صناعية لجراحة العظام والأسنان.",
+      "ortho.o2t": "زرعات العمود الفقري",
+      "ortho.o2d": "زرعات وأدوات لجراحة العمود الفقري والأعصاب.",
+      "ortho.o3t": "زرعات القدم واليد",
+      "ortho.o3d": "زرعات لجراحة الأطراف — القدم والكاحل واليد.",
 
       // ---- Diagnostic Devices page ----
       "diag.hero.h1": "أجهزة التشخيص",

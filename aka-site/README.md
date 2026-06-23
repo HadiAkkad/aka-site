@@ -55,13 +55,15 @@ aka-site/                      ← repo root (GitHub: HadiAkkad/aka-site)
 │   ├── careers.html           Careers — application form + CV upload
 │   ├── diagnostic-devices.html  A category page (also the TEMPLATE)
 │   ├── patient-monitoring.html  ┐
-│   ├── cardiology.html          │ one page per category
-│   ├── medical-imaging.html     │ (Imaging & Ultrasound)
-│   ├── surgical-equipment.html  │
-│   ├── laboratory-equipment.html│
+│   ├── cardiology.html          │
+│   ├── medical-imaging.html     │
+│   ├── surgical-equipment.html  │ one page per category
+│   ├── laboratory-equipment.html│ (Imaging & Ultrasound)
 │   ├── endoscopy.html           │
 │   ├── sterilization.html       │
-│   ├── hospital-equipment.html  ┘
+│   ├── hospital-equipment.html  │
+│   ├── neurology.html           │
+│   ├── orthopedics.html         ┘
 │   ├── css/style.css          ALL styling (one file, sectioned & commented)
 │   ├── js/
 │   │   ├── i18n.js            ALL text in English + Arabic (the dictionary)
