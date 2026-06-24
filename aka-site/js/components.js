@@ -14,9 +14,8 @@ const NAV_LINKS = [
   { key: "nav.devices",     href: "devices.html" },
   { key: "nav.partners",    href: "partners.html" },
   { key: "nav.projects",    href: "projects.html" },
-  { key: "nav.about",       href: "about.html" },
-  { key: "nav.support",     href: "support.html" },
   { key: "nav.careers",     href: "careers.html" },
+  { key: "nav.about",       href: "about.html" },
 ];
 
 // Partner names shown in the scrolling footer strip.
@@ -28,6 +27,125 @@ const PARTNERS = [
   "S.I.E.M", "ELVATION", "ITEM", "PERLOVE", "STERNMED", "ESUMEDICS",
   "SAMA ● ALTAMAYAZ"
 ];
+
+// Quote/RFQ backend endpoint (same Worker the contact form uses). Named
+// QUOTE_API (not AKA_API) so it never collides with the const in js/forms.js
+// on pages that load both scripts.
+const QUOTE_API = "https://aka-api.hadi-alakkadd.workers.dev";
+
+// Device categories offered in the quote line-item dropdown. Each pair is
+// [slug used by data-quote-category, i18n key reused from the devices page].
+const QUOTE_CATEGORIES = [
+  ["diagnostic", "cat.diagnostic"],
+  ["imaging", "cat.imaging"],
+  ["endoscopy", "cat.endoscopy"],
+  ["surgical", "cat.surgical"],
+  ["orthopedics", "cat.orthopedics"],
+  ["monitoring", "cat.monitoring"],
+  ["cardiology", "cat.cardiology"],
+  ["neurology", "cat.neurology"],
+  ["lab", "cat.lab"],
+  ["sterilization", "cat.sterilization"],
+  ["hospital", "cat.hospital"],
+];
+
+// One repeatable product row inside the quote form.
+function buildQuoteLineItem() {
+  const opts = QUOTE_CATEGORIES.map(
+    ([slug, key]) => `<option value="${slug}" data-i18n="${key}">${I18N.t(key)}</option>`
+  ).join("");
+  return `
+  <div class="quote-item">
+    <select class="quote-item__cat" aria-label="${I18N.t("quote.items.category")}">
+      <option value="" data-i18n="quote.items.category.choose">${I18N.t("quote.items.category.choose")}</option>
+      ${opts}
+    </select>
+    <input type="text" class="quote-item__product"
+      data-i18n-attr="placeholder:quote.items.product"
+      placeholder="${I18N.t("quote.items.product")}" />
+    <input type="number" class="quote-item__qty" min="1" value="1"
+      aria-label="${I18N.t("quote.items.qty")}" />
+    <button type="button" class="quote-item__remove" data-quote-remove
+      data-i18n-attr="aria-label:quote.items.remove"
+      aria-label="${I18N.t("quote.items.remove")}">&times;</button>
+  </div>`;
+}
+
+// The full RFQ modal, injected once into <body> on every page.
+function buildQuoteModal() {
+  return `
+  <div class="quote-modal" id="quote-modal" aria-hidden="true">
+    <div class="quote-modal__overlay" data-quote-close></div>
+    <div class="quote-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+      <button class="quote-modal__close" type="button" data-quote-close
+        data-i18n-attr="aria-label:quote.close" aria-label="${I18N.t("quote.close")}">&times;</button>
+      <h2 id="quote-modal-title" class="heading-accent" data-i18n="quote.title">${I18N.t("quote.title")}</h2>
+      <p class="quote-modal__sub" data-i18n="quote.subtitle">${I18N.t("quote.subtitle")}</p>
+
+      <form class="quote-form" id="quote-form" novalidate>
+        <fieldset class="quote-fieldset">
+          <legend data-i18n="quote.facility.legend">Facility information</legend>
+          <div class="quote-grid">
+            <div class="quote-field">
+              <label data-i18n="quote.facility.name">Facility name</label>
+              <input type="text" name="facility" required />
+            </div>
+            <div class="quote-field">
+              <label data-i18n="quote.facility.type">Facility type</label>
+              <select name="facilityType">
+                <option value="" data-i18n="quote.facility.type.choose">Select type...</option>
+                <option value="Hospital" data-i18n="quote.facility.type.hospital">Hospital</option>
+                <option value="Clinic" data-i18n="quote.facility.type.clinic">Clinic</option>
+                <option value="Laboratory" data-i18n="quote.facility.type.lab">Laboratory</option>
+                <option value="Diagnostic center" data-i18n="quote.facility.type.diagnostic">Diagnostic center</option>
+                <option value="Other" data-i18n="quote.facility.type.other">Other</option>
+              </select>
+            </div>
+            <div class="quote-field">
+              <label data-i18n="quote.facility.location">City / Location</label>
+              <input type="text" name="location" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-fieldset">
+          <legend data-i18n="quote.contact.legend">Contact details</legend>
+          <div class="quote-grid">
+            <div class="quote-field">
+              <label data-i18n="quote.contact.name">Your name</label>
+              <input type="text" name="name" required />
+            </div>
+            <div class="quote-field">
+              <label data-i18n="quote.contact.email">Email</label>
+              <input type="email" name="email" required />
+            </div>
+            <div class="quote-field">
+              <label data-i18n="quote.contact.phone">Phone</label>
+              <input type="tel" name="phone" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="quote-fieldset">
+          <legend data-i18n="quote.items.legend">Products requested</legend>
+          <div class="quote-items" id="quote-items">${buildQuoteLineItem()}</div>
+          <button type="button" class="quote-add" data-quote-add
+            data-i18n="quote.items.add">${I18N.t("quote.items.add")}</button>
+        </fieldset>
+
+        <div class="quote-field">
+          <label data-i18n="quote.notes">Additional notes</label>
+          <textarea name="notes"
+            data-i18n-attr="placeholder:quote.notes.ph"
+            placeholder="${I18N.t("quote.notes.ph")}"></textarea>
+        </div>
+
+        <button type="submit" class="btn" data-i18n="quote.submit">${I18N.t("quote.submit")}</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>`;
+}
 
 function buildHeader() {
   const current = document.body.dataset.page || "";
@@ -47,11 +165,15 @@ function buildHeader() {
       <nav class="site-nav">
         <button class="nav-close" aria-label="Close menu" type="button">&#8594;</button>
         ${links}
+        <button class="btn nav-quote" type="button" data-quote-open
+          data-i18n="quote.cta">${I18N.t("quote.cta")}</button>
         <button class="lang-toggle nav-lang-toggle" type="button"
           data-i18n="lang.toggle"
           data-i18n-attr="aria-label:lang.toggleLabel">${I18N.t("lang.toggle")}</button>
       </nav>
       <div class="header-actions">
+        <button class="btn header-cta" type="button" data-quote-open
+          data-i18n="quote.cta">${I18N.t("quote.cta")}</button>
         <button class="lang-toggle" type="button"
           data-i18n="lang.toggle"
           data-i18n-attr="aria-label:lang.toggleLabel">${I18N.t("lang.toggle")}</button>
@@ -88,8 +210,8 @@ function buildFooter() {
           <li><a href="partners.html" data-i18n="footer.partners">Partners</a></li>
           <li><a href="projects.html" data-i18n="footer.projects">Projects</a></li>
           <li><a href="about.html" data-i18n="footer.about">About</a></li>
-          <li><a href="support.html" data-i18n="footer.support">Services</a></li>
           <li><a href="careers.html" data-i18n="footer.careers">Careers</a></li>
+          <li><a href="#" data-quote-open data-i18n="footer.quote">Request a quote</a></li>
         </ul>
       </div>
       <div>
@@ -112,6 +234,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const footerSlot = document.getElementById("site-footer");
   if (headerSlot) headerSlot.innerHTML = buildHeader();
   if (footerSlot) footerSlot.innerHTML = buildFooter();
+
+  // Inject the global quote modal BEFORE I18N.apply() so its text + the first
+  // line item get translated in the same pass as the header and footer.
+  document.body.insertAdjacentHTML("beforeend", buildQuoteModal());
 
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -154,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initStickyHeader();
   initNgoSlideshow();
   initStatsCounter();
+  initQuoteModal();
 
   // If the logo is clicked while already on the homepage, smooth-scroll to top
   // instead of doing a full page reload.
@@ -168,6 +295,142 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* -------------------------------------------------------------------------
+   Quote / RFQ modal
+   - Opens from any [data-quote-open] trigger (header CTA, footer link, the
+     "Request a quote" buttons on category pages).
+   - A data-quote-category="<slug>" on the trigger pre-selects that category
+     in the first product line item.
+   - Submits a structured, human-readable summary to the Worker's /contact
+     endpoint (no backend changes needed).
+   ------------------------------------------------------------------------- */
+function initQuoteModal() {
+  const modal = document.getElementById("quote-modal");
+  if (!modal) return;
+
+  const dialog = modal.querySelector(".quote-modal__dialog");
+  const form = modal.querySelector("#quote-form");
+  const itemsWrap = modal.querySelector("#quote-items");
+  const status = form.querySelector(".form-status");
+  const submitBtn = form.querySelector('button[type="submit"]');
+  let lastFocused = null;
+
+  function openModal(category) {
+    lastFocused = document.activeElement;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("nav-locked");
+
+    // Pre-select the category passed by the trigger, if any.
+    if (category) {
+      const firstSelect = itemsWrap.querySelector(".quote-item__cat");
+      if (firstSelect) firstSelect.value = category;
+    }
+    const firstInput = form.querySelector('input[name="facility"]');
+    if (firstInput) firstInput.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("nav-locked");
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  // Open triggers (delegated so it also covers injected header/footer).
+  document.addEventListener("click", (e) => {
+    const trigger = e.target.closest("[data-quote-open]");
+    if (!trigger) return;
+    e.preventDefault();
+    openModal(trigger.getAttribute("data-quote-category"));
+  });
+
+  // Close: overlay, close button, Escape.
+  modal.addEventListener("click", (e) => {
+    if (e.target.closest("[data-quote-close]")) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+
+  // Add / remove line items.
+  modal.addEventListener("click", (e) => {
+    if (e.target.closest("[data-quote-add]")) {
+      itemsWrap.insertAdjacentHTML("beforeend", buildQuoteLineItem());
+      I18N.apply(); // translate the freshly added row
+    }
+    const removeBtn = e.target.closest("[data-quote-remove]");
+    if (removeBtn) {
+      const rows = itemsWrap.querySelectorAll(".quote-item");
+      if (rows.length > 1) removeBtn.closest(".quote-item").remove();
+    }
+  });
+
+  // Build the readable message and submit to the Worker.
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const get = (n) => (form.querySelector(`[name="${n}"]`)?.value || "").trim();
+    const facility = get("facility");
+    const name = get("name");
+    const email = get("email");
+    if (!facility || !name || !email) {
+      status.className = "form-status form-status--err";
+      status.textContent = I18N.t("form.error");
+      return;
+    }
+
+    // Collect line items as "Category — product × qty".
+    const items = [...itemsWrap.querySelectorAll(".quote-item")]
+      .map((row) => {
+        const sel = row.querySelector(".quote-item__cat");
+        const cat = sel.value ? sel.options[sel.selectedIndex].textContent.trim() : "";
+        const product = row.querySelector(".quote-item__product").value.trim();
+        const qty = row.querySelector(".quote-item__qty").value.trim() || "1";
+        if (!cat && !product) return null;
+        return `• ${[cat, product].filter(Boolean).join(" — ")} × ${qty}`;
+      })
+      .filter(Boolean);
+
+    const message =
+      `QUOTE REQUEST\n` +
+      `Facility: ${facility}` +
+      (get("facilityType") ? ` (${get("facilityType")})` : "") +
+      (get("location") ? `\nLocation: ${get("location")}` : "") +
+      (get("phone") ? `\nPhone: ${get("phone")}` : "") +
+      `\n\nItems requested:\n${items.length ? items.join("\n") : "(none specified)"}` +
+      (get("notes") ? `\n\nNotes: ${get("notes")}` : "");
+
+    const payload = new FormData();
+    payload.append("name", name);
+    payload.append("email", email);
+    payload.append("message", message);
+
+    submitBtn.disabled = true;
+    status.className = "form-status";
+    status.textContent = I18N.t("form.sending");
+
+    try {
+      const res = await fetch(`${QUOTE_API}/contact`, { method: "POST", body: payload });
+      const data = await res.json().catch(() => ({ ok: false }));
+      if (res.ok && data.ok) {
+        form.reset();
+        itemsWrap.innerHTML = buildQuoteLineItem();
+        I18N.apply();
+        status.className = "form-status form-status--ok";
+        status.textContent = I18N.t("quote.success");
+      } else {
+        throw new Error("request failed");
+      }
+    } catch (err) {
+      status.className = "form-status form-status--err";
+      status.textContent = I18N.t("form.error");
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+}
 
 /* -------------------------------------------------------------------------
    Sticky header dynamics

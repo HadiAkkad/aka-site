@@ -102,22 +102,6 @@ body:not(.has-fullbleed-hero) main { padding-top: 64px; }
 .center { text-align: center; }
 .lead { font-size: 1.15rem; }
 
-/* Company timeline (About page) */
-.timeline { list-style: none; margin: 2.5rem 0 0; padding: 0; }
-.timeline li {
-  display: flex;
-  gap: 1.5rem;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid #e6ece6;
-  align-items: baseline;
-}
-.timeline__year {
-  font-family: var(--font-display);
-  color: var(--color-accent);
-  font-size: 1.25rem;
-  min-width: 4rem;
-}
-
 /* Stats bar (Home page) */
 .stat { text-align: center; }
 .stat__number {
@@ -826,8 +810,35 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
   font-size: 1rem;
 }
 .form input:focus,
-.form textarea:focus { outline: 2px solid var(--color-accent); border-color: var(--color-accent); }
+.form textarea:focus,
+.form select:focus { outline: 2px solid var(--color-accent); border-color: var(--color-accent); }
 .form textarea { min-height: 150px; resize: vertical; }
+
+/* Select dropdown styling */
+.form select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #cfd6cf;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: var(--color-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23228bc0' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  padding-right: 2.5rem;
+  appearance: none;
+  cursor: pointer;
+}
+.form select option {
+  padding: 0.5rem;
+  background-color: var(--color-white);
+  color: var(--color-ink);
+}
+.form select:hover {
+  border-color: var(--color-accent);
+}
 
 /* Inline submit status message */
 .form-status { margin-top: 1rem; font-weight: 700; min-height: 1.2em; }
@@ -975,6 +986,16 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
     align-self: flex-start;
   }
   .header-actions .lang-toggle { display: none; }
+
+  /* Quote CTA moves from the header into the side panel on mobile.
+     Scoped to .site-nav so it beats the global `.nav-quote { display:none }`
+     rule (which is defined later in the file with equal specificity). */
+  .header-cta { display: none; }
+  .site-nav .nav-quote {
+    display: inline-block;
+    margin-top: 1.5rem;
+    align-self: flex-start;
+  }
 
   /* Dimmed backdrop behind the side panel; click it to close */
   .nav-overlay {
@@ -1199,6 +1220,263 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
+}
+
+/* -------------------------------------------------------------------------
+   15.3. SPECIALTY CARDS (About page)
+   -------------------------------------------------------------------------  */
+.specialty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: var(--color-white);
+  border-radius: 12px;
+  border: 1px solid #e6ece6;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.specialty-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 24px rgba(34, 139, 192, 0.12);
+  transform: translateY(-4px);
+}
+
+.specialty-card__icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #e6f2ff, #d4e8ff);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+.specialty-card__icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.specialty-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-ink);
+  line-height: 1.4;
+}
+
+/* About-page stat cards (beside "Who we are") */
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.about-stat {
+  background: var(--color-white);
+  border: 1px solid #e6ece6;
+  border-radius: 12px;
+  padding: 1.6rem 1rem;
+  text-align: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.about-stat:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 18px rgba(34, 139, 192, 0.1);
+  transform: translateY(-3px);
+}
+.about-stat svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  fill: none;
+  display: block;
+  margin: 0 auto 0.7rem;
+}
+.about-stat__number {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 2.3rem;
+  line-height: 1;
+}
+.about-stat__number span { font-size: 1.4rem; }
+.about-stat__label {
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.35;
+}
+
+/* -------------------------------------------------------------------------
+   15.4. JOURNEY TIMELINE (About page) — single-sided vertical timeline.
+   Uses logical properties so it mirrors correctly in Arabic (RTL).
+   Visually distinct from the Projects-page accordion timeline.
+   -------------------------------------------------------------------------  */
+.journey {
+  position: relative;
+  max-width: 680px;
+  margin: 3rem auto 0;
+}
+/* Vertical line on the start side (left in LTR, right in RTL) */
+.journey::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 7px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e6ece6;
+}
+.journey__item {
+  position: relative;
+  padding-inline-start: 2.75rem;
+  margin-bottom: 1.5rem;
+}
+.journey__item:last-child { margin-bottom: 0; }
+
+/* Dot anchored on the line */
+.journey__item::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 1px;
+  top: 1.4rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-white);
+  border: 3px solid var(--color-accent);
+  z-index: 1;
+}
+
+.journey__content {
+  background: var(--color-white);
+  border: 1px solid #e6ece6;
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.journey__content:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 18px rgba(34, 139, 192, 0.12);
+  transform: translateY(-2px);
+}
+.journey__year {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.journey__content p { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+
+/* -------------------------------------------------------------------------
+   15.45. CONTACT LAYOUT + MAP (About page)
+   -------------------------------------------------------------------------  */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--gap);
+  align-items: stretch;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.contact-card {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  background: var(--color-white);
+  border: 1px solid #e6ece6;
+  border-radius: 12px;
+  padding: 1.4rem 1.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 18px rgba(34, 139, 192, 0.1);
+}
+.contact-card__icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e6f2ff, #d4e8ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-card__icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--color-accent);
+  stroke-width: 1.7;
+  fill: none;
+}
+.contact-card h3 { margin: 0 0 0.25rem; font-size: 1.1rem; color: var(--color-ink); }
+.contact-card p { margin: 0; font-size: 0.95rem; line-height: 1.55; }
+.contact-card a { color: var(--color-accent); text-decoration: none; }
+.contact-card a:hover { text-decoration: underline; }
+
+.contact-map {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e6ece6;
+  min-height: 320px;
+  /* Soft placeholder tile shown if the embed is unavailable */
+  background: #e9eff5;
+}
+.contact-map iframe {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 0;
+  display: block;
+}
+/* Always-present action pinned to the bottom of the map */
+.contact-map__link {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6em 1.2em;
+  background: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  color: var(--color-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.contact-map__link:hover { background: var(--color-accent); color: var(--color-white); }
+.contact-map__link svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  fill: none;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .contact-layout { grid-template-columns: 1fr; }
 }
 
 /* -------------------------------------------------------------------------
@@ -1434,4 +1712,228 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+
+  .role-card {
+    grid-template-columns: 1fr;
+  }
+
+  .values-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   15.6. ROLE CARDS (Careers page) — job position cards
+   -------------------------------------------------------------------------  */
+.role-card {
+  background: var(--color-white);
+  border: 1px solid #e6ece6;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+.role-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 24px rgba(34, 139, 192, 0.12);
+  transform: translateY(-4px);
+}
+
+.role-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+  color: var(--color-ink);
+}
+
+.role-card p:nth-of-type(1) {
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0.3rem 0 1rem;
+}
+
+.role-card p:last-child {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* -------------------------------------------------------------------------
+   15.7. VALUES LIST (Careers page) — company values/culture
+   -------------------------------------------------------------------------  */
+.values-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.value-item {
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #e6ece6;
+}
+
+.value-item strong {
+  color: var(--color-accent);
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.value-item p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* -------------------------------------------------------------------------
+   16. QUOTE / RFQ MODAL (global — injected by js/components.js)
+   ------------------------------------------------------------------------- */
+/* Header CTA: compact pill version of .btn shown on desktop only */
+.header-cta {
+  padding: 0.55em 1.15em;
+  font-size: 0.8rem;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
+.header-cta:hover { background: var(--color-white); color: var(--color-accent); border-color: var(--color-white); }
+.nav-quote { display: none; } /* only used inside the mobile side panel */
+
+.quote-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem) 1rem;
+  overflow-y: auto;
+}
+.quote-modal.is-open { display: flex; }
+.quote-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 17, 17, 0.6);
+  backdrop-filter: blur(2px);
+}
+.quote-modal__dialog {
+  position: relative;
+  z-index: 1;
+  background: var(--color-white);
+  border-radius: 14px;
+  width: min(720px, 100%);
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  margin: auto;
+  animation: quote-pop 0.25s ease;
+}
+@keyframes quote-pop {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.quote-modal__close {
+  position: absolute;
+  top: 0.85rem;
+  inset-inline-end: 1rem;
+  background: none;
+  border: 0;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #888;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.quote-modal__close:hover { color: var(--color-accent); }
+.quote-modal__dialog h2 { margin: 0 2rem 0.4rem 0; }
+.quote-modal__sub { margin: 0 0 1.5rem; color: #555; }
+
+.quote-fieldset { border: 0; padding: 0; margin: 0 0 1.5rem; }
+.quote-fieldset legend {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  padding: 0;
+  margin-bottom: 0.85rem;
+}
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.quote-field { display: flex; flex-direction: column; }
+.quote-field label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+.quote-form input,
+.quote-form select,
+.quote-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #cfd6cf;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background-color: var(--color-white);
+}
+.quote-form textarea { min-height: 90px; resize: vertical; }
+.quote-form input:focus,
+.quote-form select:focus,
+.quote-form textarea:focus {
+  outline: 2px solid var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Product line items */
+.quote-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 72px auto;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+.quote-item__remove {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e0c3c3;
+  background: #fbf0f0;
+  color: #b42318;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.quote-item__remove:hover { background: #f5dada; }
+.quote-add {
+  background: none;
+  border: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.4rem 0;
+}
+.quote-add:hover { text-decoration: underline; }
+.quote-form .btn { margin-top: 0.5rem; }
+
+@media (max-width: 600px) {
+  .quote-grid { grid-template-columns: 1fr; }
+  .quote-item {
+    grid-template-columns: 1fr 64px auto;
+    grid-template-areas:
+      "cat cat cat"
+      "prod qty rm";
+  }
+  .quote-item__cat { grid-area: cat; }
+  .quote-item__product { grid-area: prod; }
+  .quote-item__qty { grid-area: qty; }
+  .quote-item__remove { grid-area: rm; }
 }

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
   <link rel="icon" href="images/aka-logo.svg?v=4" type="image/svg+xml" />
 </head>
 <body data-page="about.html">
@@ -28,27 +28,104 @@
       </div>
     </section>
 
-    <!-- WHO WE ARE -->
+    <!-- WHO WE ARE + STATS -->
     <section class="section">
-      <div class="container" style="max-width:var(--maxw-narrow)">
-        <h2 data-i18n="about.who.title">Who we are</h2>
-        <p data-i18n="about.who.p">Founded in 1998 in Damascus, AKA (Al-Akkad) is a medical agencies group dedicated to advancing healthcare through modern medical equipment at the best quality and value. We supply ultrasound systems, surgical instruments, endoscopy and sterilization equipment, cardiac and neurological monitoring devices, and laboratory equipment — backed by installation, training, repair, and dependable after-sales service across Syria.</p>
+      <div class="container split">
+        <div>
+          <p class="eyebrow" data-i18n="about.who.eyebrow">Our company</p>
+          <h2 class="heading-accent" data-i18n="about.who.title">Who we are</h2>
+          <p data-i18n="about.who.p">Founded in 1998 in Damascus, AKA (Al-Akkad) is a medical agencies group dedicated to advancing healthcare through modern medical equipment at the best quality and value. We supply ultrasound systems, surgical instruments, endoscopy and sterilization equipment, cardiac and neurological monitoring devices, and laboratory equipment — backed by installation, training, repair, and dependable after-sales service across Syria.</p>
+        </div>
+        <div class="about-stats">
+          <div class="about-stat">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
+            <div class="about-stat__number">27<span>+</span></div>
+            <div class="about-stat__label" data-i18n="about.stat.years">Years serving Syria</div>
+          </div>
+          <div class="about-stat">
+            <svg viewBox="0 0 24 24"><path d="M5 21V7l7-4 7 4v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg>
+            <div class="about-stat__number">50<span>+</span></div>
+            <div class="about-stat__label" data-i18n="about.stat.hospitals">Hospitals equipped</div>
+          </div>
+          <div class="about-stat">
+            <svg viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/><path d="M16 3v4M8 3v4"/></svg>
+            <div class="about-stat__number">21<span>+</span></div>
+            <div class="about-stat__label" data-i18n="about.stat.partners">International partners</div>
+          </div>
+          <div class="about-stat">
+            <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg>
+            <div class="about-stat__number">4</div>
+            <div class="about-stat__label" data-i18n="about.stat.sectors">Business sectors</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSINESS SECTORS -->
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow center" data-i18n="about.sectors.eyebrow">Our structure</p>
+        <h2 class="center heading-accent" data-i18n="about.sectors.title">Four business sectors</h2>
+        <p class="center measure-center" style="margin-bottom:2.5rem" data-i18n="about.sectors.intro">AKA Group operates through four specialized sectors, each contributing to our mission of delivering high-quality medical solutions and humanitarian support across the Middle East and beyond.</p>
+        <div class="grid grid--4 grid--gap-top">
+          <div class="feature">
+            <h3 data-i18n="about.sector.projects.title">Projects Sector</h3>
+            <p data-i18n="about.sector.projects.text">Execution of large-scale healthcare infrastructure from planning and design through installation and commissioning.</p>
+          </div>
+          <div class="feature">
+            <h3 data-i18n="about.sector.tenders.title">Tenders Sector</h3>
+            <p data-i18n="about.sector.tenders.text">Strategic participation in public and private tenders across the Middle East, Africa, Asia, and Europe.</p>
+          </div>
+          <div class="feature">
+            <h3 data-i18n="about.sector.equipment.title">Medical Equipment Sector</h3>
+            <p data-i18n="about.sector.equipment.text">Supply, installation, and maintenance of advanced medical devices through FutureMed and affiliated companies.</p>
+          </div>
+          <div class="feature">
+            <h3 data-i18n="about.sector.humanitarian.title">Humanitarian Sector</h3>
+            <p data-i18n="about.sector.humanitarian.text">Charitable initiatives and emergency response support through MerMed, serving underserved healthcare communities.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- SPECIALTIES -->
-    <section class="section section--surface">
+    <section class="section">
       <div class="container">
-        <h2 class="center" data-i18n="about.spec.title">What we specialize in</h2>
-        <div class="grid grid--gap-top">
-          <div class="feature"><h3 data-i18n="about.spec.1">Medical device sales &amp; distribution</h3></div>
-          <div class="feature"><h3 data-i18n="about.spec.2">Repair &amp; after-sales service</h3></div>
-          <div class="feature"><h3 data-i18n="about.spec.3">Installation &amp; operator training</h3></div>
-          <div class="feature"><h3 data-i18n="about.spec.4">Tender management (national &amp; international)</h3></div>
-          <div class="feature"><h3 data-i18n="about.spec.5">Medical project management</h3></div>
-          <div class="feature"><h3 data-i18n="about.spec.6">Operating room setup &amp; management</h3></div>
-          <div class="feature"><h3 data-i18n="about.spec.7">ICU setup &amp; management</h3></div>
-          <div class="feature"><h3 data-i18n="about.spec.8">Sterilization department setup</h3></div>
+        <p class="eyebrow center" data-i18n="about.spec.eyebrow">Expertise</p>
+        <h2 class="center heading-accent" data-i18n="about.spec.title">What we specialize in</h2>
+        <div class="grid grid--4 grid--gap-top">
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1ZM6 5h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg></div>
+            <h3 data-i18n="about.spec.1">Medical device sales &amp; distribution</h3>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3Z"/></svg></div>
+            <h3 data-i18n="about.spec.2">Repair &amp; after-sales service</h3>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M12 2s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z"/><circle cx="12" cy="13" r="2.5"/></svg></div>
+            <h3 data-i18n="about.spec.3">Installation &amp; operator training</h3>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1ZM6 5h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg></div>
+            <h3 data-i18n="about.spec.4">Tender management (national &amp; international)</h3>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg></div>
+            <h3 data-i18n="about.spec.5">Medical project management</h3>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M4 20h16v1H4zM20 2h-2v7h-4V2H10v7H6V2H4v16h16V2z"/></svg></div>
+            <h3 data-i18n="about.spec.6">Operating room setup &amp; management</h3>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M12 2s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z"/></svg></div>
+            <h3 data-i18n="about.spec.7">ICU setup &amp; management</h3>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11Z"/></svg></div>
+            <h3 data-i18n="about.spec.8">Sterilization department setup</h3>
+          </div>
         </div>
       </div>
     </section>
@@ -56,17 +133,27 @@
     <!-- WHY AKA -->
     <section class="section">
       <div class="container">
-        <h2 class="center" data-i18n="about.why.title">Why choose AKA</h2>
-        <div class="grid grid--gap-top">
-          <div class="feature">
+        <p class="eyebrow center" data-i18n="about.why.eyebrow">Why choose us</p>
+        <h2 class="center heading-accent" data-i18n="about.why.title">Why choose AKA</h2>
+        <div class="grid grid--3 grid--gap-top">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
             <h3 data-i18n="about.why.certified.title">Certified products</h3>
             <p data-i18n="about.why.certified.text">Genuine, certified equipment and supplies sourced from trusted international manufacturers.</p>
           </div>
-          <div class="feature">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </div>
             <h3 data-i18n="about.why.local.title">Local service</h3>
             <p data-i18n="about.why.local.text">Installation, training, maintenance, and after-sales support delivered on the ground in Syria.</p>
           </div>
-          <div class="feature">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
+            </div>
             <h3 data-i18n="about.why.reliable.title">Reliable partner</h3>
             <p data-i18n="about.why.reliable.text">Years of dependable supply to healthcare providers who count on us for the long term.</p>
           </div>
@@ -75,70 +162,191 @@
     </section>
 
     <!-- VALUES & VISION -->
-    <section class="section section--surface">
+    <section class="section">
       <div class="container">
-        <h2 class="center" data-i18n="about.values.title">Our values &amp; vision</h2>
+        <p class="eyebrow center" data-i18n="about.values.eyebrow">Our foundation</p>
+        <h2 class="center heading-accent" data-i18n="about.values.title">Our values &amp; vision</h2>
         <p class="center measure-center" data-i18n="about.values.lead">Core values that guide the quality of our products and services locally and regionally.</p>
         <div class="grid grid--4 grid--gap-top">
-          <div class="feature"><h3 data-i18n="about.values.customer.title">Customer focus</h3><p data-i18n="about.values.customer.text">We prioritize understanding and meeting customer needs, and addressing risks to product conformity and satisfaction.</p></div>
-          <div class="feature"><h3 data-i18n="about.values.support.title">Support</h3><p data-i18n="about.values.support.text">We provide the resources, people, and infrastructure to deliver excellent service and build team competence.</p></div>
-          <div class="feature"><h3 data-i18n="about.values.quality.title">Quality</h3><p data-i18n="about.values.quality.text">We deliver organized, well-managed services that meet modern standards and satisfy our customers.</p></div>
-          <div class="feature"><h3 data-i18n="about.values.improvement.title">Continuous improvement</h3><p data-i18n="about.values.improvement.text">We collaborate with reputable partners to enhance our capabilities and drive continuous development.</p></div>
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3 data-i18n="about.values.customer.title">Customer focus</h3><p data-i18n="about.values.customer.text">We prioritize understanding and meeting customer needs, and addressing risks to product conformity and satisfaction.</p>
+          </div>
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 20.3 10.6 19C5.6 14.4 2.3 11.4 2.3 7.7 2.3 4.7 4.6 2.4 7.6 2.4c1.7 0 3.3.8 4.4 2C13.1 3.2 14.7 2.4 16.4 2.4c3 0 5.3 2.3 5.3 5.3 0 3.7-3.3 6.7-8.3 11.3Z"/></svg>
+            </div>
+            <h3 data-i18n="about.values.support.title">Support</h3><p data-i18n="about.values.support.text">We provide the resources, people, and infrastructure to deliver excellent service and build team competence.</p>
+          </div>
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2Zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8Z"/><path d="M12 6v6l5 3"/></svg>
+            </div>
+            <h3 data-i18n="about.values.quality.title">Quality</h3><p data-i18n="about.values.quality.text">We deliver organized, well-managed services that meet modern standards and satisfy our customers.</p>
+          </div>
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2Zm-2 15l-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9Z"/></svg>
+            </div>
+            <h3 data-i18n="about.values.improvement.title">Continuous improvement</h3><p data-i18n="about.values.improvement.text">We collaborate with reputable partners to enhance our capabilities and drive continuous development.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- TIMELINE -->
+    <!-- JOURNEY TIMELINE -->
     <section class="section">
-      <div class="container" style="max-width:var(--maxw-narrow)">
-        <h2 class="center" data-i18n="about.timeline.title">Our journey</h2>
-        <ul class="timeline">
-          <li><span class="timeline__year">1950</span><span data-i18n="tl.1950">AKA Group founded</span></li>
-          <li><span class="timeline__year">1960</span><span data-i18n="tl.1960">Family business — construction industries</span></li>
-          <li><span class="timeline__year">1962</span><span data-i18n="tl.1962">AKA fabric stores</span></li>
-          <li><span class="timeline__year">1997</span><span data-i18n="tl.1997">Tenders, import contracts &amp; water-purification plants</span></li>
-          <li><span class="timeline__year">1998</span><span data-i18n="tl.1998">FutureMed Syria started</span></li>
-          <li><span class="timeline__year">2003</span><span data-i18n="tl.2003">Zaher Al-Akkad Co.</span></li>
-          <li><span class="timeline__year">2013</span><span data-i18n="tl.2013">MerMed started</span></li>
-          <li><span class="timeline__year">2018</span><span data-i18n="tl.2018">FutureMed Sweden</span></li>
-          <li><span class="timeline__year">2025</span><span data-i18n="tl.2025">FutureMed Albania</span></li>
-        </ul>
+      <div class="container">
+        <p class="eyebrow center" data-i18n="about.timeline.eyebrow">Our story</p>
+        <h2 class="center heading-accent" data-i18n="about.timeline.title">Our journey</h2>
+        <div class="journey">
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">1950</span>
+              <p data-i18n="tl.1950">AKA Group founded</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">1960</span>
+              <p data-i18n="tl.1960">Family business — construction industries</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">1962</span>
+              <p data-i18n="tl.1962">AKA fabric stores</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">1997</span>
+              <p data-i18n="tl.1997">Tenders, import contracts &amp; water-purification plants</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">1998</span>
+              <p data-i18n="tl.1998">FutureMed Syria started</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">2003</span>
+              <p data-i18n="tl.2003">Zaher Al-Akkad Co.</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">2013</span>
+              <p data-i18n="tl.2013">MerMed started</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">2018</span>
+              <p data-i18n="tl.2018">FutureMed Sweden</p>
+            </div>
+          </div>
+          <div class="journey__item">
+            <div class="journey__content">
+              <span class="journey__year">2025</span>
+              <p data-i18n="tl.2025">FutureMed Albania</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- CONTACT DETAILS: LOCATION + PHONES + INFO -->
+    <!-- SUBSIDIARY COMPANIES -->
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow center" data-i18n="about.subsidiaries.eyebrow">Our brands</p>
+        <h2 class="center heading-accent" data-i18n="about.subsidiaries.title">Subsidiary companies</h2>
+        <p class="center measure-center" style="margin-bottom:2.5rem" data-i18n="about.subsidiaries.intro">AKA Group operates through several specialized brands, each with distinct expertise and market presence across Syria and internationally.</p>
+        <div class="grid grid--3 grid--gap-top">
+          <div class="feature">
+            <h3>FutureMed</h3>
+            <p data-i18n="about.sub.futuremedtext">Medical equipment supply and installation with international operations in Sweden and Albania. Specializes in advanced diagnostic, surgical, and intensive care systems.</p>
+          </div>
+          <div class="feature">
+            <h3>Zaher Al-Akkad Co.</h3>
+            <p data-i18n="about.sub.zahertext">Focused medical equipment distribution and service operations serving hospitals and healthcare facilities across Syria.</p>
+          </div>
+          <div class="feature">
+            <h3>MerMed</h3>
+            <p data-i18n="about.sub.mermedtext">Humanitarian and charitable division providing emergency response, healthcare outreach, and equipment support to underserved communities.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT DETAILS: CONTACT CARDS + MAP -->
     <section class="section" id="contact-details">
       <div class="container">
-        <h2 class="center" data-i18n="about.contact.title">Find &amp; contact us</h2>
+        <p class="eyebrow center" data-i18n="about.contact.eyebrow">Get in touch</p>
+        <h2 class="center heading-accent" data-i18n="about.contact.title">Find &amp; contact us</h2>
         <p class="center measure-center" data-i18n="about.contact.lead">Reach out by phone or email, or visit us — our team is ready to help with products, specifications, and quotations.</p>
 
-        <div class="grid grid--gap-top">
-          <!-- LOCATION -->
-          <div class="feature">
-            <h3 data-i18n="about.location.title">Location</h3>
-            <p>
-              Baramkeh<br />
-              Damascus<br />
-              Syria
-            </p>
+        <div class="contact-layout">
+          <!-- CONTACT CARDS -->
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+              <div>
+                <h3 data-i18n="about.location.title">Location</h3>
+                <p>Baramkeh, Damascus, Syria</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+              <div>
+                <h3 data-i18n="about.phone.title">Phone</h3>
+                <p>
+                  <a href="tel:+963944212444">+963 944 212 444</a><br />
+                  <span data-i18n="about.whatsapp">WhatsApp</span>: <a href="https://wa.me/963937322097">+963 937 322 097</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="m22 7-10 5L2 7"/></svg></div>
+              <div>
+                <h3 data-i18n="about.emailhours.title">Email &amp; hours</h3>
+                <p>
+                  <a href="mailto:hadi.alakkadd@gmail.com">hadi.alakkadd@gmail.com</a><br />
+                  <span data-i18n="about.hours">Sat–Thu, 9:00 AM – 6:00 PM</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+              <div>
+                <h3 data-i18n="about.futuremedsweden.title">FutureMed Sweden</h3>
+                <p>
+                  <a href="tel:+46764288823">+46 76 428 8823</a><br />
+                  <a href="mailto:info@futuremed.se">info@futuremed.se</a>
+                </p>
+              </div>
+            </div>
           </div>
 
-          <!-- PHONE -->
-          <div class="feature">
-            <h3 data-i18n="about.phone.title">Phone</h3>
-            <p>
-              <a href="tel:+963944212444">+963 944 212 444</a><br />
-              WhatsApp: <a href="https://wa.me/963937322097">+963 937 322 097</a>
-            </p>
-          </div>
-
-          <!-- EMAIL / HOURS -->
-          <div class="feature">
-            <h3 data-i18n="about.emailhours.title">Email &amp; hours</h3>
-            <p>
-              <a href="mailto:hadi.alakkadd@gmail.com">hadi.alakkadd@gmail.com</a><br />
-              <span data-i18n="about.hours">Sat–Thu, 9:00 AM – 6:00 PM</span>
-            </p>
+          <!-- MAP -->
+          <div class="contact-map">
+            <iframe
+              title="AKA location — Baramkeh, Damascus"
+              src="https://www.google.com/maps?q=Baramkeh,Damascus,Syria&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+            <a class="contact-map__link" href="https://www.google.com/maps?q=Baramkeh,Damascus,Syria" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              <span data-i18n="about.map.open">Open in Google Maps</span>
+            </a>
           </div>
         </div>
       </div>
@@ -155,7 +363,7 @@
   </main>
 
   <div id="site-footer"></div>
-  <script src="js/i18n.js?v=5"></script>
-  <script src="js/components.js?v=5"></script>
+  <script src="js/i18n.js?v=6"></script>
+  <script src="js/components.js?v=6"></script>
 </body>
 </html>
