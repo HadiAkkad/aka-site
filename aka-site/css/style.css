@@ -118,6 +118,8 @@ body:not(.has-fullbleed-hero) main { padding-top: 64px; }
   width: 100%;
   margin-top: auto;
   z-index: 2;
+  margin-bottom: 2rem;
+
 }
 .stat__number {
   font-family: var(--font-display);
