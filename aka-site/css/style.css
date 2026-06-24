@@ -1428,7 +1428,7 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
 .hero--home .ngo-strip {
   position: relative;
   z-index: 2;
-  margin-top: 0.75rem;
+  margin-top: 4.5rem;
   padding-block: 0.85rem;
 }
 .hero--home .lead,
