@@ -190,6 +190,16 @@ function buildFooter() {
     .map((p) => `<span>${p}</span>`)
     .join("");
 
+  const icon = {
+    pin: '<path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/>',
+    phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/>',
+    chat: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/>',
+    mail: '<path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="m22 7-10 5L2 7"/>',
+    clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    globe: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/>',
+  };
+  const ficon = (name) => `<span class="footer-icon"><svg viewBox="0 0 24 24">${icon[name]}</svg></span>`;
+
   return `
   <footer class="site-footer">
     <div class="logo-strip">
@@ -204,9 +214,10 @@ function buildFooter() {
         and laboratories across Syria — backed by agency services, installation,
         training, and dependable local support.</p>
       </div>
+
       <div class="footer-section">
         <h4 data-i18n="footer.explore">Quick Links</h4>
-        <ul>
+        <ul class="footer-links">
           <li><a href="devices.html" data-i18n="footer.devices">Devices</a></li>
           <li><a href="devices.html#categories" data-i18n="footer.categories">Categories</a></li>
           <li><a href="partners.html" data-i18n="footer.partners">Partners</a></li>
@@ -215,51 +226,59 @@ function buildFooter() {
           <li><a href="careers.html" data-i18n="footer.careers">Careers</a></li>
         </ul>
       </div>
+
       <div class="footer-section">
-        <h4 data-i18n="footer.contact">Contact Info</h4>
+        <h4 data-i18n="footer.contact">Contact</h4>
         <ul class="footer-contact">
           <li>
-            <span class="contact-icon">📍</span>
-            <span><strong>Damascus:</strong><br />Baramkeh, Syria</span>
+            ${ficon("pin")}
+            <span><strong>Damascus —</strong> Baramkeh, Syria</span>
           </li>
-          <li style="margin-top: 0.8rem;">
-            <span class="contact-icon">☎</span>
+          <li>
+            ${ficon("phone")}
             <span><a href="tel:+963944212444">+963 944 212 444</a></span>
           </li>
           <li>
-            <span class="contact-icon">💬</span>
-            <span><a href="https://wa.me/963937322097" target="_blank">WhatsApp: +963 937 322 097</a></span>
+            ${ficon("chat")}
+            <span><a href="https://wa.me/963937322097" target="_blank" rel="noopener">+963 937 322 097 (WhatsApp)</a></span>
           </li>
           <li>
-            <span class="contact-icon">✉</span>
+            ${ficon("mail")}
             <span><a href="mailto:hadi.alakkadd@gmail.com">hadi.alakkadd@gmail.com</a></span>
           </li>
-          <li style="font-size: 0.85rem; color: rgba(255,255,255,0.65); margin-top: 0.5rem;">
-            Sat–Thu, 9:00 AM – 6:00 PM
+          <li>
+            ${ficon("clock")}
+            <span data-i18n="about.hours">Sat–Thu, 9:00 AM – 6:00 PM</span>
           </li>
         </ul>
       </div>
+
       <div class="footer-section">
         <h4>International</h4>
         <ul class="footer-contact">
           <li>
-            <span class="contact-icon">🌐</span>
+            ${ficon("globe")}
             <span><strong>FutureMed Sweden</strong></span>
           </li>
-          <li style="margin-top: 0.3rem;">
-            <span style="width: 1.5rem;"></span>
+          <li>
+            ${ficon("phone")}
             <span><a href="tel:+46764288823">+46 76 428 8823</a></span>
           </li>
           <li>
-            <span style="width: 1.5rem;"></span>
+            ${ficon("mail")}
             <span><a href="mailto:info@futuremed.se">info@futuremed.se</a></span>
-          </li>
-          <li style="margin-top: 1.2rem;">
-            <a href="about.html#contact-details" class="footer-cta" data-i18n="footer.quote">View all contacts →</a>
           </li>
         </ul>
       </div>
     </div>
+
+    <div class="footer-cta-bar">
+      <div class="container footer-cta-bar__inner">
+        <p data-i18n="footer.ctaText">Need equipment for your facility? We'll prepare a tailored quotation.</p>
+        <a href="#" data-quote-open class="footer-cta" data-i18n="footer.quote">Request a Quote</a>
+      </div>
+    </div>
+
     <div class="container footer-bottom">
       <div class="footer-bottom-left">
         &copy; <span id="year"></span> AKA Associates. <span data-i18n="footer.rights">All rights reserved.</span>

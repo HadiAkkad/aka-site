@@ -46,6 +46,7 @@ const I18N = (() => {
       "footer.location": "Syria",
       "footer.rights": "All rights reserved.",
       "footer.quote": "Request a quote",
+      "footer.ctaText": "Need equipment for your facility? We'll prepare a tailored quotation.",
 
       // Quote / RFQ modal (global)
       "quote.cta": "Request a Quote",
@@ -807,6 +808,7 @@ const I18N = (() => {
       "footer.location": "سوريا",
       "footer.rights": "جميع الحقوق محفوظة.",
       "footer.quote": "اطلب عرض سعر",
+      "footer.ctaText": "تحتاج معدات لمنشأتك؟ سنجهز لك عرض سعر مخصص.",
 
       // Quote / RFQ modal (global)
       "quote.cta": "اطلب عرض سعر",
