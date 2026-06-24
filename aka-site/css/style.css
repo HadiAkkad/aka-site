@@ -102,8 +102,23 @@ body:not(.has-fullbleed-hero) main { padding-top: 64px; }
 .center { text-align: center; }
 .lead { font-size: 1.15rem; }
 
-/* Stats bar (Home page) */
-.stat { text-align: center; }
+/* Stats bar (Home page) — dark frosted glass cards over the hero photo */
+.stat {
+  text-align: center;
+  background: rgba(12, 18, 20, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 1.25rem 1rem;
+}
+
+/* Stats row pinned to the bottom of the home hero, over the photo */
+.hero-stats {
+  width: 100%;
+  margin-top: auto;
+  z-index: 2;
+}
 .stat__number {
   font-family: var(--font-display);
   color: var(--color-accent);
@@ -1332,36 +1347,98 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
   background-position: center;
   color: var(--color-white);
 }
-/* Dark gradient over each photo keeps the white text readable */
+/* Background photo only — the dark gradient and blur are layered on top via
+   ::after and ::before so their direction can flip for RTL without repeating
+   each hero's image URL. */
 .hero--home {
-  background-image:
-    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
-    url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80");
+  background-image: url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80");
+  /* Stack content at the top, stats pinned to the bottom (no overlap) */
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: clamp(4.5rem, 9vh, 6rem);
+  padding-bottom: clamp(1.25rem, 3vw, 2rem);
 }
 .hero--devices {
-  background-image:
-    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
-    url("https://hadialakkadd-etapm.wordpress.com/wp-content/uploads/2026/06/sleek-patient-monitor-professional-operating-room-with-precise-data_1264082-257005.jpg");
+  background-image: url("https://hadialakkadd-etapm.wordpress.com/wp-content/uploads/2026/06/sleek-patient-monitor-professional-operating-room-with-precise-data_1264082-257005.jpg");
 }
 .hero--partners {
-  background-image:
-    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
-    url("https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80");
+  background-image: url("https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80");
 }
 .hero--projects {
-  background-image:
-    linear-gradient(rgba(8, 12, 12, 0.55), rgba(8, 12, 12, 0.65)),
-    url("https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1600&q=80");
+  background-image: url("https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1600&q=80");
 }
 
+/* Dark gradient: deep shade on the side where the text sits, fading to the
+   clear photo on the far side. Flips for RTL so the dark side follows the text. */
+.hero--home::after,
+.hero--devices::after,
+.hero--partners::after,
+.hero--projects::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(8, 12, 12, 0.92) 0%, rgba(8, 12, 12, 0.68) 32%, rgba(8, 12, 12, 0.3) 62%, rgba(8, 12, 12, 0.1) 100%);
+}
+[dir="rtl"] .hero--home::after,
+[dir="rtl"] .hero--devices::after,
+[dir="rtl"] .hero--partners::after,
+[dir="rtl"] .hero--projects::after {
+  background: linear-gradient(to left, rgba(8, 12, 12, 0.92) 0%, rgba(8, 12, 12, 0.68) 32%, rgba(8, 12, 12, 0.3) 62%, rgba(8, 12, 12, 0.1) 100%);
+}
+
+/* Soft blur on the text side of the photo, fading to sharp on the far side.
+   The ::before blurs the hero background via backdrop-filter; the mask limits
+   that blur to the text side only. Flips for RTL. */
+.hero--home::before,
+.hero--devices::before,
+.hero--partners::before,
+.hero--projects::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 28%, transparent 60%);
+  mask-image: linear-gradient(to right, #000 0%, #000 28%, transparent 60%);
+}
+[dir="rtl"] .hero--home::before,
+[dir="rtl"] .hero--devices::before,
+[dir="rtl"] .hero--partners::before,
+[dir="rtl"] .hero--projects::before {
+  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 28%, transparent 60%);
+  mask-image: linear-gradient(to left, #000 0%, #000 28%, transparent 60%);
+}
+
+/* Text sits on the start side, over the darker/blurred edge of the photo. */
 .hero--home .hero__content,
 .hero--devices .hero__content,
 .hero--partners .hero__content,
 .hero--projects .hero__content {
-  text-align: center;
-  max-width: 860px;
-  margin-inline: auto;
+  position: relative;
+  z-index: 2;
+  text-align: start;
+  max-width: 600px;
+  margin-inline: 0;
 }
+/* NGO strip and stats ride above the gradient/blur overlays */
+.hero--home .ngo-strip {
+  position: relative;
+  z-index: 2;
+  margin-top: 0.75rem;
+  padding-block: 0.85rem;
+}
+.hero--home .lead,
+.hero--devices .lead,
+.hero--partners .lead,
+.hero--projects .lead { margin-inline: 0; }
+.hero--home .btn,
+.hero--devices .btn,
+.hero--partners .btn,
+.hero--projects .btn { display: inline-flex; }
 .hero--home h1,
 .hero--devices h1,
 .hero--partners h1,

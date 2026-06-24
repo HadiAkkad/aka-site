@@ -236,19 +236,19 @@ function buildFooter() {
           </li>
           <li>
             ${ficon("phone")}
-            <span><a href="tel:+963944212444">+963 944 212 444</a></span>
+            <span dir="ltr"><a href="tel:+963944212444">+963 944 212 444</a></span>
           </li>
           <li>
             ${ficon("chat")}
-            <span><a href="https://wa.me/963937322097" target="_blank" rel="noopener">+963 937 322 097 (WhatsApp)</a></span>
+            <span dir="ltr"><a href="https://wa.me/963937322097" target="_blank" rel="noopener">+963 937 322 097 (WhatsApp)</a></span>
           </li>
           <li>
             ${ficon("mail")}
-            <span><a href="mailto:hadi.alakkadd@gmail.com">hadi.alakkadd@gmail.com</a></span>
+            <span dir="ltr"><a href="mailto:hadi.alakkadd@gmail.com">hadi.alakkadd@gmail.com</a></span>
           </li>
           <li>
             ${ficon("clock")}
-            <span data-i18n="about.hours">Sat–Thu, 9:00 AM – 6:00 PM</span>
+            <span dir="ltr" data-i18n="about.hours">Sat–Thu, 9:00 AM – 6:00 PM</span>
           </li>
         </ul>
       </div>
@@ -262,11 +262,11 @@ function buildFooter() {
           </li>
           <li>
             ${ficon("phone")}
-            <span><a href="tel:+46764288823">+46 76 428 8823</a></span>
+            <span dir="ltr"><a href="tel:+46764288823">+46 76 428 8823</a></span>
           </li>
           <li>
             ${ficon("mail")}
-            <span><a href="mailto:info@futuremed.se">info@futuremed.se</a></span>
+            <span dir="ltr"><a href="mailto:info@futuremed.se">info@futuremed.se</a></span>
           </li>
         </ul>
       </div>
