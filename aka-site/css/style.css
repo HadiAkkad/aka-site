@@ -1348,6 +1348,8 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
   background-size: cover;
   background-position: center;
   color: var(--color-white);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  z-index: 10;
 }
 /* Background photo only — the dark gradient and blur are layered on top via
    ::after and ::before so their direction can flip for RTL without repeating
