@@ -1430,7 +1430,7 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
 .hero--home .ngo-strip {
   position: relative;
   z-index: 2;
-  margin-top: 4rem;
+  margin-top: 3.5rem;
   padding-block: 0.85rem;
 }
 .hero--home .lead,
@@ -2226,7 +2226,7 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
   .icon-circle { width: 60px; height: 60px; }
 
   /* NGO logos: smaller so more fit across a phone 48 */
-  .ngo-logo { height: 110px; width: 110px; }
+  .ngo-logo { height: 100px; width: 100px; }
 
   /* Featured hospital photo cards: 2-up so each photo stays compact
      instead of one tall 3:4 image filling the screen. Scoped with :has()
