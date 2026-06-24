@@ -987,15 +987,14 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
   }
   .header-actions .lang-toggle { display: none; }
 
-  /* Quote CTA moves from the header into the side panel on mobile.
-     Scoped to .site-nav so it beats the global `.nav-quote { display:none }`
-     rule (which is defined later in the file with equal specificity). */
-  .header-cta { display: none; }
-  .site-nav .nav-quote {
+  /* Quote CTA stays in the header bar on mobile (compact), beside the menu
+     button — not hidden inside the side panel. */
+  .header-cta {
     display: inline-block;
-    margin-top: 1.5rem;
-    align-self: flex-start;
+    padding: 0.5em 0.85em;
+    font-size: 0.72rem;
   }
+  .site-nav .nav-quote { display: none; }
 
   /* Dimmed backdrop behind the side panel; click it to close */
   .nav-overlay {
@@ -1936,4 +1935,71 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
   .quote-item__product { grid-area: prod; }
   .quote-item__qty { grid-area: qty; }
   .quote-item__remove { grid-area: rm; }
+}
+
+/* -------------------------------------------------------------------------
+   MOBILE TUNING (phones only — max-width: 600px)
+   Placed at the very end so these overrides win the cascade over the
+   desktop hero/stat rules defined earlier (equal specificity = source order).
+   Desktop and tablet layouts are untouched.
+   ------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  /* Tighter vertical rhythm so sections aren't so airy on a small screen */
+  .section { padding-block: 2.75rem; }
+
+  /* Headings — the desktop clamp() minimums are too tall for phones */
+  h1 { font-size: 1.95rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.1rem; }
+  .lead { font-size: 1rem; line-height: 1.55; }
+
+  /* Full-bleed hero pages (home / devices / partners / projects) */
+  .hero--home h1,
+  .hero--devices h1,
+  .hero--partners h1,
+  .hero--projects h1 { font-size: 2.1rem; }
+  .hero--home .lead,
+  .hero--devices .lead,
+  .hero--partners .lead,
+  .hero--projects .lead { font-size: 1rem; margin-bottom: 1.75rem; }
+
+  /* Stats bar — keep all four in a single horizontal row on phones
+     (scoped via :has(.stat) so only the stats grid is affected). */
+  .grid:has(.stat) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+  .stat__number { font-size: 1.4rem; }
+  .stat__icon { width: 22px; height: 22px; margin-bottom: 0.35rem; }
+  .stat__label { font-size: 0.6rem; line-height: 1.25; letter-spacing: 0.02em; }
+  .about-stat__number { font-size: 1.9rem; }
+  .about-stat__number span { font-size: 1.1rem; }
+  .about-stats { gap: 0.85rem; }
+
+  /* Why/values circular icons */
+  .icon-circle { width: 60px; height: 60px; }
+
+  /* NGO logos: smaller so more fit across a phone */
+  .ngo-logo { height: 48px; width: 48px; }
+
+  /* Featured hospital photo cards: 2-up so each photo stays compact
+     instead of one tall 3:4 image filling the screen. Scoped with :has()
+     to the grid that actually holds the cards, so other grid--4 sections
+     (stats, specialties) keep their single-column phone layout. */
+  .grid:has(.hospital-card) {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+  .hospital-card { aspect-ratio: 4 / 5; }
+  .hospital-card__caption { font-size: 0.78rem; padding: 0.6rem; }
+
+  /* Split hero image sits above the text — cap its height */
+  .hero .split img { max-height: 230px; object-fit: cover; }
+
+  /* Device marquee cards a touch smaller */
+  .device-marquee__card { width: 150px; }
+  .device-marquee__card img { height: 110px; }
+
+  /* Careers "what we stand for" — stack to one column (text is cramped 2-up) */
+  .values-list { grid-template-columns: 1fr; gap: 1.25rem; }
 }

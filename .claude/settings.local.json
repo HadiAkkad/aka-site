@@ -114,7 +114,13 @@
       "Bash(curl -s -o /tmp/ortho-candidate.jpg \"https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=600&q=60\")",
       "Bash(cd \"C:\\\\Users\\\\hadia\\\\Desktop\\\\aka-site\" && rm -f ot-*.jpg neuro-candidate.jpg)",
       "Bash(python3)",
-      "Bash(pdftotext \"C:\\\\Users\\\\hadia\\\\Downloads\\\\Aka New Company Profile - Final.pdf\" -)"
+      "Bash(pdftotext \"C:\\\\Users\\\\hadia\\\\Downloads\\\\Aka New Company Profile - Final.pdf\" -)",
+      "Bash(sed -i 's/style\\\\.css?v=3/style.css?v=4/g' *.html *)",
+      "Bash(sed -i 's/style\\\\.css?v=3/style.css?v=4/g' *.html)",
+      "Read(//c/c/Users/hadia/Desktop/aka-site/**)",
+      "Bash(sed -i 's/style\\\\.css?v=5/style.css?v=6/g' *.html && grep -h -o 'style.css?v=[0-9]*' *.html | sort | uniq -c)",
+      "Bash(cd /c/Users/hadia/Desktop/aka-site/aka-site && sed -i 's/style\\\\.css?v=6/style.css?v=7/g' *.html && grep -h -o 'style.css?v=[0-9]*' *.html | sort | uniq -c)",
+      "Bash(cd /c/Users/hadia/Desktop/aka-site/aka-site && sed -i 's/style\\\\.css?v=7/style.css?v=8/g' *.html && grep -h -o 'style.css?v=[0-9]*' *.html | sort | uniq -c)"
     ]
   }
 }
