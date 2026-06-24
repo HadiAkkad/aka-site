@@ -136,7 +136,9 @@
       "Bash(node optimize-images.cjs)",
       "Bash(py -3 --version)",
       "Bash(rm -rf node_modules package.json package-lock.json)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -X OPTIONS https://aka-api.hadi-alakkadd.workers.dev/contact --max-time 8)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -X OPTIONS https://aka-api.hadi-alakkadd.workers.dev/contact --max-time 8)",
+      "WebFetch(domain:pagespeed.web.dev)",
+      "Bash(grep -n \"h3[^,{]*{\" css/style.css)"
     ]
   }
 }

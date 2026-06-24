@@ -216,7 +216,7 @@ function buildFooter() {
       </div>
 
       <div class="footer-section">
-        <h4 data-i18n="footer.explore">Quick Links</h4>
+        <h3 data-i18n="footer.explore">Quick Links</h3>
         <ul class="footer-links">
           <li><a href="devices.html" data-i18n="footer.devices">Devices</a></li>
           <li><a href="devices.html#categories" data-i18n="footer.categories">Categories</a></li>
@@ -228,7 +228,7 @@ function buildFooter() {
       </div>
 
       <div class="footer-section">
-        <h4 data-i18n="footer.contact">Contact</h4>
+        <h3 data-i18n="footer.contact">Contact</h3>
         <ul class="footer-contact">
           <li>
             ${ficon("pin")}
@@ -254,7 +254,7 @@ function buildFooter() {
       </div>
 
       <div class="footer-section">
-        <h4>International</h4>
+        <h3>International</h3>
         <ul class="footer-contact">
           <li>
             ${ficon("globe")}

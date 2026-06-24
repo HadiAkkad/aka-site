@@ -19,6 +19,12 @@
   --color-ink:        #0f1111;  /* main text */
   --color-black:      #2b2b2b;  /* rgb(43, 43, 43) */
 
+  /* CTA button shades — tuned for WCAG AA (4.5:1) text contrast.
+     --color-accent itself is too light for white text and too dark for
+     black text to pass, so CTAs use these instead of --color-accent. */
+  --color-cta-dark:   #1c7aa8;  /* bg for white-text CTAs (header-cta) */
+  --color-cta-light:  #4aa8d8;  /* bg for black-text CTAs (footer-cta) */
+
   /* Typography */
   --font-display: "Fjalla One", system-ui, sans-serif;  /* headings (uppercase) */
   --font-body:    "Roboto", system-ui, sans-serif;       /* body text */
@@ -974,7 +980,7 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
   border-inline-start: 1px solid rgba(255,255,255,0.1);
   padding-inline-start: clamp(1.25rem, 3vw, 2rem);
 }
-.site-footer h4 {
+.site-footer h3 {
   color: var(--color-white);
   margin-bottom: 1.25rem;
   font-weight: 600;
@@ -1058,7 +1064,7 @@ body:not(.has-fullbleed-hero) .site-logo { height: 46px; width: 46px; }
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
-  background: var(--color-accent);
+  background: var(--color-cta-light);
   color: var(--color-black);
   border-radius: 99px;
   font-weight: 600;
@@ -2042,11 +2048,11 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
 .header-cta {
   padding: 0.55em 1.15em;
   font-size: 0.8rem;
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--color-cta-dark);
+  border-color: var(--color-cta-dark);
   color: var(--color-white);
 }
-.header-cta:hover { background: var(--color-white); color: var(--color-accent); border-color: var(--color-white); }
+.header-cta:hover { background: var(--color-white); color: var(--color-cta-dark); border-color: var(--color-white); }
 .nav-quote { display: none; } /* only used inside the mobile side panel */
 
 .quote-modal {
