@@ -2224,7 +2224,7 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
   .icon-circle { width: 60px; height: 60px; }
 
   /* NGO logos: smaller so more fit across a phone 48 */
-  .ngo-logo { height: 60px; width: 60px; }
+  .ngo-logo { height: 48px; width: 48px; }
 
   /* Featured hospital photo cards: 2-up so each photo stays compact
      instead of one tall 3:4 image filling the screen. Scoped with :has()
