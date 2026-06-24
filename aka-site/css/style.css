@@ -1369,7 +1369,7 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
   background-image: url("https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80");
 }
 .hero--projects {
-  background-image: url("https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1600&q=80");
+   background-image: url("../images/random/hosp.jpg");
 }
 
 /* Dark gradient: deep shade on the side where the text sits, fading to the
