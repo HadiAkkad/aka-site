@@ -160,7 +160,7 @@ function buildHeader() {
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="site-title" href="index.html" aria-label="AKA Associates — home">
-        <img class="site-logo" src="images/aka-logo.png?v=6" alt="AKA Associates" />
+        <img class="site-logo" src="images/aka-logo-vector.svg?v=7" alt="AKA Associates" />
       </a>
       <nav class="site-nav">
         <button class="nav-close" aria-label="Close menu" type="button">&#8594;</button>
@@ -196,34 +196,77 @@ function buildFooter() {
       <div class="logo-strip__track">${items}</div>
     </div>
     <div class="container footer-main">
-      <div>
-        <h4>AKA</h4>
+      <div class="footer-about">
+        <a href="index.html" class="footer-logo-link" aria-label="AKA Associates — home">
+          <img class="footer-logo" src="images/aka-logo-vector.svg?v=7" alt="AKA Associates" />
+        </a>
         <p data-i18n="footer.about.text">Certified medical devices and equipment for hospitals, clinics,
         and laboratories across Syria — backed by agency services, installation,
         training, and dependable local support.</p>
       </div>
-      <div>
-        <h4 data-i18n="footer.explore">Explore</h4>
+      <div class="footer-section">
+        <h4 data-i18n="footer.explore">Quick Links</h4>
         <ul>
           <li><a href="devices.html" data-i18n="footer.devices">Devices</a></li>
           <li><a href="devices.html#categories" data-i18n="footer.categories">Categories</a></li>
           <li><a href="partners.html" data-i18n="footer.partners">Partners</a></li>
           <li><a href="projects.html" data-i18n="footer.projects">Projects</a></li>
-          <li><a href="about.html" data-i18n="footer.about">About</a></li>
+          <li><a href="about.html" data-i18n="footer.about">About Us</a></li>
           <li><a href="careers.html" data-i18n="footer.careers">Careers</a></li>
-          <li><a href="#" data-quote-open data-i18n="footer.quote">Request a quote</a></li>
         </ul>
       </div>
-      <div>
-        <h4 data-i18n="footer.contact">Contact</h4>
-        <ul>
-          <li><a href="mailto:hadi.alakkadd@gmail.com">hadi.alakkadd@gmail.com</a></li>
-          <li data-i18n="footer.location">Syria</li>
+      <div class="footer-section">
+        <h4 data-i18n="footer.contact">Contact Info</h4>
+        <ul class="footer-contact">
+          <li>
+            <span class="contact-icon">📍</span>
+            <span><strong>Damascus:</strong><br />Baramkeh, Syria</span>
+          </li>
+          <li style="margin-top: 0.8rem;">
+            <span class="contact-icon">☎</span>
+            <span><a href="tel:+963944212444">+963 944 212 444</a></span>
+          </li>
+          <li>
+            <span class="contact-icon">💬</span>
+            <span><a href="https://wa.me/963937322097" target="_blank">WhatsApp: +963 937 322 097</a></span>
+          </li>
+          <li>
+            <span class="contact-icon">✉</span>
+            <span><a href="mailto:hadi.alakkadd@gmail.com">hadi.alakkadd@gmail.com</a></span>
+          </li>
+          <li style="font-size: 0.85rem; color: rgba(255,255,255,0.65); margin-top: 0.5rem;">
+            Sat–Thu, 9:00 AM – 6:00 PM
+          </li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>International</h4>
+        <ul class="footer-contact">
+          <li>
+            <span class="contact-icon">🌐</span>
+            <span><strong>FutureMed Sweden</strong></span>
+          </li>
+          <li style="margin-top: 0.3rem;">
+            <span style="width: 1.5rem;"></span>
+            <span><a href="tel:+46764288823">+46 76 428 8823</a></span>
+          </li>
+          <li>
+            <span style="width: 1.5rem;"></span>
+            <span><a href="mailto:info@futuremed.se">info@futuremed.se</a></span>
+          </li>
+          <li style="margin-top: 1.2rem;">
+            <a href="about.html#contact-details" class="footer-cta" data-i18n="footer.quote">View all contacts →</a>
+          </li>
         </ul>
       </div>
     </div>
     <div class="container footer-bottom">
-      &copy; <span id="year"></span> AKA. <span data-i18n="footer.rights">All rights reserved.</span>
+      <div class="footer-bottom-left">
+        &copy; <span id="year"></span> AKA Associates. <span data-i18n="footer.rights">All rights reserved.</span>
+      </div>
+      <div class="footer-bottom-right">
+        <span>Est. 1998 — Damascus, Syria</span>
+      </div>
     </div>
   </footer>`;
 }
