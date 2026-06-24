@@ -1548,8 +1548,8 @@ const I18N = (() => {
   }
 
   function getLang() {
-    // Default to Arabic for first-time visitors (no saved choice yet).
-    return localStorage.getItem(STORAGE_KEY) || "ar";
+    // Default to English for first-time visitors (no saved choice yet).
+    return localStorage.getItem(STORAGE_KEY) || "en";
   }
 
   // Apply the chosen language to the whole document.
