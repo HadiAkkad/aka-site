@@ -160,7 +160,7 @@ function buildHeader() {
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="site-title" href="index.html" aria-label="AKA Associates — home">
-        <img class="site-logo" src="images/aka-logo.svg?v=4" alt="AKA Associates" />
+        <img class="site-logo" src="images/aka-logo.png?v=6" alt="AKA Associates" />
       </a>
       <nav class="site-nav">
         <button class="nav-close" aria-label="Close menu" type="button">&#8594;</button>

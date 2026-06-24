@@ -120,7 +120,10 @@
       "Read(//c/c/Users/hadia/Desktop/aka-site/**)",
       "Bash(sed -i 's/style\\\\.css?v=5/style.css?v=6/g' *.html && grep -h -o 'style.css?v=[0-9]*' *.html | sort | uniq -c)",
       "Bash(cd /c/Users/hadia/Desktop/aka-site/aka-site && sed -i 's/style\\\\.css?v=6/style.css?v=7/g' *.html && grep -h -o 'style.css?v=[0-9]*' *.html | sort | uniq -c)",
-      "Bash(cd /c/Users/hadia/Desktop/aka-site/aka-site && sed -i 's/style\\\\.css?v=7/style.css?v=8/g' *.html && grep -h -o 'style.css?v=[0-9]*' *.html | sort | uniq -c)"
+      "Bash(cd /c/Users/hadia/Desktop/aka-site/aka-site && sed -i 's/style\\\\.css?v=7/style.css?v=8/g' *.html && grep -h -o 'style.css?v=[0-9]*' *.html | sort | uniq -c)",
+      "Bash(cd \"/c/Users/hadia/Desktop/aka-site/aka-site/images\" && cp logo/logonoback.png aka-logo.png && ls -la aka-logo.png)",
+      "Bash(cd \"/c/Users/hadia/Desktop/aka-site/aka-site/images\" && cp logo/logowhite.png aka-logo.png)",
+      "Bash(cd \"/c/Users/hadia/Desktop/aka-site/aka-site\" && sed -i 's/aka-logo\\\\.png?v=5/aka-logo.png?v=6/' js/components.js *.html && grep -c \"aka-logo.png?v=6\" js/components.js && grep -l \"aka-logo.png?v=6\" *.html | wc -l)"
     ]
   }
 }
