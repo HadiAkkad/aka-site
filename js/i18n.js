@@ -27,6 +27,7 @@ const I18N = (() => {
       "nav.about": "About",
       "nav.support": "Services",
       "nav.careers": "Careers",
+      "nav.lectures": "Lectures",
       "lang.toggle": "العربية",
       "lang.toggleLabel": "التبديل إلى العربية",
 
@@ -40,6 +41,7 @@ const I18N = (() => {
       "footer.supplements": "Supplements",
       "footer.partners": "Partners",
       "footer.projects": "Projects",
+      "footer.lectures": "Lectures",
       "footer.about": "About",
       "footer.support": "Services",
       "footer.careers": "Careers",
@@ -343,6 +345,33 @@ const I18N = (() => {
       "careers.form.message": "Cover letter / message",
       "careers.form.cv": "Upload your CV (PDF or Word)",
       "careers.form.submit": "Submit application",
+
+      // ---- Lectures page ----
+      "lectures.hero.h1": "Lectures & Presentations",
+      "lectures.hero.lead":
+        "Recorded talks, product walkthroughs, and training sessions from the AKA team — covering equipment use, maintenance, and best practice for hospital staff.",
+      "lectures.hero.cta": "Browse the library",
+      "lectures.intro.eyebrow": "Knowledge hub",
+      "lectures.intro.title": "Watch & learn",
+      "lectures.intro.lead":
+        "A growing library of presentations, tutorials, and webinars — built for clinicians, biomedical engineers, and procurement teams who work with our equipment every day.",
+      "lectures.filter.all": "All",
+      "lectures.filter.presentation": "Presentations",
+      "lectures.filter.tutorial": "Tutorials",
+      "lectures.filter.webinar": "Webinars",
+      "lectures.featured.tag": "Featured",
+      "lectures.featured.title": "Featured video title",
+      "lectures.featured.text":
+        "A short description of the featured video goes here — what it covers and who it's for.",
+      "lectures.tag.presentation": "Presentation",
+      "lectures.tag.tutorial": "Tutorial",
+      "lectures.tag.webinar": "Webinar",
+      "lectures.card.title": "Video title placeholder",
+      "lectures.card.meta": "Speaker name · Date",
+      "lectures.empty": "No videos in this category yet — check back soon.",
+      "lectures.cta.title": "Have a topic you'd like covered?",
+      "lectures.cta.p": "Get in touch and we'll consider it for an upcoming session.",
+      "lectures.cta.btn": "Contact us",
 
       // ---- About page ----
       "about.est": "Established 1998 · Damascus, Syria",
@@ -789,6 +818,7 @@ const I18N = (() => {
       "nav.about": "من نحن",
       "nav.support": "خدماتنا",
       "nav.careers": "الوظائف",
+      "nav.lectures": "محاضرات",
       "lang.toggle": "EN",
       "lang.toggleLabel": "Switch to English",
 
@@ -802,6 +832,7 @@ const I18N = (() => {
       "footer.supplements": "المكمّلات",
       "footer.partners": "شركاؤنا",
       "footer.projects": "المشاريع",
+      "footer.lectures": "محاضرات",
       "footer.about": "من نحن",
       "footer.support": "خدماتنا",
       "footer.careers": "الوظائف",
@@ -1104,6 +1135,33 @@ const I18N = (() => {
       "careers.form.message": "رسالة تعريفية / ملاحظات",
       "careers.form.cv": "أرفق سيرتك الذاتية (PDF أو Word)",
       "careers.form.submit": "إرسال الطلب",
+
+      // ---- Lectures page ----
+      "lectures.hero.h1": "محاضرات وعروض تقديمية",
+      "lectures.hero.lead":
+        "محاضرات مسجّلة، وشروحات للأجهزة، وجلسات تدريبية من فريق AKA — تغطي استخدام الأجهزة وصيانتها وأفضل الممارسات لطاقم المشفى.",
+      "lectures.hero.cta": "تصفّح المكتبة",
+      "lectures.intro.eyebrow": "مركز المعرفة",
+      "lectures.intro.title": "شاهد وتعلّم",
+      "lectures.intro.lead":
+        "مكتبة متنامية من العروض التقديمية والشروحات والندوات عبر الإنترنت — موجّهة للأطباء ومهندسي الأجهزة الطبية وفرق المشتريات الذين يتعاملون مع أجهزتنا يوميًا.",
+      "lectures.filter.all": "الكل",
+      "lectures.filter.presentation": "عروض تقديمية",
+      "lectures.filter.tutorial": "شروحات",
+      "lectures.filter.webinar": "ندوات عبر الإنترنت",
+      "lectures.featured.tag": "مميّز",
+      "lectures.featured.title": "عنوان الفيديو المميّز",
+      "lectures.featured.text":
+        "وصف مختصر للفيديو المميّز يظهر هنا — ما يتناوله ولمن هو موجّه.",
+      "lectures.tag.presentation": "عرض تقديمي",
+      "lectures.tag.tutorial": "شرح",
+      "lectures.tag.webinar": "ندوة",
+      "lectures.card.title": "عنوان الفيديو",
+      "lectures.card.meta": "اسم المحاضر · التاريخ",
+      "lectures.empty": "لا توجد فيديوهات في هذا التصنيف حاليًا — تابعونا قريبًا.",
+      "lectures.cta.title": "هل لديك موضوع تودّ أن نتناوله؟",
+      "lectures.cta.p": "تواصل معنا وسننظر في طرحه في جلسة قادمة.",
+      "lectures.cta.btn": "تواصل معنا",
 
       // ---- About page ----
       "about.est": "تأسست عام 1998 · دمشق، سوريا",

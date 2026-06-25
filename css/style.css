@@ -2261,4 +2261,302 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
 
   /* Careers "what we stand for" — stack to one column (text is cramped 2-up) */
   .values-list { grid-template-columns: 1fr; gap: 1.25rem; }
+
+  /* Floating product photo cluster: the desktop version uses absolute
+     positioning + overlap, which breaks on some Android browsers (older
+     Samsung Internet / WebView) where the images fall into normal flow,
+     overflow their container and crash into the next section. On phones we
+     drop the absolute/overlap layout entirely and use a simple, robust
+     stacked flow that works everywhere. */
+  .photo-cluster {
+    position: static;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .photo-cluster img,
+  .photo-cluster img:nth-child(1),
+  .photo-cluster img:nth-child(2),
+  .photo-cluster img:nth-child(3) {
+    position: static;
+    width: 100%;
+    height: 200px;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    animation: none;
+    border-radius: 12px;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   13. LECTURES PAGE (videos / presentations / tutorials)
+   Thumbnails and video sources are intentionally left blank — see
+   lectures.html for where to plug in real media.
+   ------------------------------------------------------------------------- */
+/* A blank thumbnail placeholder: swap for a real <img> once you have one,
+   the play button and category badge will sit on top either way. */
+.lecture-placeholder-thumb {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e7eceb 0%, #d6dedd 100%);
+  color: var(--color-black);
+  opacity: 0.35;
+}
+.lecture-placeholder-thumb svg { width: 38%; height: 38%; }
+
+.lecture-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin: 2rem 0 2.5rem;
+}
+.lecture-filter {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  border: 1px solid rgba(43, 43, 43, 0.18);
+  background: var(--color-white);
+  color: var(--color-ink);
+  padding: 0.55em 1.3em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.lecture-filter:hover { border-color: var(--color-accent); }
+.lecture-filter.is-active {
+  background: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-white);
+}
+
+/* Featured video — large media panel + text side by side */
+.lecture-featured {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--gap);
+  align-items: center;
+  background: var(--color-surface);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: var(--space-section);
+}
+.lecture-featured__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-black);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+}
+.lecture-featured__info .lecture-tag { margin-bottom: 0.75rem; display: inline-block; }
+.lecture-featured__info h3 { margin: 0 0 0.6rem; }
+.lecture-featured__info p { margin: 0; color: var(--color-black); opacity: 0.75; }
+
+.lecture-tag {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  background: var(--color-accent);
+  color: var(--color-white);
+  padding: 0.3em 0.8em;
+  border-radius: var(--radius);
+}
+
+/* Play button — centered over any media panel */
+.lecture-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+.lecture-play svg { width: 24px; height: 24px; fill: var(--color-black); margin-left: 2px; }
+.lecture-featured__media:hover .lecture-play,
+.lecture-card__media:hover .lecture-play {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: var(--color-accent);
+}
+.lecture-featured__media:hover .lecture-play svg,
+.lecture-card__media:hover .lecture-play svg { fill: var(--color-white); }
+
+/* Video grid */
+.lecture-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.lecture-card {
+  display: flex;
+  flex-direction: column;
+}
+.lecture-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-black);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  margin-bottom: 0.9rem;
+}
+.lecture-card__duration {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--color-white);
+  font-size: 0.78rem;
+  padding: 0.15em 0.55em;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+.lecture-card__body { flex: 1; }
+.lecture-card__tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--color-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.4rem;
+}
+.lecture-card__title { margin: 0 0 0.35rem; font-size: 1.05rem; }
+.lecture-card__meta { margin: 0; font-size: 0.88rem; color: var(--color-black); opacity: 0.6; }
+
+.lecture-card.is-hidden { display: none; }
+
+.lecture-empty {
+  text-align: center;
+  opacity: 0.65;
+  padding: 2rem 0;
+}
+
+/* Modal lightbox for playing a selected video */
+.lecture-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.lecture-modal.is-open { display: flex; }
+.lecture-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 12, 0.85);
+}
+.lecture-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(900px, 100%);
+}
+.lecture-modal__close {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lecture-modal__video-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lecture-modal__video-wrap video,
+.lecture-modal__video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.lecture-modal__title {
+  color: var(--color-white);
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 860px) {
+  .lecture-featured { grid-template-columns: 1fr; }
+  .lecture-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .lecture-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .lecture-featured { padding: 1rem; }
+}
+
+/* -------------------------------------------------------------------------
+   14. OLDER-BROWSER COMPATIBILITY FALLBACKS
+   These @supports blocks ONLY take effect on engines that lack the modern
+   feature (e.g. outdated Android System WebView / in-app browsers, older
+   Samsung Internet). Modern browsers ignore them entirely, so desktop and
+   current-mobile rendering is unchanged.
+   ------------------------------------------------------------------------- */
+
+/* aspect-ratio: without it, these boxes collapse to zero height and their
+   images disappear. Give them explicit fallback heights so content still
+   renders. */
+@supports not (aspect-ratio: 1 / 1) {
+  .card { height: auto; min-height: 320px; }
+  .hospital-card { min-height: 300px; }
+  .video-teaser { min-height: 220px; }
+  .partner img { height: 200px; }
+  #category-grid .card { min-height: 240px; }
+  .lecture-featured__media, .lecture-modal__video-wrap { height: 360px; }
+  .lecture-card__media { height: 200px; }
+}
+
+/* inset shorthand: fall back to the four longhand offsets so absolutely
+   positioned image fills and overlays still stretch to their container. */
+@supports not (inset: 0) {
+  .hospital-card img,
+  .card img,
+  .card::after,
+  .video-teaser::after,
+  .lecture-placeholder-thumb,
+  .lecture-modal,
+  .lecture-modal__overlay,
+  .lecture-modal__video-wrap video,
+  .lecture-modal__video-wrap iframe { top: 0; right: 0; bottom: 0; left: 0; }
+}
+
+/* gap inside flex containers is unsupported on some old WebViews; the photo
+   cluster mobile layout relies on it, so fall back to margins there. */
+@supports not (gap: 1rem) {
+  .photo-cluster img + img { margin-top: 1rem; }
 }
