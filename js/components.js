@@ -369,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initScrollReveal();
+  initSectionMotion();
   initStickyHeader();
   initNgoSlideshow();
   initStatsCounter();
@@ -704,7 +705,9 @@ function initScrollReveal() {
   // Pick the elements we want to animate in.
   const targets = document.querySelectorAll(
     ".section .feature, .section .card, .section > .container > h2, " +
-      ".section > .container > .lead, .section .form, .grid > *"
+      ".section > .container > .eyebrow, .section > .container > .lead, " +
+      ".section .form, .grid > *, .process__step, " +
+      ".section > .container > .partner-cloud, .section--dark .container > .btn"
   );
 
   if (reduceMotion || !("IntersectionObserver" in window)) {
@@ -776,6 +779,47 @@ function initScrollReveal() {
   );
 
   targets.forEach((el) => observer.observe(el));
+}
+
+/* -------------------------------------------------------------------------
+   Section scroll motion
+   Continuous, scroll-LINKED parallax on framed cover-images across every
+   page. As each image's frame passes through the viewport we shift the
+   image's crop (object-position) — NOT its transform — so it never fights
+   the CSS hover-zoom that lives on these same images. Subtle depth that
+   makes sections feel alive while scrolling, per the design system's
+   "parallax-subtle" rule. Fully disabled under reduced-motion.
+   ------------------------------------------------------------------------- */
+function initSectionMotion() {
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (reduceMotion) return;
+  if (!(window.Motion && window.Motion.scroll)) return;
+
+  const { scroll } = window.Motion;
+
+  // Cover-images that sit inside an overflow-hidden frame. Limited to images
+  // present in the static HTML — dynamically injected catalog thumbnails
+  // (js/products.js) already have their own hover-zoom and don't need this.
+  const images = document.querySelectorAll(
+    ".hospital-card img, .card img, .hero .split img, .partner img"
+  );
+
+  const SHIFT = 12; // max crop travel each way, in %
+
+  images.forEach((img) => {
+    const frame = img.parentElement;
+    scroll(
+      (progress) => {
+        // progress 0 (frame entering) → 1 (frame leaving).
+        // Map to -SHIFT..+SHIFT so the crop drifts as it passes.
+        const offset = (progress - 0.5) * 2 * SHIFT;
+        img.style.objectPosition = `center calc(50% + ${offset.toFixed(2)}%)`;
+      },
+      { target: frame, offset: ["start end", "end start"] }
+    );
+  });
 }
 
 /* -------------------------------------------------------------------------
