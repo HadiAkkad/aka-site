@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AKA — Your Partner in Healthcare</title>
   <meta name="description" content="AKA (Al-Akkad) supplies certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — with agency services, installation, training, and dependable local support since 1998." />
-  <link rel="stylesheet" href="css/style.css?v=9" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
   <!-- Social sharing & SEO (update base URL when the custom domain is live) -->
   <link rel="canonical" href="https://aka1.hadi-alakkadd.workers.dev/" />
   <meta property="og:type" content="website" />
@@ -177,13 +177,11 @@
           <p class="eyebrow" data-i18n="home.products.eyebrow">Our products</p>
           <h2 class="heading-accent" data-i18n="home.products.title">Our medical products</h2>
           <p class="lead" data-i18n="home.products.lead">Explore our device portfolio by clinical category — from patient monitoring and diagnostics to surgical and hospital equipment.</p>
-          <p class="cta-row"><a class="btn" href="devices.html#categories" data-i18n="home.products.cta">Browse categories</a></p>
+          <p class="cta-row"><a class="btn" href="devices.html#catalog" data-i18n="home.products.cta">Browse the catalog</a></p>
         </div>
-        <div class="photo-cluster">
-          <img src="images/random/img1.jpg" alt="Surgical equipment" />
-          <img src="images/random/img2.jpg" alt="Diagnostic devices" />
-          <img src="images/cats/lab.jpg" alt="Laboratory equipment" />
-        </div>
+        <!-- Animated card stack — auto-cycles through products from the
+             catalog (PRODUCTS array in js/products.js); built by js/card-stack.js -->
+        <div class="card-stack" id="card-stack" aria-label="Featured products"></div>
       </div>
     </section>
 
@@ -270,8 +268,10 @@
   </main>
 
   <div id="site-footer"></div>
-  <script src="js/i18n.js?v=7"></script>
-  <script src="js/components.js?v=7"></script>
+  <script src="js/i18n.js?v=8"></script>
+  <script src="js/components.js?v=8"></script>
   <script src="js/forms.js?v=1"></script>
+  <script src="js/products.js?v=2"></script>
+  <script src="js/card-stack.js?v=2"></script>
 </body>
 </html>

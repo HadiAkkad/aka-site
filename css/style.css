@@ -2718,3 +2718,162 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
   color: #5a625a;
   margin-top: 2rem;
 }
+
+/* -------------------------------------------------------------------------
+   ANIMATED PRODUCT CARD STACK (home page "Our products" section)
+   Positions/timing mirror the original framer-motion component:
+   front {y:12, scale:1} · middle {y:-16, scale:.95} · back {y:-44, scale:.9}
+   exit slides down out of frame; a new card slides in at the back.
+   ------------------------------------------------------------------------- */
+.card-stack {
+  position: relative;
+  height: 380px;
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  overflow: hidden;
+  /* soft fade at the bottom edge so exiting cards dissolve out */
+  -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
+}
+.stack-card {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, 512px);
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.35rem;
+  background: var(--color-white);
+  border: 1px solid #e2e9e2;
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 10px 30px rgba(15, 17, 17, 0.14);
+  transform: translateX(-50%) translateY(var(--sy, 0)) scale(var(--ss, 1));
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.stack-card--0     { --sy: 12px;  --ss: 1;    z-index: 3; }
+.stack-card--1     { --sy: -16px; --ss: 0.95; z-index: 2; }
+.stack-card--2     { --sy: -44px; --ss: 0.9;  z-index: 1; }
+.stack-card--enter { --sy: -16px; --ss: 0.9;  z-index: 0; }
+.stack-card--exit  { --sy: 340px; --ss: 1;    z-index: 10; }
+
+.stack-card__media {
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--color-surface);
+  outline: 1px solid rgba(15, 17, 17, 0.08);
+  outline-offset: -1px;
+}
+.stack-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+.stack-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-inline: 0.75rem;
+  min-width: 0;
+}
+.stack-card__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.stack-card__name {
+  font-weight: 700;
+  color: var(--color-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stack-card__brand {
+  font-size: 0.88rem;
+  color: #5a625a;
+}
+.stack-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+  height: 40px;
+  padding-inline: 1rem 0.7rem;
+  border-radius: var(--radius);
+  background: var(--color-cta-dark);
+  color: var(--color-white);
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.stack-card__cta:hover { background: #16638a; }
+.stack-card__cta svg { width: 16px; height: 16px; }
+/* Flip the chevron for RTL */
+[dir="rtl"] .stack-card__cta svg { transform: scaleX(-1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-card { transition: none; }
+}
+@media (max-width: 640px) {
+  .card-stack { height: 330px; }
+  .stack-card { height: 250px; }
+  .stack-card__media { height: 165px; }
+}
+
+/* -------------------------------------------------------------------------
+   CATALOG TOOLBAR (devices.html) — search box + category filter pills
+   ------------------------------------------------------------------------- */
+.product-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 2.25rem 0 2.5rem;
+}
+.product-search {
+  position: relative;
+  width: min(100%, 460px);
+}
+.product-search svg {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #8a938a;
+  pointer-events: none;
+}
+.product-search input {
+  width: 100%;
+  height: 48px;
+  padding-inline: 2.8rem 1.25rem;
+  border: 1px solid #d5ded5;
+  border-radius: var(--radius);
+  background: var(--color-white);
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.product-search input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(34, 139, 192, 0.15);
+}
+.product-toolbar .product-filters { margin: 0; }
+
+/* Category chip on product cards is now a link to that category's page */
+a.product-card__cat {
+  text-decoration: none;
+  width: fit-content;
+}
+a.product-card__cat:hover { text-decoration: underline; }

@@ -1,5 +1,5 @@
 /* =========================================================================
-   AKA — Product catalog (products.html)
+   AKA — Product catalog (devices.html #catalog)
    -------------------------------------------------------------------------
    TO ADD A PRODUCT: add one object to the PRODUCTS array below.
      name     - model name shown on the card (not translated)
@@ -10,6 +10,13 @@
                  hospital) — drives the filter buttons and the quote modal
      image    - path to the product photo (put files in images/devices/)
    Filter buttons are generated automatically from the categories present.
+   The search box matches against product name + brand, combined with the
+   active category filter. Each card's category chip links to that
+   category's detail page (CATEGORY_PAGES below).
+
+   This file is also loaded on the home page, where only the PRODUCTS data
+   is used (by js/card-stack.js) — the catalog UI renders only on pages
+   that have a #product-grid element.
    ========================================================================= */
 
 const PRODUCTS = [
@@ -24,10 +31,26 @@ const PRODUCTS = [
   { name: "Ultrapro S100 EMG", brand: "Micromed", category: "neurology", image: "images/devices/emg.png" },
 ];
 
+// Category slug -> its detail page (used by the card's category chip).
+const CATEGORY_PAGES = {
+  diagnostic: "diagnostic-devices.html",
+  imaging: "medical-imaging.html",
+  endoscopy: "endoscopy.html",
+  surgical: "surgical-equipment.html",
+  orthopedics: "orthopedics.html",
+  monitoring: "patient-monitoring.html",
+  cardiology: "cardiology.html",
+  neurology: "neurology.html",
+  lab: "laboratory-equipment.html",
+  sterilization: "sterilization.html",
+  hospital: "hospital-equipment.html",
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("product-grid");
   const filtersWrap = document.getElementById("product-filters");
   const empty = document.getElementById("product-empty");
+  const search = document.getElementById("product-search");
   if (!grid || !filtersWrap) return;
 
   // Filter buttons: "All" + one per category that actually has products.
@@ -45,12 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   grid.innerHTML = PRODUCTS.map(
     (p) => `
-    <article class="product-card" data-category="${p.category}">
+    <article class="product-card" data-category="${p.category}"
+      data-search="${(p.name + " " + p.brand).toLowerCase()}">
       <div class="product-card__media">
         <img src="${p.image}" alt="${p.name} — ${p.brand}" decoding="async" />
       </div>
       <div class="product-card__body">
-        <span class="product-card__cat" data-i18n="cat.${p.category}">${I18N.t("cat." + p.category)}</span>
+        <a class="product-card__cat" href="${CATEGORY_PAGES[p.category] || "devices.html"}"
+          data-i18n="cat.${p.category}">${I18N.t("cat." + p.category)}</a>
         <h3 class="product-card__name">${p.name}</h3>
         <p class="product-card__brand">${p.brand}</p>
         <button class="btn" type="button" data-quote-open
@@ -63,20 +88,30 @@ document.addEventListener("DOMContentLoaded", () => {
   // Translate the freshly injected filter buttons and cards.
   I18N.apply();
 
-  filtersWrap.addEventListener("click", (e) => {
-    const btn = e.target.closest(".product-filter");
-    if (!btn) return;
-    filtersWrap
-      .querySelectorAll(".product-filter")
-      .forEach((b) => b.classList.toggle("is-active", b === btn));
+  let activeCategory = "all";
 
-    const filter = btn.dataset.filter;
+  function refresh() {
+    const q = (search?.value || "").trim().toLowerCase();
     let shown = 0;
     grid.querySelectorAll(".product-card").forEach((card) => {
-      const show = filter === "all" || card.dataset.category === filter;
+      const matchCat = activeCategory === "all" || card.dataset.category === activeCategory;
+      const matchText = !q || card.dataset.search.includes(q);
+      const show = matchCat && matchText;
       card.style.display = show ? "" : "none";
       if (show) shown++;
     });
     if (empty) empty.style.display = shown === 0 ? "" : "none";
+  }
+
+  filtersWrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".product-filter");
+    if (!btn) return;
+    activeCategory = btn.dataset.filter;
+    filtersWrap
+      .querySelectorAll(".product-filter")
+      .forEach((b) => b.classList.toggle("is-active", b === btn));
+    refresh();
   });
+
+  if (search) search.addEventListener("input", refresh);
 });

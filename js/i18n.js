@@ -28,6 +28,7 @@ const I18N = (() => {
       "nav.support": "Services",
       "nav.careers": "Careers",
       "nav.products": "Products",
+      "home.products.stack.view": "View",
       "notfound.eyebrow": "Error 404",
       "notfound.title": "Page not found",
       "notfound.text": "The page you're looking for doesn't exist or has moved. Try the homepage or browse our devices.",
@@ -37,6 +38,7 @@ const I18N = (() => {
       "products.hero.h1": "Product Catalog",
       "products.hero.lead": "Browse the devices AKA supplies and services across Syria — filter by clinical category and request a quotation for any product.",
       "products.filter.all": "All categories",
+      "products.search.ph": "Search by product or manufacturer...",
       "products.empty": "No products in this category yet — contact us and we will source it for you.",
       "products.quote": "Request a quote",
       "products.note.title": "Don't see what you need?",
@@ -126,7 +128,7 @@ const I18N = (() => {
       "home.products.title": "Our medical products",
       "home.products.lead":
         "Explore our device portfolio by clinical category from patient monitoring and diagnostics to surgical and hospital equipment.",
-      "home.products.cta": "Browse categories",
+      "home.products.cta": "Browse the catalog",
 
       // Home — featured projects
       "home.featured.title": "Hospitals we've equipped",
@@ -515,7 +517,7 @@ const I18N = (() => {
       "devices.hero.h1": "Devices",
       "devices.hero.lead":
         "Browse our medical devices by clinical use. AKA supplies certified equipment for diagnostics, monitoring, surgery, and hospital care each backed by installation, training, and local support.",
-      "devices.hero.cta": "Browse categories",
+      "devices.hero.cta": "Browse the catalog",
       "devices.portfolio.eyebrow": "Our catalog",
       "devices.portfolio.title": "A certified device portfolio",
       "devices.portfolio.p":
@@ -833,6 +835,7 @@ const I18N = (() => {
       "nav.support": "خدماتنا",
       "nav.careers": "الوظائف",
       "nav.products": "المنتجات",
+      "home.products.stack.view": "عرض",
       "notfound.eyebrow": "خطأ 404",
       "notfound.title": "الصفحة غير موجودة",
       "notfound.text": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها. جرّب الصفحة الرئيسية أو تصفّح أجهزتنا.",
@@ -842,6 +845,7 @@ const I18N = (() => {
       "products.hero.h1": "كتالوج المنتجات",
       "products.hero.lead": "تصفّح الأجهزة التي تورّدها وتصونها AKA في جميع أنحاء سوريا — صفِّ حسب الفئة السريرية واطلب عرض سعر لأي منتج.",
       "products.filter.all": "جميع الفئات",
+      "products.search.ph": "ابحث باسم المنتج أو الشركة المصنّعة...",
       "products.empty": "لا توجد منتجات في هذه الفئة بعد — تواصل معنا وسنؤمّنها لك.",
       "products.quote": "اطلب عرض سعر",
       "products.note.title": "لم تجد ما تبحث عنه؟",
@@ -931,7 +935,7 @@ const I18N = (() => {
       "home.products.title": "منتجاتنا الطبية",
       "home.products.lead":
         "استكشف مجموعتنا من الأجهزة حسب الفئة السريرية من مراقبة المرضى والتشخيص إلى المعدات الجراحية ومعدات المشافي.",
-      "home.products.cta": "تصفّح الفئات",
+      "home.products.cta": "تصفّح الكتالوج",
 
       // Home — featured projects
       "home.featured.title": "مشافٍ قمنا بتجهيزها",
@@ -1320,7 +1324,7 @@ const I18N = (() => {
       "devices.hero.h1": "الأجهزة",
       "devices.hero.lead":
         "تصفّح أجهزتنا الطبية حسب الاستخدام السريري. توفّر AKA معدات معتمدة للتشخيص والمراقبة والجراحة ورعاية المشافي كلٌّ منها مدعوم بالتركيب والتدريب والدعم المحلي.",
-      "devices.hero.cta": "تصفّح الفئات",
+      "devices.hero.cta": "تصفّح الكتالوج",
       "devices.portfolio.eyebrow": "كتالوجنا",
       "devices.portfolio.title": "مجموعة أجهزة معتمدة",
       "devices.portfolio.p":

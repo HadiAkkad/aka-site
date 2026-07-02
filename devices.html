@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Devices — AKA</title>
-  <meta name="description" content="Certified medical devices supplied, installed, and serviced by AKA across Syria." />
-  <link rel="stylesheet" href="css/style.css?v=9" />
+  <title>Devices &amp; Product Catalog — AKA</title>
+  <meta name="description" content="Browse AKA's catalog of certified medical devices — ECG, imaging, surgical, endoscopy, and monitoring equipment supplied, installed, and serviced across Syria." />
+  <link rel="stylesheet" href="css/style.css?v=11" />
   <!-- Social sharing & SEO (update base URL when the custom domain is live) -->
   <link rel="canonical" href="https://aka1.hadi-alakkadd.workers.dev/devices.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AKA Associates" />
-  <meta property="og:title" content="Devices — AKA" />
-  <meta property="og:description" content="Certified medical devices supplied, installed, and serviced by AKA across Syria." />
+  <meta property="og:title" content="Devices &amp; Product Catalog — AKA" />
+  <meta property="og:description" content="Browse AKA's catalog of certified medical devices — ECG, imaging, surgical, endoscopy, and monitoring equipment supplied, installed, and serviced across Syria." />
   <meta property="og:url" content="https://aka1.hadi-alakkadd.workers.dev/devices.html" />
   <meta property="og:image" content="https://aka1.hadi-alakkadd.workers.dev/images/random/herohome4.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Devices — AKA" />
-  <meta name="twitter:description" content="Certified medical devices supplied, installed, and serviced by AKA across Syria." />
+  <meta name="twitter:title" content="Devices &amp; Product Catalog — AKA" />
+  <meta name="twitter:description" content="Browse AKA's catalog of certified medical devices — ECG, imaging, surgical, endoscopy, and monitoring equipment supplied, installed, and serviced across Syria." />
   <meta name="twitter:image" content="https://aka1.hadi-alakkadd.workers.dev/images/random/herohome4.jpg" />
   <link rel="icon" href="images/aka-logo-vector.svg?v=7" type="image/svg+xml" />
   <link rel="alternate icon" href="images/aka-logo.png" type="image/png" />
@@ -25,26 +25,38 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- INTRO / SPECIALTIES -->
+    <!-- FULL-BLEED HERO -->
     <section class="hero hero--devices">
       <div class="container hero__content">
         <h1 data-i18n="devices.hero.h1">Devices</h1>
         <p class="lead" data-i18n="devices.hero.lead">Browse our medical devices by clinical use. AKA supplies certified equipment for diagnostics, monitoring, surgery, and hospital care — each backed by installation, training, and local support.</p>
-        <a class="btn btn--on-dark" href="#categories" data-i18n="devices.hero.cta">Browse categories</a>
+        <a class="btn btn--on-dark" href="#catalog" data-i18n="devices.hero.cta">Browse the catalog</a>
       </div>
     </section>
 
-    <!-- PORTFOLIO TEXT -->
-    <section class="section">
-      <div class="container" style="max-width:var(--maxw-narrow)">
-        <p class="eyebrow" data-i18n="devices.portfolio.eyebrow">Our catalog</p>
-        <h2 class="heading-accent" data-i18n="devices.portfolio.title">A certified device portfolio</h2>
-        <p data-i18n="devices.portfolio.p">Every device AKA delivers is selected for reliability, ease of use, and compliance with international quality standards. From compact bedside units to full hospital installations, we help Syrian healthcare providers equip their facilities with confidence — and keep them running with maintenance, spare parts, and dependable after-sales service.</p>
+    <!-- PRODUCT CATALOG (search + category filters + grid, built by js/products.js) -->
+    <section class="section" id="catalog">
+      <div class="container">
+        <p class="eyebrow center" data-i18n="devices.portfolio.eyebrow">Our catalog</p>
+        <h2 class="center heading-accent" data-i18n="products.hero.h1">Product Catalog</h2>
+        <p class="center measure-center" data-i18n="devices.portfolio.p">Every device AKA delivers is selected for reliability, ease of use, and compliance with international quality standards. From compact bedside units to full hospital installations, we help Syrian healthcare providers equip their facilities with confidence — and keep them running with maintenance, spare parts, and dependable after-sales service.</p>
+
+        <div class="product-toolbar">
+          <div class="product-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="product-search" autocomplete="off"
+              data-i18n-attr="placeholder:products.search.ph" placeholder="Search by product or manufacturer..." />
+          </div>
+          <div class="product-filters" id="product-filters"></div>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+        <p class="product-empty" id="product-empty" style="display:none" data-i18n="products.empty">No products in this category yet — contact us and we will source it for you.</p>
       </div>
     </section>
 
     <!-- HOW IT WORKS -->
-    <section class="section">
+    <section class="section section--surface">
       <div class="container">
         <p class="eyebrow center" data-i18n="devices.process.eyebrow">How it works</p>
         <h2 class="center heading-accent" data-i18n="devices.process.title">From inquiry to installation</h2>
@@ -73,118 +85,6 @@
       </div>
     </section>
 
-    <!-- CATEGORIES -->
-
-    <section class="section" id="categories">
-      <div class="container">
-        <p class="eyebrow center" data-i18n="cat.eyebrow">Browse by category</p>
-        <h2 class="center heading-accent" data-i18n="cat.title">Categories</h2>
-
-        <!-- CATEGORY GRID — each card links to its own page. -->
-        <div class="grid grid--gap-top" id="category-grid">
-
-          <a class="card" href="diagnostic-devices.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="M10 7v3l2 2M21 21l-4.3-4.3"/></svg></span>
-            <img src="images/random/diagnostic.png" alt="Diagnostic Devices" />
-            <span class="card__label" data-i18n="cat.diagnostic">Diagnostic Devices</span>
-          </a>
-
-          <a class="card" href="medical-imaging.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></svg></span>
-            <img src="images/random/imaging.png" alt="Imaging and ultrasound" />
-            <span class="card__label" data-i18n="cat.imaging">Imaging &amp; Ultrasound</span>
-          </a>
-
-          <a class="card" href="endoscopy.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="14" height="10" rx="2"/><path d="M17 10l4-2v8l-4-2Z"/><circle cx="10" cy="12" r="3"/></svg></span>
-            <img src="images/random/endo2.png" alt="Endoscopy" />
-            <span class="card__label" data-i18n="cat.endoscopy">Endoscopy</span>
-          </a>
-
-          <a class="card" href="surgical-equipment.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M4 20 14 10M14 10l3-3a2 2 0 1 1 3 3l-3 3M14 10l3 3"/></svg></span>
-            <img src="images/random/surg.jpg" alt="Surgical Equipment" />
-            <span class="card__label" data-i18n="cat.surgical">Surgical Equipment</span>
-          </a>
-
-          <a class="card" href="orthopedics.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M19.5 14.5a2.5 2.5 0 0 0-3.5-3.5l-6 6a2.5 2.5 0 1 0-3.5 3.5 2.5 2.5 0 0 0 3.5-3.6l6-6a2.5 2.5 0 1 0 3.5-3.5"/></svg></span>
-            <img src="images/cats/orthopedics.jpg" alt="Orthopedics" />
-            <span class="card__label" data-i18n="cat.orthopedics">Orthopedics</span>
-          </a>
-
-          <a class="card" href="patient-monitoring.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span>
-            <img src="images/cats/monitoring.jpg" alt="Patient Monitoring" />
-            <span class="card__label" data-i18n="cat.monitoring">Patient Monitoring</span>
-          </a>
-
-          <a class="card" href="cardiology.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M12 20.3 10.6 19C5.6 14.4 2.3 11.4 2.3 7.7 2.3 4.7 4.6 2.4 7.6 2.4c1.7 0 3.3.8 4.4 2C13.1 3.2 14.7 2.4 16.4 2.4c3 0 5.3 2.3 5.3 5.3 0 3.7-3.3 6.7-8.3 11.3Z"/></svg></span>
-            <img src="images/cats/cardiology.jpg" alt="Cardiology" />
-            <span class="card__label" data-i18n="cat.cardiology">Cardiology</span>
-          </a>
-
-          <a class="card" href="neurology.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3c-1.5.3-2.5 1.6-2.5 3.1 0 1.2.6 2.2 1.5 2.8-.3.5-.5 1.1-.5 1.7A3 3 0 0 0 7.5 17H9V3Z"/><path d="M15 3a3 3 0 0 1 3 3c1.5.3 2.5 1.6 2.5 3.1 0 1.2-.6 2.2-1.5 2.8.3.5.5 1.1.5 1.7a3 3 0 0 1-3.5 2.9H15V3Z"/></svg></span>
-            <img src="images/cats/neurology.jpg" alt="Neurology" />
-            <span class="card__label" data-i18n="cat.neurology">Neurology</span>
-          </a>
-
-          <a class="card" href="laboratory-equipment.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span>
-            <img src="images/cats/lab.jpg" alt="Laboratory Equipment" />
-            <span class="card__label" data-i18n="cat.lab">Laboratory Equipment</span>
-          </a>
-
-          <a class="card" href="sterilization.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11Z"/></svg></span>
-            <img src="images/cats/sterilization.jpg" alt="Sterilization and CSSD" />
-            <span class="card__label" data-i18n="cat.sterilization">Sterilization (CSSD)</span>
-          </a>
-
-          <a class="card" href="hospital-equipment.html">
-            <span class="card__icon"><svg viewBox="0 0 24 24"><path d="M3 18v-7a2 2 0 0 1 2-2h3v4M3 18h18M21 18v-4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v4"/></svg></span>
-            <img src="images/random/hosp.png" alt="Hospital Equipment" />
-            <span class="card__label" data-i18n="cat.hospital">Hospital Equipment</span>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURED DEVICES MARQUEE -->
-    <section class="section">
-      <div class="container">
-        <p class="eyebrow center" data-i18n="devices.featured.eyebrow">In our portfolio</p>
-        <h2 class="center heading-accent" data-i18n="devices.featured.title">Featured devices</h2>
-        <p class="cta-row center"><a class="btn" href="products.html" data-i18n="products.hero.h1">Product Catalog</a></p>
-      </div>
-      <div class="device-marquee" style="margin-top:2.5rem">
-        <div class="device-marquee__track">
-          <div class="device-marquee__card"><img src="images/devices/ecg.png" alt="Device 1" loading="lazy" decoding="async" /><span>SE-310 (Edan)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/poct.png" alt="Device 2" loading="lazy" decoding="async" /><span>POCT-i2 (Edan)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/Grand-Promerix.jpg" alt="Device 3" loading="lazy" decoding="async" /><span>Grand-Promerix (Merivaara)</span></div>
-          <div class="device-marquee__card"><img src="images/random/endo.png" alt="Device 4" /><span>Endoscopic Units (Hermann)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/emg.png" alt="Device 5" loading="lazy" decoding="async" /><span>Ultrapro S100 (Micromed)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/ecg2.jpg" alt="Device 6" loading="lazy" decoding="async" /><span>ASPEL HLT-712 v.201</span></div>
-          <div class="device-marquee__card"><img src="images/devices/mri.jpg" alt="Device 7" loading="lazy" decoding="async" /><span>NeuMR Universal (Neusoft)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/ct.jpg" alt="Device 8" loading="lazy" decoding="async" /><span>NeuViz Epoch CT (Neusoft)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/catheterKit.png" alt="Device 9" loading="lazy" decoding="async" /><span>Ultra 7FR IAB Catheter Kit (Insightra)</span></div>
-          <!-- Duplicate set for seamless loop -->
-          <div class="device-marquee__card"><img src="images/devices/ecg.png" alt="Device 1" loading="lazy" decoding="async" /><span>SE-310 (Edan)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/poct.png" alt="Device 2" loading="lazy" decoding="async" /><span>POCT-i2 (Edan)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/Grand-Promerix.jpg" alt="Device 3" loading="lazy" decoding="async" /><span>Grand-Promerix (Merivaara)</span></div>
-          <div class="device-marquee__card"><img src="images/random/endo.png" alt="Device 4" /><span>Endoscopic Units (Hermann)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/emg.png" alt="Device 5" loading="lazy" decoding="async" /><span>Ultrapro S100 (Micromed)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/ecg2.jpg" alt="Device 6" loading="lazy" decoding="async" /><span>ASPEL HLT-712 v.201</span></div>
-          <div class="device-marquee__card"><img src="images/devices/mri.jpg" alt="Device 7" loading="lazy" decoding="async" /><span>NeuMR Universal (Neusoft)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/ct.jpg" alt="Device 8" loading="lazy" decoding="async" /><span>NeuViz Epoch CT (Neusoft)</span></div>
-          <div class="device-marquee__card"><img src="images/devices/catheterKit.png" alt="Device 9" loading="lazy" decoding="async" /><span>Ultra 7FR IAB Catheter Kit (Insightra)</span></div>
-        </div>
-      </div>
-    </section>
-
     <!-- DOCUMENTATION -->
     <section class="section">
       <div class="container split">
@@ -200,10 +100,20 @@
         </div>
       </div>
     </section>
+
+    <!-- SOURCING CTA -->
+    <section class="section section--dark center">
+      <div class="container">
+        <h2 data-i18n="products.note.title">Don't see what you need?</h2>
+        <p class="lead" style="max-width:640px;margin:0 auto 1.75rem" data-i18n="products.note.text">This catalog shows a selection of our portfolio. Through our manufacturer partnerships we can source virtually any certified medical device — send us an inquiry.</p>
+        <button class="btn btn--on-dark" type="button" data-quote-open data-i18n="products.quote">Request a quote</button>
+      </div>
+    </section>
   </main>
 
   <div id="site-footer"></div>
-  <script src="js/i18n.js?v=7"></script>
-  <script src="js/components.js?v=7"></script>
+  <script src="js/i18n.js?v=8"></script>
+  <script src="js/components.js?v=8"></script>
+  <script src="js/products.js?v=2"></script>
 </body>
 </html>
