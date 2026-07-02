@@ -31,21 +31,6 @@ const PRODUCTS = [
   { name: "Ultrapro S100 EMG", brand: "Micromed", category: "neurology", image: "images/devices/emg.png" },
 ];
 
-// Category slug -> its detail page (used by the card's category chip).
-const CATEGORY_PAGES = {
-  diagnostic: "diagnostic-devices.html",
-  imaging: "medical-imaging.html",
-  endoscopy: "endoscopy.html",
-  surgical: "surgical-equipment.html",
-  orthopedics: "orthopedics.html",
-  monitoring: "patient-monitoring.html",
-  cardiology: "cardiology.html",
-  neurology: "neurology.html",
-  lab: "laboratory-equipment.html",
-  sterilization: "sterilization.html",
-  hospital: "hospital-equipment.html",
-};
-
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("product-grid");
   const filtersWrap = document.getElementById("product-filters");
@@ -74,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="${p.image}" alt="${p.name} — ${p.brand}" decoding="async" />
       </div>
       <div class="product-card__body">
-        <a class="product-card__cat" href="${CATEGORY_PAGES[p.category] || "devices.html"}"
-          data-i18n="cat.${p.category}">${I18N.t("cat." + p.category)}</a>
+        <button class="product-card__cat" type="button" data-cat-filter="${p.category}"
+          data-i18n="cat.${p.category}">${I18N.t("cat." + p.category)}</button>
         <h3 class="product-card__name">${p.name}</h3>
         <p class="product-card__brand">${p.brand}</p>
         <button class="btn" type="button" data-quote-open
@@ -103,15 +88,34 @@ document.addEventListener("DOMContentLoaded", () => {
     if (empty) empty.style.display = shown === 0 ? "" : "none";
   }
 
-  filtersWrap.addEventListener("click", (e) => {
-    const btn = e.target.closest(".product-filter");
-    if (!btn) return;
-    activeCategory = btn.dataset.filter;
+  // Single source for switching the active category (filter buttons, card
+  // chips, and the ?cat= URL parameter all go through here).
+  function setCategory(cat) {
+    if (cat !== "all" && !categories.includes(cat)) return;
+    activeCategory = cat;
     filtersWrap
       .querySelectorAll(".product-filter")
-      .forEach((b) => b.classList.toggle("is-active", b === btn));
+      .forEach((b) => b.classList.toggle("is-active", b.dataset.filter === cat));
     refresh();
+  }
+
+  filtersWrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".product-filter");
+    if (btn) setCategory(btn.dataset.filter);
+  });
+
+  // Category chip on a product card filters the catalog in place.
+  grid.addEventListener("click", (e) => {
+    const chip = e.target.closest("[data-cat-filter]");
+    if (!chip) return;
+    setCategory(chip.dataset.catFilter);
+    document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" });
   });
 
   if (search) search.addEventListener("input", refresh);
+
+  // Deep link support: devices.html?cat=cardiology#catalog preselects the
+  // category (the old per-category pages redirect here with this parameter).
+  const requested = new URLSearchParams(window.location.search).get("cat");
+  if (requested) setCategory(requested);
 });

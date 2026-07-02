@@ -48,10 +48,14 @@
 :root {
   /* Brand colors */
   --color-white:      #ffffff;
-  --color-surface:    #f2f6f2;  /* light section background */
+  --color-surface:    #f1f6fa;  /* light section background (blue-tinted) */
   --color-accent:     #228bc0;  /* AKA blue */
   --color-ink:        #0f1111;  /* main text */
-  --color-black:      #2b2b2b;  /* rgb(43, 43, 43) */
+  --color-black:      #1d2b36;  /* deep navy slate — header, footer, dark bands */
+
+  /* Layered section sheets (see section 14) */
+  --sheet-radius:  clamp(28px, 5vw, 52px);
+  --sheet-overlap: clamp(24px, 4vw, 44px);
 
   /* CTA button shades — tuned for WCAG AA (4.5:1) text contrast.
      --color-accent itself is too light for white text and too dark for
@@ -1310,6 +1314,145 @@ button { cursor: pointer; }
 }
 
 /* -------------------------------------------------------------------------
+   11b. HOME REDESIGN COMPONENTS (hero badge, process steps, partner cloud)
+   ------------------------------------------------------------------------- */
+
+/* Hero trust badge — frosted chip above the H1 (matches the stat cards) */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: rgba(12, 18, 20, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  color: var(--color-white);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.45em 1.1em;
+  border-radius: var(--radius);
+  margin: 0 0 1.1rem;
+}
+.hero__badge svg {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: var(--color-cta-light);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Hero action row — primary + ghost secondary CTA */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+/* Ghost button for dark/photo backgrounds */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-white);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+}
+.btn--ghost:hover {
+  background: var(--color-white);
+  color: var(--color-ink);
+  border-color: var(--color-white);
+}
+
+/* Process steps ("How we work") — numbered cards on the surface section */
+.process {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  counter-reset: step;
+}
+.process__step {
+  position: relative;
+  background: var(--color-white);
+  border: 1px solid rgba(15, 17, 17, 0.08);
+  border-radius: 14px;
+  padding: 1.6rem 1.4rem 1.4rem;
+  box-shadow: 0 6px 18px rgba(15, 17, 17, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.process__step:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(15, 17, 17, 0.12);
+}
+.process__step .icon-line {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: var(--color-cta-dark);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 0.75rem;
+}
+.process__num {
+  position: absolute;
+  top: 0.9rem;
+  inset-inline-end: 1.1rem;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: rgba(34, 139, 192, 0.16); /* accent at low alpha — decorative */
+}
+.process__step h3 { font-size: 1.05rem; }
+.process__step p { margin: 0; font-size: 0.95rem; }
+@media (max-width: 900px) { .process { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .process { grid-template-columns: 1fr; } }
+
+/* Partner brand cloud (dark band) — names from PARTNERS in components.js */
+.partner-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  max-width: 860px;
+  margin: 1.75rem auto 2rem;
+}
+.partner-chip {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius);
+  padding: 0.45em 1.05em;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.partner-chip:hover {
+  border-color: var(--color-cta-light);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* Card-style feature (category pages "Why buy" grid) — accent top edge */
+.feature--card {
+  background: var(--color-white);
+  border: 1px solid rgba(15, 17, 17, 0.08);
+  border-top: 3px solid var(--color-accent);
+  border-radius: 14px;
+  padding: 1.5rem 1.4rem;
+  box-shadow: 0 6px 18px rgba(15, 17, 17, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.feature--card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(15, 17, 17, 0.12);
+}
+.feature--card h3 { font-size: 1.05rem; }
+.feature--card p { margin: 0; font-size: 0.95rem; }
+
+/* -------------------------------------------------------------------------
    12. ACCESSIBILITY
    ------------------------------------------------------------------------- */
 /* Skip link (injected by js/components.js) — hidden until focused */
@@ -1387,35 +1530,62 @@ html[lang="ar"] .site-header__inner { direction: ltr; }
 /* The rest of the page mirrors automatically under dir="rtl". */
 
 /* -------------------------------------------------------------------------
-   14. BACKGROUND MOSAIC PATTERN  (all pages)
-   A Syrian / Islamic geometric tessellation (octagon + 8-point star, the
-   classic "khatam" motif seen in Damascus mosaics). It is drawn as a small
-   tiling SVG and laid OVER each section's existing background color in a
-   shade only a hair different from that color, so it reads as subtle texture.
-   This adds background-image ONLY — it does not touch any colors, fonts,
-   spacing, or layout. Applied site-wide.
+   14. SECTION BACKGROUND SYSTEM — layered sheets
+   Sections stack like sheets of paper: each one has rounded top corners and
+   overlaps the block above it, so scrolling reads as connected layered
+   surfaces instead of flat print pages. Backgrounds follow a deliberate
+   rhythm per page: white → soft blue tint → white … with one navy band.
    ------------------------------------------------------------------------- */
-
-/* Pattern over the light "surface" sections (hero + section--surface) */
-.hero,
-.section--surface {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23dde8de' stroke-width='1'%3E%3Cpath d='M14.06,0L33.94,0L48,14.06L48,33.94L33.94,48L14.06,48L0,33.94L0,14.06Z'/%3E%3Cpath d='M24,4L44,24L24,44L4,24Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 48px 48px;
+main > .section {
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-white);
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+  margin-top: calc(var(--sheet-overlap) * -1);
+  box-shadow: 0 -18px 40px rgba(16, 32, 44, 0.10);
+}
+/* The very first block on a page doesn't overlap anything */
+main > .section:first-child {
+  margin-top: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-/* Pattern over the plain white sections */
-.section:not(.section--surface):not(.section--dark) {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23eef1ee' stroke-width='1'%3E%3Cpath d='M14.06,0L33.94,0L48,14.06L48,33.94L33.94,48L14.06,48L0,33.94L0,14.06Z'/%3E%3Cpath d='M24,4L44,24L24,44L4,24Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 48px 48px;
+/* Soft blue-tinted panels — replaces the old green mosaic pattern */
+main > .section--surface {
+  background:
+    radial-gradient(1100px 420px at 88% -5%, rgba(34, 139, 192, 0.08), transparent 60%),
+    radial-gradient(900px 420px at 2% 105%, rgba(34, 139, 192, 0.06), transparent 55%),
+    linear-gradient(180deg, #f2f7fb 0%, #e9f1f8 100%);
 }
 
-/* Pattern over the dark sections — faint light lines on black */
-.section--dark {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.06' stroke-width='1'%3E%3Cpath d='M14.06,0L33.94,0L48,14.06L48,33.94L33.94,48L14.06,48L0,33.94L0,14.06Z'/%3E%3Cpath d='M24,4L44,24L24,44L4,24Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 48px 48px;
+/* Navy band — gradient + soft brand glows instead of flat gray */
+main > .section--dark {
+  background:
+    radial-gradient(1000px 460px at 90% -10%, rgba(74, 168, 216, 0.18), transparent 60%),
+    radial-gradient(800px 400px at 4% 110%, rgba(34, 139, 192, 0.14), transparent 55%),
+    linear-gradient(180deg, #223140 0%, #17232d 100%);
+}
+
+/* Split hero (About, Careers, Lectures): clean tint gradient fading to the
+   first sheet. Full-bleed heroes override this with their photo. */
+.hero {
+  background: linear-gradient(180deg, #e9f1f8 0%, #f6fafd 100%);
+}
+
+/* The footer joins the sheet stack */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+  margin-top: calc(var(--sheet-overlap) * -1);
+  box-shadow: 0 -18px 40px rgba(16, 32, 44, 0.16);
+  overflow: hidden; /* keep the partner marquee inside the rounded corners */
+}
+
+/* Home hero: keep the stats bar clear of the first overlapping sheet */
+.hero--home {
+  padding-bottom: calc(clamp(1.25rem, 3vw, 2rem) + var(--sheet-overlap));
 }
 
 /* -------------------------------------------------------------------------
@@ -2914,8 +3084,14 @@ body.has-fullbleed-hero .site-header:not(.is-scrolled):not(.is-hidden) {
 .product-toolbar .product-filters { margin: 0; }
 
 /* Category chip on product cards is now a link to that category's page */
-a.product-card__cat {
-  text-decoration: none;
+/* The chip is a button that filters the catalog in place */
+button.product-card__cat {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  text-align: start;
   width: fit-content;
+  cursor: pointer;
 }
-a.product-card__cat:hover { text-decoration: underline; }
+button.product-card__cat:hover { text-decoration: underline; }

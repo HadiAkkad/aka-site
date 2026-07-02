@@ -20,6 +20,25 @@ const I18N = (() => {
     en: {
       // Accessibility
       "a11y.skip": "Skip to content",
+
+      // Home — hero badge & new sections
+      "home.hero.badge": "Trusted since 1998 — Damascus, Syria",
+      "home.process.eyebrow": "How we work",
+      "home.process.title": "From inquiry to installation",
+      "home.process.lead": "One accountable partner through the entire equipment lifecycle.",
+      "home.process.s1t": "Consult & specify",
+      "home.process.s1d": "We assess your clinical needs and prepare detailed specifications with a tailored quotation.",
+      "home.process.s2t": "Source & deliver",
+      "home.process.s2d": "Genuine, certified devices sourced directly from our international manufacturer partners.",
+      "home.process.s3t": "Install & train",
+      "home.process.s3d": "On-site installation and commissioning, plus hands-on training for your clinical staff.",
+      "home.process.s4t": "Support & maintain",
+      "home.process.s4d": "Maintenance, spare parts, and dependable local after-sales support for the long term.",
+      "home.partnersband.eyebrow": "Global sourcing",
+      "home.partnersband.title": "International manufacturers, one local partner",
+      "home.partnersband.lead": "AKA represents leading medical manufacturers across Europe and Asia — giving Syrian healthcare providers direct access to world-class equipment with local accountability.",
+      "home.partnersband.cta": "Meet our partners",
+      "catpage.eyebrow": "Device category",
       // Header / nav
       "nav.home": "Home",
       "nav.devices": "Devices",
@@ -829,6 +848,25 @@ const I18N = (() => {
     ar: {
       // Accessibility
       "a11y.skip": "تخطّي إلى المحتوى",
+
+      // Home — hero badge & new sections
+      "home.hero.badge": "موثوقون منذ 1998 — دمشق، سوريا",
+      "home.process.eyebrow": "كيف نعمل",
+      "home.process.title": "من الاستفسار إلى التركيب",
+      "home.process.lead": "شريك واحد مسؤول طوال دورة حياة التجهيزات الطبية.",
+      "home.process.s1t": "استشارة وتحديد المواصفات",
+      "home.process.s1d": "نقيّم احتياجاتكم السريرية ونعدّ مواصفات تفصيلية مع عرض سعر مخصّص.",
+      "home.process.s2t": "توريد وتسليم",
+      "home.process.s2d": "أجهزة أصلية معتمدة تُورَّد مباشرة من شركائنا المصنّعين العالميين.",
+      "home.process.s3t": "تركيب وتدريب",
+      "home.process.s3d": "تركيب وتشغيل في الموقع، مع تدريب عملي لكوادركم الطبية.",
+      "home.process.s4t": "دعم وصيانة",
+      "home.process.s4d": "صيانة وقطع غيار ودعم محلي موثوق لما بعد البيع على المدى الطويل.",
+      "home.partnersband.eyebrow": "توريد عالمي",
+      "home.partnersband.title": "مصنّعون عالميون، شريك محلي واحد",
+      "home.partnersband.lead": "تمثّل AKA كبرى الشركات المصنّعة للأجهزة الطبية في أوروبا وآسيا — ما يمنح مقدّمي الرعاية الصحية في سوريا وصولاً مباشراً إلى تجهيزات عالمية المستوى بمسؤولية محلية.",
+      "home.partnersband.cta": "تعرّف على شركائنا",
+      "catpage.eyebrow": "فئة الأجهزة",
       // Header / nav
       "nav.home": "الرئيسية",
       "nav.devices": "الأجهزة",

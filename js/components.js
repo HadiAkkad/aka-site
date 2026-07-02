@@ -390,38 +390,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* -------------------------------------------------------------------------
    Shared page fragments
-   Category pages contain <div data-shared="why-aka"></div> and
-   <div data-shared="cat-cta" data-quote-category="<slug>"></div> instead of
-   copy-pasting the same two sections into every file. Edit them ONCE here.
    ------------------------------------------------------------------------- */
 function buildSharedSections() {
-  const why = document.querySelector('[data-shared="why-aka"]');
-  if (why) {
-    why.outerHTML = `
-    <section class="section section--surface">
-      <div class="container">
-        <h2 data-i18n="diag.why.title">Why buy from AKA</h2>
-        <div class="grid grid--4 grid--gap-top">
-          <div class="feature"><h3 data-i18n="diag.why.certified.title">Certified products</h3><p data-i18n="diag.why.certified.text">Genuine devices that meet international quality and safety standards.</p></div>
-          <div class="feature"><h3 data-i18n="diag.why.install.title">Installation &amp; setup</h3><p data-i18n="diag.why.install.text">On-site installation and commissioning by trained technicians.</p></div>
-          <div class="feature"><h3 data-i18n="diag.why.training.title">Training</h3><p data-i18n="diag.why.training.text">Hands-on training for your clinical and biomedical staff.</p></div>
-          <div class="feature"><h3 data-i18n="diag.why.service.title">Service &amp; support</h3><p data-i18n="diag.why.service.text">Maintenance, spare parts, and dependable local after-sales support.</p></div>
-        </div>
-      </div>
-    </section>`;
-  }
-
-  const cta = document.querySelector('[data-shared="cat-cta"]');
-  if (cta) {
-    const category = cta.getAttribute("data-quote-category") || "";
-    cta.outerHTML = `
-    <section class="section center">
-      <div class="container">
-        <h2 data-i18n="catpage.cta.title">Interested in this category?</h2>
-        <p style="max-width:560px;margin:0 auto 1.75rem" data-i18n="catpage.cta.p">Contact AKA for product details, specifications, and a tailored quotation for your facility.</p>
-        <button class="btn" type="button" data-quote-open data-quote-category="${category}" data-i18n="catpage.cta.btn">Request a quote</button>
-      </div>
-    </section>`;
+  // Partner brand cloud (home) — rendered from the same PARTNERS array as
+  // the footer marquee, so the list lives in exactly one place.
+  const cloud = document.querySelector("[data-partner-cloud]");
+  if (cloud) {
+    cloud.innerHTML = [...new Set(PARTNERS)]
+      .map((p) => `<span class="partner-chip">${p}</span>`)
+      .join("");
   }
 }
 
