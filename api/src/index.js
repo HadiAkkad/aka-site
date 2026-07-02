@@ -15,7 +15,11 @@
 
 const ALLOWED_ORIGINS = [
   "https://aka1.hadi-alakkadd.workers.dev",
+  "https://hadiakkad.github.io",
+  // TODO: add the final custom domain here when it is purchased,
+  // e.g. "https://aka-group.com" and "https://www.aka-group.com"
   "http://localhost:8000",
+  "http://localhost:8123",
 ];
 
 function corsHeaders(origin) {
@@ -58,9 +62,43 @@ export default {
   },
 };
 
+/* Honeypot: the site's forms include a visually hidden "website" field.
+   Humans never see it; bots auto-fill it. If it has a value we pretend
+   success but store nothing, so the bot learns nothing. */
+function isSpam(form) {
+  return String(form.get("website") || "").trim() !== "";
+}
+
+/* Email notification for new submissions, so nothing sits unseen in D1.
+   Enabled by setting two secrets on the Worker (no code change needed):
+     wrangler secret put RESEND_API_KEY   (from https://resend.com — free tier)
+     wrangler secret put NOTIFY_EMAIL     (where notifications are sent)
+   Until both are set, this quietly does nothing. */
+async function notify(env, subject, text) {
+  if (!env.RESEND_API_KEY || !env.NOTIFY_EMAIL) return;
+  try {
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "AKA Website <onboarding@resend.dev>", // TODO: switch to no-reply@<domain> once the domain is verified in Resend
+        to: [env.NOTIFY_EMAIL],
+        subject,
+        text,
+      }),
+    });
+  } catch {
+    // Never fail the user's submission because the notification failed.
+  }
+}
+
 async function handleApply(request, env, origin) {
   try {
     const form = await request.formData();
+    if (isSpam(form)) return json({ ok: true }, 200, origin);
     const name = String(form.get("name") || "").trim();
     const email = String(form.get("email") || "").trim();
     const phone = String(form.get("phone") || "").trim();
@@ -92,6 +130,12 @@ async function handleApply(request, env, origin) {
       .bind(new Date().toISOString(), name, email, phone, position, message, cvKey, cvName)
       .run();
 
+    await notify(
+      env,
+      `New job application: ${position} — ${name}`,
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nPosition: ${position}\n\n${message}\n\nCV: ${cvName || "none"} (download from /admin)`
+    );
+
     return json({ ok: true }, 200, origin);
   } catch (err) {
     return json({ ok: false, error: "Server error." }, 500, origin);
@@ -101,6 +145,7 @@ async function handleApply(request, env, origin) {
 async function handleContact(request, env, origin) {
   try {
     const form = await request.formData();
+    if (isSpam(form)) return json({ ok: true }, 200, origin);
     const name = String(form.get("name") || "").trim();
     const email = String(form.get("email") || "").trim();
     const message = String(form.get("message") || "").trim();
@@ -114,6 +159,12 @@ async function handleContact(request, env, origin) {
     )
       .bind(new Date().toISOString(), name, email, message)
       .run();
+
+    await notify(
+      env,
+      `New website inquiry from ${name}`,
+      `Name: ${name}\nEmail: ${email}\n\n${message}`
+    );
 
     return json({ ok: true }, 200, origin);
   } catch (err) {

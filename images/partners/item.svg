@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120">
+  <rect width="300" height="120" fill="#ffffff"/>
+  <text x="150" y="74" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="bold" fill="#1a5276" letter-spacing="8">ITEM</text>
+  <rect x="90" y="88" width="120" height="5" fill="#228bc0"/>
+</svg>

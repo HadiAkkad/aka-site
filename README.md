@@ -389,3 +389,29 @@ version number in its references so visitors get the new version:
 ---
 
 Built as a plain, dependency-light site so it stays easy to edit and cheap to run.
+
+## When the custom domain is purchased (checklist)
+
+1. **Site URLs** — search-and-replace `https://aka1.hadi-alakkadd.workers.dev` with the new domain in:
+   - every `*.html` file (canonical + `og:url` + `og:image` + `twitter:image` + JSON-LD in `index.html`)
+   - `sitemap.xml` and `robots.txt`
+2. **API CORS** — add `https://<domain>` and `https://www.<domain>` to `ALLOWED_ORIGINS` in `api/src/index.js`, then redeploy the Worker.
+3. **Professional email** — set up `info@<domain>` (Cloudflare Email Routing is free) and replace `hadi.alakkadd@gmail.com` in the footer (`js/components.js`), `about.html`, `careers.html`, and the JSON-LD in `index.html`.
+4. **Form notifications** — create a free https://resend.com account, verify the domain, then:
+   ```
+   cd api
+   npx wrangler secret put RESEND_API_KEY
+   npx wrangler secret put NOTIFY_EMAIL
+   ```
+   Also change the `from:` address in `api/src/index.js` from `onboarding@resend.dev` to `no-reply@<domain>`.
+5. **Search Console** — add the domain to Google Search Console and submit `sitemap.xml`.
+6. **Analytics** — add Plausible or GA4 snippet to every page (or inject it from `js/components.js`).
+
+## Still to do (needs real content)
+
+- **Lectures page** — hidden from the nav until real videos exist; re-add `nav.lectures` in `js/components.js` (`NAV_LINKS`) when ready.
+- **Product catalog** — add more products to the `PRODUCTS` array in `js/products.js` (photos go in `images/devices/`).
+- **Certifications page** — collect CE/ISO certificates and manufacturer authorization letters, then build a page around them.
+- **Testimonials & case studies** — get quotes and photos from delivered hospital projects.
+- **Team section** — names, roles, and photos of key people for the About page.
+- **Verify project data** — confirm the bed counts / departments / equipment listed in `projects.html` are accurate.

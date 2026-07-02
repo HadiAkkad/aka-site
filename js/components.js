@@ -9,12 +9,14 @@
    ========================================================================= */
 
 // Navigation menu items (i18n key -> file). Labels come from js/i18n.js.
+// NOTE: lectures.html is intentionally hidden from the nav until it has real
+// video content — re-add { key: "nav.lectures", href: "lectures.html" } then.
 const NAV_LINKS = [
   { key: "nav.home",        href: "index.html" },
   { key: "nav.devices",     href: "devices.html" },
+  { key: "nav.products",    href: "products.html" },
   { key: "nav.partners",    href: "partners.html" },
   { key: "nav.projects",    href: "projects.html" },
-  { key: "nav.lectures",    href: "lectures.html" },
   { key: "nav.careers",     href: "careers.html" },
   { key: "nav.about",       href: "about.html" },
 ];
@@ -84,6 +86,9 @@ function buildQuoteModal() {
       <p class="quote-modal__sub" data-i18n="quote.subtitle">${I18N.t("quote.subtitle")}</p>
 
       <form class="quote-form" id="quote-form" novalidate>
+        <!-- Honeypot: invisible to humans; bots that fill it are dropped server-side -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off"
+          style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true" />
         <fieldset class="quote-fieldset">
           <legend data-i18n="quote.facility.legend">Facility information</legend>
           <div class="quote-grid">
@@ -221,9 +226,9 @@ function buildFooter() {
         <ul class="footer-links">
           <li><a href="devices.html" data-i18n="footer.devices">Devices</a></li>
           <li><a href="devices.html#categories" data-i18n="footer.categories">Categories</a></li>
+          <li><a href="products.html" data-i18n="footer.products">Products</a></li>
           <li><a href="partners.html" data-i18n="footer.partners">Partners</a></li>
           <li><a href="projects.html" data-i18n="footer.projects">Projects</a></li>
-          <li><a href="lectures.html" data-i18n="footer.lectures">Lectures</a></li>
           <li><a href="about.html" data-i18n="footer.about">About Us</a></li>
           <li><a href="careers.html" data-i18n="footer.careers">Careers</a></li>
         </ul>
@@ -302,6 +307,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inject the global quote modal BEFORE I18N.apply() so its text + the first
   // line item get translated in the same pass as the header and footer.
   document.body.insertAdjacentHTML("beforeend", buildQuoteModal());
+
+  // Floating WhatsApp button — the fastest contact channel for most visitors.
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `<a class="whatsapp-float" href="https://wa.me/963937322097" target="_blank" rel="noopener"
+       data-i18n-attr="aria-label:float.whatsapp" aria-label="${I18N.t("float.whatsapp")}">
+       <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.7C8.7 2.7 2.8 8.6 2.8 15.9c0 2.3.6 4.6 1.8 6.6L2.7 29.3l7-1.8c1.9 1 4.1 1.6 6.3 1.6 7.3 0 13.2-5.9 13.2-13.2S23.3 2.7 16 2.7zm0 24.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4.2 1.1 1.1-4-.3-.4a10.8 10.8 0 0 1-1.7-5.9C4.9 9.8 9.9 4.9 16 4.9s11.1 5 11.1 11.1S22.1 26.8 16 26.8zm6.1-8.2c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2.1-.4 0-.6-.1-.2-.7-1.8-1-2.4-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.4z"/></svg>
+     </a>`
+  );
 
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -418,6 +432,25 @@ function initQuoteModal() {
     if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
   });
 
+  // Focus trap: while the modal is open, Tab cycles within the dialog instead
+  // of escaping to the page behind it.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab" || !modal.classList.contains("is-open")) return;
+    const focusables = dialog.querySelectorAll(
+      'button, [href], input:not([tabindex="-1"]), select, textarea'
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
   // Add / remove line items.
   modal.addEventListener("click", (e) => {
     if (e.target.closest("[data-quote-add]")) {
@@ -470,6 +503,7 @@ function initQuoteModal() {
     payload.append("name", name);
     payload.append("email", email);
     payload.append("message", message);
+    payload.append("website", get("website")); // honeypot passthrough
 
     submitBtn.disabled = true;
     status.className = "form-status";

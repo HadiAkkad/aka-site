@@ -27,6 +27,20 @@ const I18N = (() => {
       "nav.about": "About",
       "nav.support": "Services",
       "nav.careers": "Careers",
+      "nav.products": "Products",
+      "notfound.eyebrow": "Error 404",
+      "notfound.title": "Page not found",
+      "notfound.text": "The page you're looking for doesn't exist or has moved. Try the homepage or browse our devices.",
+      "notfound.home": "Back to homepage",
+      "footer.products": "Products",
+      "float.whatsapp": "Chat with us on WhatsApp",
+      "products.hero.h1": "Product Catalog",
+      "products.hero.lead": "Browse the devices AKA supplies and services across Syria — filter by clinical category and request a quotation for any product.",
+      "products.filter.all": "All categories",
+      "products.empty": "No products in this category yet — contact us and we will source it for you.",
+      "products.quote": "Request a quote",
+      "products.note.title": "Don't see what you need?",
+      "products.note.text": "This catalog shows a selection of our portfolio. Through our manufacturer partnerships we can source virtually any certified medical device — send us an inquiry.",
       "nav.lectures": "Lectures",
       "lang.toggle": "العربية",
       "lang.toggleLabel": "التبديل إلى العربية",
@@ -104,7 +118,7 @@ const I18N = (() => {
 
       // Home — stats bar
       "home.stats.years.label": "Years of experience",
-      "home.stats.hospitals.label": "Hospitals delivered",
+      "home.stats.hospitals.label": "Hospitals equipped",
       "home.stats.partners.label": "International partners",
       "home.stats.ngo.label": "NGO & UN partnerships",
 
@@ -240,7 +254,7 @@ const I18N = (() => {
       // ---- Timeline (About) ----
       "about.timeline.eyebrow": "Our story",
       "about.timeline.title": "Our journey",
-      "tl.1950": "AKA Group founded",
+      "tl.1950": "Al-Akkad family business founded",
       "tl.1960": "Family business — construction industries",
       "tl.1962": "AKA fabric stores",
       "tl.1997": "Tenders, import contracts & water-purification plants",
@@ -818,6 +832,20 @@ const I18N = (() => {
       "nav.about": "من نحن",
       "nav.support": "خدماتنا",
       "nav.careers": "الوظائف",
+      "nav.products": "المنتجات",
+      "notfound.eyebrow": "خطأ 404",
+      "notfound.title": "الصفحة غير موجودة",
+      "notfound.text": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها. جرّب الصفحة الرئيسية أو تصفّح أجهزتنا.",
+      "notfound.home": "العودة إلى الصفحة الرئيسية",
+      "footer.products": "المنتجات",
+      "float.whatsapp": "تواصل معنا عبر واتساب",
+      "products.hero.h1": "كتالوج المنتجات",
+      "products.hero.lead": "تصفّح الأجهزة التي تورّدها وتصونها AKA في جميع أنحاء سوريا — صفِّ حسب الفئة السريرية واطلب عرض سعر لأي منتج.",
+      "products.filter.all": "جميع الفئات",
+      "products.empty": "لا توجد منتجات في هذه الفئة بعد — تواصل معنا وسنؤمّنها لك.",
+      "products.quote": "اطلب عرض سعر",
+      "products.note.title": "لم تجد ما تبحث عنه؟",
+      "products.note.text": "يعرض هذا الكتالوج مختارات من محفظتنا. من خلال شراكاتنا مع الشركات المصنّعة يمكننا تأمين أي جهاز طبي معتمد تقريباً — أرسل لنا استفسارك.",
       "nav.lectures": "محاضرات",
       "lang.toggle": "EN",
       "lang.toggleLabel": "Switch to English",
@@ -1030,7 +1058,7 @@ const I18N = (() => {
       // ---- Timeline (About) ----
       "about.timeline.eyebrow": "قصتنا",
       "about.timeline.title": "مسيرتنا",
-      "tl.1950": "تأسّست مجموعة AKA",
+      "tl.1950": "تأسّست أعمال عائلة العقّاد",
       "tl.1960": "أعمال عائلية صناعات الإنشاء",
       "tl.1962": "متاجر AKA للأقمشة",
       "tl.1997": "المناقصات وعقود الاستيراد ومحطات تنقية المياه",
@@ -1646,16 +1674,9 @@ const I18N = (() => {
     set(getLang() === "ar" ? "en" : "ar");
   }
 
-  // Inject the Cairo Arabic font once.
-  function ensureArabicFont() {
-    if (document.getElementById("aka-ar-font")) return;
-    const link = document.createElement("link");
-    link.id = "aka-ar-font";
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }
+  // Cairo is self-hosted via @font-face in css/style.css (fonts/cairo-*.woff2),
+  // so no external stylesheet needs to be injected anymore.
+  function ensureArabicFont() {}
 
   return { t, apply, set, toggle, getLang };
 })();

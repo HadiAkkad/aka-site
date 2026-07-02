@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Update this URL when the custom domain is live
+Sitemap: https://aka1.hadi-alakkadd.workers.dev/sitemap.xml
