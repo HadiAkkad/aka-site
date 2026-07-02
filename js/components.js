@@ -797,6 +797,10 @@ function initSectionMotion() {
   if (reduceMotion) return;
   if (!(window.Motion && window.Motion.scroll)) return;
 
+  // object-position updates repaint on every scroll frame — cheap on desktop
+  // GPUs, janky on phones. Parallax is desktop-only by design.
+  if (window.matchMedia("(hover: none)").matches || window.innerWidth <= 860) return;
+
   const { scroll } = window.Motion;
 
   // Cover-images that sit inside an overflow-hidden frame. Limited to images
