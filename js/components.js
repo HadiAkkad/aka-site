@@ -302,9 +302,25 @@ document.addEventListener("DOMContentLoaded", () => {
   if (headerSlot) headerSlot.innerHTML = buildHeader();
   if (footerSlot) footerSlot.innerHTML = buildFooter();
 
+  // Skip link for keyboard users — jumps past the injected header/nav.
+  const main = document.querySelector("main");
+  if (main) {
+    if (!main.id) main.id = "main";
+    main.setAttribute("tabindex", "-1");
+    document.body.insertAdjacentHTML(
+      "afterbegin",
+      `<a class="skip-link" href="#${main.id}" data-i18n="a11y.skip">${I18N.t("a11y.skip")}</a>`
+    );
+  }
+
   // Inject the global quote modal BEFORE I18N.apply() so its text + the first
   // line item get translated in the same pass as the header and footer.
   document.body.insertAdjacentHTML("beforeend", buildQuoteModal());
+
+  // Shared page fragments (category "Why buy" + CTA sections, NGO strip
+  // repetitions) are built here so no page carries copy-pasted blocks.
+  buildSharedSections();
+  expandNgoStrip();
 
   // Floating WhatsApp button — the fastest contact channel for most visitors.
   document.body.insertAdjacentHTML(
@@ -371,6 +387,64 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* -------------------------------------------------------------------------
+   Shared page fragments
+   Category pages contain <div data-shared="why-aka"></div> and
+   <div data-shared="cat-cta" data-quote-category="<slug>"></div> instead of
+   copy-pasting the same two sections into every file. Edit them ONCE here.
+   ------------------------------------------------------------------------- */
+function buildSharedSections() {
+  const why = document.querySelector('[data-shared="why-aka"]');
+  if (why) {
+    why.outerHTML = `
+    <section class="section section--surface">
+      <div class="container">
+        <h2 data-i18n="diag.why.title">Why buy from AKA</h2>
+        <div class="grid grid--4 grid--gap-top">
+          <div class="feature"><h3 data-i18n="diag.why.certified.title">Certified products</h3><p data-i18n="diag.why.certified.text">Genuine devices that meet international quality and safety standards.</p></div>
+          <div class="feature"><h3 data-i18n="diag.why.install.title">Installation &amp; setup</h3><p data-i18n="diag.why.install.text">On-site installation and commissioning by trained technicians.</p></div>
+          <div class="feature"><h3 data-i18n="diag.why.training.title">Training</h3><p data-i18n="diag.why.training.text">Hands-on training for your clinical and biomedical staff.</p></div>
+          <div class="feature"><h3 data-i18n="diag.why.service.title">Service &amp; support</h3><p data-i18n="diag.why.service.text">Maintenance, spare parts, and dependable local after-sales support.</p></div>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  const cta = document.querySelector('[data-shared="cat-cta"]');
+  if (cta) {
+    const category = cta.getAttribute("data-quote-category") || "";
+    cta.outerHTML = `
+    <section class="section center">
+      <div class="container">
+        <h2 data-i18n="catpage.cta.title">Interested in this category?</h2>
+        <p style="max-width:560px;margin:0 auto 1.75rem" data-i18n="catpage.cta.p">Contact AKA for product details, specifications, and a tailored quotation for your facility.</p>
+        <button class="btn" type="button" data-quote-open data-quote-category="${category}" data-i18n="catpage.cta.btn">Request a quote</button>
+      </div>
+    </section>`;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   NGO partners strip (home hero)
+   index.html contains ONE set of logos; we clone it so the CSS marquee's
+   seamless -50% loop always spans past the viewport edge on wide screens.
+   ------------------------------------------------------------------------- */
+function expandNgoStrip() {
+  const track = document.querySelector(".ngo-strip__track");
+  if (!track || track.dataset.expanded) return;
+  track.dataset.expanded = "true";
+
+  const set = [...track.children];
+  if (set.length === 0) return;
+
+  const SETS = 8; // 4 sets per half × 2 identical halves for the loop
+  const frag = document.createDocumentFragment();
+  for (let i = 1; i < SETS; i++) {
+    set.forEach((logo) => frag.appendChild(logo.cloneNode(true)));
+  }
+  track.appendChild(frag);
+}
 
 /* -------------------------------------------------------------------------
    Quote / RFQ modal
@@ -662,6 +736,48 @@ function initScrollReveal() {
     return;
   }
 
+  // Motion path: spring-physics reveals with a per-grid stagger.
+  if (window.Motion && window.Motion.inView && window.Motion.animate) {
+    const { inView, animate } = window.Motion;
+    const targetSet = new Set(targets);
+
+    targets.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(28px)";
+    });
+
+    targets.forEach((el) => {
+      inView(
+        el,
+        () => {
+          // Stagger items that share a parent (e.g. cards in a grid).
+          const siblings = Array.from(el.parentElement.children).filter((c) =>
+            targetSet.has(c)
+          );
+          const index = Math.max(siblings.indexOf(el), 0);
+          animate(
+            el,
+            { opacity: 1, transform: "translateY(0px)" },
+            {
+              delay: Math.min(index, 6) * 0.07,
+              type: "spring",
+              stiffness: 110,
+              damping: 18,
+              // Opacity shouldn't spring — fade it on a short ease-out.
+              opacity: { duration: 0.45, ease: "easeOut" },
+            }
+          );
+          // No cleanup returned → each element animates once, then unobserves.
+        },
+        // The huge top margin counts anything ALREADY SCROLLED PAST as "in
+        // view", so content never stays hidden after an instant jump
+        // (End key, anchor links, fast flicks).
+        { margin: "10000px 0px -10% 0px", amount: 0.15 }
+      );
+    });
+    return;
+  }
+
   targets.forEach((el) => el.classList.add("reveal"));
 
   const observer = new IntersectionObserver(
@@ -678,7 +794,8 @@ function initScrollReveal() {
         obs.unobserve(entry.target);
       });
     },
-    { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+    // Top margin covers content already scrolled past (see Motion path above).
+    { threshold: 0.15, rootMargin: "10000px 0px -10% 0px" }
   );
 
   targets.forEach((el) => observer.observe(el));
@@ -711,6 +828,19 @@ function initStatsCounter() {
   function animate(el) {
     const target = parseInt(el.dataset.count, 10);
     const suffix = el.dataset.suffix || "";
+
+    // Motion path: tween the raw value with a long decelerating ease.
+    if (window.Motion && window.Motion.animate) {
+      window.Motion.animate(0, target, {
+        duration: DURATION / 1000 + 0.4,
+        ease: [0.16, 1, 0.3, 1],
+        onUpdate: (v) => {
+          el.textContent = `${Math.round(v)}${suffix}`;
+        },
+      });
+      return;
+    }
+
     const start = performance.now();
 
     function tick(now) {
@@ -732,7 +862,8 @@ function initStatsCounter() {
         obs.unobserve(entry.target);
       });
     },
-    { threshold: 0.4 }
+    // Top margin: stats scrolled past in one jump still get their final value.
+    { threshold: 0.4, rootMargin: "10000px 0px 0px 0px" }
   );
 
   stats.forEach((el) => observer.observe(el));

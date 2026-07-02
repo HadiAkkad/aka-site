@@ -18,6 +18,8 @@ const I18N = (() => {
 
   const dict = {
     en: {
+      // Accessibility
+      "a11y.skip": "Skip to content",
       // Header / nav
       "nav.home": "Home",
       "nav.devices": "Devices",
@@ -825,6 +827,8 @@ const I18N = (() => {
     },
 
     ar: {
+      // Accessibility
+      "a11y.skip": "تخطّي إلى المحتوى",
       // Header / nav
       "nav.home": "الرئيسية",
       "nav.devices": "الأجهزة",

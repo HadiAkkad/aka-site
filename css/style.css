@@ -1284,9 +1284,19 @@ body.nav-locked { overflow: hidden; }
 }
 .feature:hover { transform: translateY(-6px); }
 
-/* Buttons lift slightly on hover (adds to existing color transition) */
+/* Buttons lift slightly on hover; compress on press (HIG scale feedback) */
 .btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
+.btn:active { transform: translateY(0) scale(0.97); }
+
+/* Tappable cards compress slightly on press */
+.hospital-card:active, .card:active { transform: scale(0.98); }
+
+/* Kill the 300ms tap delay on touch devices */
+a, button, input, select, textarea, [data-quote-open] { touch-action: manipulation; }
+button { cursor: pointer; }
+
+/* Stats: tabular figures so the numbers don't jitter while counting up */
+.stat__number { font-variant-numeric: tabular-nums; }
 
 /* Image cards zoom subtly on hover */
 .card img { transition: transform 0.5s ease; }
@@ -1302,6 +1312,38 @@ body.nav-locked { overflow: hidden; }
 /* -------------------------------------------------------------------------
    12. ACCESSIBILITY
    ------------------------------------------------------------------------- */
+/* Skip link (injected by js/components.js) — hidden until focused */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 1000;
+  background: var(--color-ink);
+  color: var(--color-white);
+  padding: 0.6em 1.4em;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  transform: translateY(-250%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus-visible {
+  transform: none;
+  outline: 3px solid var(--color-cta-light);
+  outline-offset: 2px;
+}
+main:focus { outline: none; } /* focus target of the skip link */
+
+/* Visible focus ring on every interactive element (WCAG 2.4.7) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-cta-dark);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation: none !important;
