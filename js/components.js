@@ -592,6 +592,9 @@ function initStickyHeader() {
 
   const SCROLLED_AT = 80;   // px scrolled before the compact style kicks in
   const HIDE_AFTER = 200;   // don't hide until we're well past the top
+  const MIN_DELTA = 12;     // ignore smaller moves — mobile momentum scroll and
+                            // the collapsing URL bar emit tiny alternating
+                            // deltas that would make the header flicker in/out
   let lastY = window.scrollY;
   let ticking = false;
 
@@ -601,15 +604,22 @@ function initStickyHeader() {
     header.classList.toggle("is-scrolled", y > SCROLLED_AT);
 
     const menuOpen = nav && nav.classList.contains("is-open");
-    const scrollingDown = y > lastY;
+    const delta = y - lastY;
 
-    if (!menuOpen && y > HIDE_AFTER && scrollingDown) {
-      header.classList.add("is-hidden");
-    } else if (!scrollingDown || y <= HIDE_AFTER) {
+    if (y <= HIDE_AFTER) {
       header.classList.remove("is-hidden");
+      lastY = y;
+    } else if (Math.abs(delta) >= MIN_DELTA) {
+      // lastY only advances on a real move, so sub-threshold deltas
+      // accumulate instead of being silently swallowed.
+      if (!menuOpen && delta > 0) {
+        header.classList.add("is-hidden");
+      } else {
+        header.classList.remove("is-hidden");
+      }
+      lastY = y;
     }
 
-    lastY = y;
     ticking = false;
   }
 
@@ -716,8 +726,15 @@ function initScrollReveal() {
     return;
   }
 
+  // Phones: skip the Motion spring path. Springs write inline styles from JS
+  // on every frame for many elements at once — that competes with scrolling
+  // on the main thread (lag) and the overshoot reads as wobble. The CSS
+  // fallback below animates via compositor-friendly transitions instead.
+  const coarsePointer =
+    window.matchMedia("(hover: none)").matches || window.innerWidth <= 860;
+
   // Motion path: spring-physics reveals with a per-grid stagger.
-  if (window.Motion && window.Motion.inView && window.Motion.animate) {
+  if (!coarsePointer && window.Motion && window.Motion.inView && window.Motion.animate) {
     const { inView, animate } = window.Motion;
     const targetSet = new Set(targets);
 

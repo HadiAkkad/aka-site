@@ -1282,7 +1282,9 @@ body.nav-locked { overflow: hidden; }
   transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
-.reveal.is-visible { opacity: 1; transform: none; }
+/* Release the compositor layer once revealed — dozens of permanent
+   will-change layers eat GPU memory and cause jank on phones. */
+.reveal.is-visible { opacity: 1; transform: none; will-change: auto; }
 
 /* Hero entrance (plays once on load) */
 .hero h1,
