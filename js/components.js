@@ -9,13 +9,13 @@
    ========================================================================= */
 
 // Navigation menu items (i18n key -> file). Labels come from js/i18n.js.
-// NOTE: lectures.html is intentionally hidden from the nav until it has real
-// video content — re-add { key: "nav.lectures", href: "lectures.html" } then.
 const NAV_LINKS = [
   { key: "nav.home",        href: "index.html" },
   { key: "nav.devices",     href: "devices.html" },
   { key: "nav.partners",    href: "partners.html" },
   { key: "nav.projects",    href: "projects.html" },
+  { key: "nav.lectures",    href: "lectures.html" },
+  { key: "nav.docs",        href: "documentation.html" },
   { key: "nav.careers",     href: "careers.html" },
   { key: "nav.about",       href: "about.html" },
 ];
@@ -227,6 +227,8 @@ function buildFooter() {
           <li><a href="devices.html#catalog" data-i18n="footer.products">Products</a></li>
           <li><a href="partners.html" data-i18n="footer.partners">Partners</a></li>
           <li><a href="projects.html" data-i18n="footer.projects">Projects</a></li>
+          <li><a href="lectures.html" data-i18n="footer.lectures">Lectures</a></li>
+          <li><a href="documentation.html" data-i18n="footer.docs">Documentation</a></li>
           <li><a href="about.html" data-i18n="footer.about">About Us</a></li>
           <li><a href="careers.html" data-i18n="footer.careers">Careers</a></li>
         </ul>

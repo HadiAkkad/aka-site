@@ -4,193 +4,100 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1d2b36" />
-  <title>Lectures &amp; Presentations — AKA</title>
-  <meta name="description" content="Watch AKA's recorded presentations, tutorials, and webinars covering medical equipment use, maintenance, and best practice." />
-  <link rel="stylesheet" href="css/style.css?v=20" />
+  <title>Lectures &amp; Training Videos — AKA</title>
+  <meta name="description" content="Recorded lectures, product presentations, tutorials, and webinars from the AKA team — equipment use, maintenance, and best practice for healthcare staff in Syria." />
+  <link rel="stylesheet" href="css/style.css?v=21" />
   <!-- Social sharing & SEO (update base URL when the custom domain is live) -->
   <link rel="canonical" href="https://aka1.hadi-alakkadd.workers.dev/lectures.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AKA Associates" />
-  <meta property="og:title" content="Lectures &amp; Presentations — AKA" />
-  <meta property="og:description" content="Watch AKA's recorded presentations, tutorials, and webinars covering medical equipment use, maintenance, and best practice." />
+  <meta property="og:title" content="Lectures &amp; Training Videos — AKA" />
+  <meta property="og:description" content="Recorded lectures, product presentations, tutorials, and webinars from the AKA team — equipment use, maintenance, and best practice for healthcare staff in Syria." />
   <meta property="og:url" content="https://aka1.hadi-alakkadd.workers.dev/lectures.html" />
-  <meta property="og:image" content="https://aka1.hadi-alakkadd.workers.dev/images/random/herohome4.jpg" />
+  <meta property="og:image" content="https://aka1.hadi-alakkadd.workers.dev/images/cats/lab.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lectures &amp; Presentations — AKA" />
-  <meta name="twitter:description" content="Watch AKA's recorded presentations, tutorials, and webinars covering medical equipment use, maintenance, and best practice." />
-  <meta name="twitter:image" content="https://aka1.hadi-alakkadd.workers.dev/images/random/herohome4.jpg" />
+  <meta name="twitter:title" content="Lectures &amp; Training Videos — AKA" />
+  <meta name="twitter:description" content="Recorded lectures, product presentations, tutorials, and webinars from the AKA team — equipment use, maintenance, and best practice for healthcare staff in Syria." />
+  <meta name="twitter:image" content="https://aka1.hadi-alakkadd.workers.dev/images/cats/lab.jpg" />
   <link rel="icon" href="images/aka-logo-vector.svg?v=7" type="image/svg+xml" />
   <link rel="alternate icon" href="images/aka-logo.png" type="image/png" />
 </head>
-<body data-page="lectures.html">
+<body data-page="lectures.html" class="has-fullbleed-hero">
   <div id="site-header"></div>
 
   <main>
-    <section class="hero">
-      <div class="container center" style="max-width:var(--maxw-narrow)">
+    <!-- FULL-BLEED HERO (hero--devices supplies the overlay stack; hero--lectures
+         swaps in this page's photo — see the override near the end of style.css) -->
+    <section class="hero hero--devices hero--lectures">
+      <div class="container hero__content">
         <h1 data-i18n="lectures.hero.h1">Lectures &amp; Presentations</h1>
-        <p class="lead center" data-i18n="lectures.hero.lead">Recorded talks, product walkthroughs, and training sessions from the AKA team — covering equipment use, maintenance, and best practice for hospital staff.</p>
-        <a class="btn" href="#library" data-i18n="lectures.hero.cta">Browse the library</a>
+        <p class="lead" data-i18n="lectures.hero.lead">Recorded talks, product walkthroughs, and training sessions from the AKA team — covering equipment use, maintenance, and best practice for hospital staff.</p>
+        <a class="btn btn--on-dark" href="#library" data-i18n="lectures.hero.cta">Browse the library</a>
       </div>
     </section>
 
-    <!-- INTRO -->
+    <!-- WHAT'S IN THE LIBRARY -->
     <section class="section">
-      <div class="container center">
+      <div class="container">
         <p class="eyebrow center" data-i18n="lectures.intro.eyebrow">Knowledge hub</p>
         <h2 class="center heading-accent" data-i18n="lectures.intro.title">Watch &amp; learn</h2>
         <p class="center measure-center" data-i18n="lectures.intro.lead">A growing library of presentations, tutorials, and webinars — built for clinicians, biomedical engineers, and procurement teams who work with our equipment every day.</p>
-      </div>
-    </section>
 
-    <!-- FEATURED VIDEO -->
-    <section class="section section--surface" style="padding-top:0">
-      <div class="container">
-        <div class="lecture-featured">
-          <!-- TODO: set data-video-src to the featured video's file/URL, and
-               swap .lecture-placeholder-thumb for a real <img> cover photo. -->
-          <button class="lecture-featured__media" type="button"
-            data-video-src="" data-video-type="video"
-            data-video-title="Featured video title" aria-label="Play featured video">
-            <span class="lecture-placeholder-thumb">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4Z" opacity="0"/><path d="M8 7v10l9-5Z"/></svg>
-            </span>
-            <span class="lecture-play">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg>
-            </span>
-          </button>
-          <div class="lecture-featured__info">
-            <span class="lecture-tag" data-i18n="lectures.featured.tag">Featured</span>
-            <h3 data-i18n="lectures.featured.title">Featured video title</h3>
-            <p data-i18n="lectures.featured.text">A short description of the featured video goes here — what it covers and who it's for.</p>
+        <div class="grid grid--3 grid--gap-top">
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v11H4Z"/><path d="M12 15v4M8 19h8"/></svg>
+            </div>
+            <h3 data-i18n="lectures.types.presentation.title">Presentations</h3>
+            <p data-i18n="lectures.types.presentation.text">Conference talks and product presentations from our team and manufacturer partners.</p>
+          </div>
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M8 6v12l10-6Z"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <h3 data-i18n="lectures.types.tutorial.title">Tutorials</h3>
+            <p data-i18n="lectures.types.tutorial.text">Step-by-step device walkthroughs — setup, operation, and day-to-day maintenance.</p>
+          </div>
+          <div class="feature center">
+            <div class="icon-circle">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+            </div>
+            <h3 data-i18n="lectures.types.webinar.title">Webinars</h3>
+            <p data-i18n="lectures.types.webinar.text">Recorded online sessions for clinicians, engineers, and procurement teams.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- LIBRARY -->
-    <section class="section" id="library" style="padding-top:0">
+    <!-- LIBRARY (featured panel + filterable grid, rendered by js/lectures.js
+         from the LECTURES array — that file explains how to add a video) -->
+    <section class="section section--surface" id="library">
       <div class="container">
-        <p class="eyebrow center" data-i18n="lectures.intro.eyebrow">Knowledge hub</p>
-        <h2 class="center heading-accent" data-i18n="lectures.intro.title">Watch &amp; learn</h2>
+        <p class="eyebrow center" data-i18n="lectures.library.eyebrow">Video library</p>
+        <h2 class="center heading-accent" data-i18n="lectures.library.title">Browse the lectures</h2>
 
-        <div class="lecture-filters">
+        <div id="lecture-featured-slot"></div>
+
+        <div class="lecture-filters" id="lecture-filters" style="display:none">
           <button class="lecture-filter is-active" type="button" data-filter="all" data-i18n="lectures.filter.all">All</button>
           <button class="lecture-filter" type="button" data-filter="presentation" data-i18n="lectures.filter.presentation">Presentations</button>
           <button class="lecture-filter" type="button" data-filter="tutorial" data-i18n="lectures.filter.tutorial">Tutorials</button>
           <button class="lecture-filter" type="button" data-filter="webinar" data-i18n="lectures.filter.webinar">Webinars</button>
         </div>
 
-        <!-- Each card below is a blank placeholder. To add a real video:
-             1. Set data-video-src on the .lecture-card__media button
-                (and data-video-type="iframe" if it's a YouTube/Vimeo embed URL).
-             2. Replace .lecture-placeholder-thumb with a real <img> thumbnail.
-             3. Fill in the title, speaker/date, and duration badge text.
-             4. data-category must be "presentation", "tutorial", or "webinar"
-                so the filter buttons above work. -->
-        <div class="lecture-grid">
-
-          <article class="lecture-card" data-category="presentation">
-            <button class="lecture-card__media" type="button"
-              data-video-src="" data-video-type="video" data-video-title="Video title placeholder">
-              <span class="lecture-placeholder-thumb">
-                <svg viewBox="0 0 24 24"><path d="M8 7v10l9-5Z"/></svg>
-              </span>
-              <span class="lecture-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg></span>
-              <span class="lecture-card__duration">00:00</span>
-            </button>
-            <div class="lecture-card__body">
-              <span class="lecture-card__tag" data-i18n="lectures.tag.presentation">Presentation</span>
-              <h3 class="lecture-card__title" data-i18n="lectures.card.title">Video title placeholder</h3>
-              <p class="lecture-card__meta" data-i18n="lectures.card.meta">Speaker name · Date</p>
-            </div>
-          </article>
-
-          <article class="lecture-card" data-category="tutorial">
-            <button class="lecture-card__media" type="button"
-              data-video-src="" data-video-type="video" data-video-title="Video title placeholder">
-              <span class="lecture-placeholder-thumb">
-                <svg viewBox="0 0 24 24"><path d="M8 7v10l9-5Z"/></svg>
-              </span>
-              <span class="lecture-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg></span>
-              <span class="lecture-card__duration">00:00</span>
-            </button>
-            <div class="lecture-card__body">
-              <span class="lecture-card__tag" data-i18n="lectures.tag.tutorial">Tutorial</span>
-              <h3 class="lecture-card__title" data-i18n="lectures.card.title">Video title placeholder</h3>
-              <p class="lecture-card__meta" data-i18n="lectures.card.meta">Speaker name · Date</p>
-            </div>
-          </article>
-
-          <article class="lecture-card" data-category="webinar">
-            <button class="lecture-card__media" type="button"
-              data-video-src="" data-video-type="video" data-video-title="Video title placeholder">
-              <span class="lecture-placeholder-thumb">
-                <svg viewBox="0 0 24 24"><path d="M8 7v10l9-5Z"/></svg>
-              </span>
-              <span class="lecture-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg></span>
-              <span class="lecture-card__duration">00:00</span>
-            </button>
-            <div class="lecture-card__body">
-              <span class="lecture-card__tag" data-i18n="lectures.tag.webinar">Webinar</span>
-              <h3 class="lecture-card__title" data-i18n="lectures.card.title">Video title placeholder</h3>
-              <p class="lecture-card__meta" data-i18n="lectures.card.meta">Speaker name · Date</p>
-            </div>
-          </article>
-
-          <article class="lecture-card" data-category="presentation">
-            <button class="lecture-card__media" type="button"
-              data-video-src="" data-video-type="video" data-video-title="Video title placeholder">
-              <span class="lecture-placeholder-thumb">
-                <svg viewBox="0 0 24 24"><path d="M8 7v10l9-5Z"/></svg>
-              </span>
-              <span class="lecture-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg></span>
-              <span class="lecture-card__duration">00:00</span>
-            </button>
-            <div class="lecture-card__body">
-              <span class="lecture-card__tag" data-i18n="lectures.tag.presentation">Presentation</span>
-              <h3 class="lecture-card__title" data-i18n="lectures.card.title">Video title placeholder</h3>
-              <p class="lecture-card__meta" data-i18n="lectures.card.meta">Speaker name · Date</p>
-            </div>
-          </article>
-
-          <article class="lecture-card" data-category="tutorial">
-            <button class="lecture-card__media" type="button"
-              data-video-src="" data-video-type="video" data-video-title="Video title placeholder">
-              <span class="lecture-placeholder-thumb">
-                <svg viewBox="0 0 24 24"><path d="M8 7v10l9-5Z"/></svg>
-              </span>
-              <span class="lecture-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg></span>
-              <span class="lecture-card__duration">00:00</span>
-            </button>
-            <div class="lecture-card__body">
-              <span class="lecture-card__tag" data-i18n="lectures.tag.tutorial">Tutorial</span>
-              <h3 class="lecture-card__title" data-i18n="lectures.card.title">Video title placeholder</h3>
-              <p class="lecture-card__meta" data-i18n="lectures.card.meta">Speaker name · Date</p>
-            </div>
-          </article>
-
-          <article class="lecture-card" data-category="webinar">
-            <button class="lecture-card__media" type="button"
-              data-video-src="" data-video-type="video" data-video-title="Video title placeholder">
-              <span class="lecture-placeholder-thumb">
-                <svg viewBox="0 0 24 24"><path d="M8 7v10l9-5Z"/></svg>
-              </span>
-              <span class="lecture-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg></span>
-              <span class="lecture-card__duration">00:00</span>
-            </button>
-            <div class="lecture-card__body">
-              <span class="lecture-card__tag" data-i18n="lectures.tag.webinar">Webinar</span>
-              <h3 class="lecture-card__title" data-i18n="lectures.card.title">Video title placeholder</h3>
-              <p class="lecture-card__meta" data-i18n="lectures.card.meta">Speaker name · Date</p>
-            </div>
-          </article>
-
-        </div>
+        <div class="lecture-grid" id="lecture-grid"></div>
         <p class="lecture-empty" style="display:none" data-i18n="lectures.empty">No videos in this category yet — check back soon.</p>
+
+        <!-- Shown instead of the grid while the LECTURES array is still empty -->
+        <div class="library-soon" id="lecture-soon" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M10 9v6l5-3Z"/></svg>
+          <h3 data-i18n="lectures.soon.title">The library is being prepared</h3>
+          <p data-i18n="lectures.soon.text">We're recording and editing the first sessions now — check back soon, or send us a topic you'd like covered.</p>
+        </div>
       </div>
     </section>
 
+    <!-- TOPIC REQUEST -->
     <section class="section section--dark center">
       <div class="container">
         <h2 data-i18n="lectures.cta.title">Have a topic you'd like covered?</h2>
@@ -211,9 +118,9 @@
   </div>
 
   <div id="site-footer"></div>
-  <script src="js/i18n.js?v=10"></script>
+  <script src="js/i18n.js?v=11"></script>
   <script src="js/vendor/motion.min.js?v=1"></script>
-  <script src="js/components.js?v=16"></script>
-  <script src="js/lectures.js?v=1"></script>
+  <script src="js/components.js?v=17"></script>
+  <script src="js/lectures.js?v=2"></script>
 </body>
 </html>

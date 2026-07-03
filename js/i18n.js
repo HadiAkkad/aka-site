@@ -65,6 +65,7 @@ const I18N = (() => {
       "products.note.title": "Don't see what you need?",
       "products.note.text": "This catalog shows a selection of our portfolio. Through our manufacturer partnerships we can source virtually any certified medical device — send us an inquiry.",
       "nav.lectures": "Lectures",
+      "nav.docs": "Documentation",
       "lang.toggle": "العربية",
       "lang.toggleLabel": "التبديل إلى العربية",
 
@@ -79,6 +80,7 @@ const I18N = (() => {
       "footer.partners": "Partners",
       "footer.projects": "Projects",
       "footer.lectures": "Lectures",
+      "footer.docs": "Documentation",
       "footer.about": "About",
       "footer.support": "Services",
       "footer.careers": "Careers",
@@ -409,6 +411,46 @@ const I18N = (() => {
       "lectures.cta.title": "Have a topic you'd like covered?",
       "lectures.cta.p": "Get in touch and we'll consider it for an upcoming session.",
       "lectures.cta.btn": "Contact us",
+      "lectures.types.presentation.title": "Presentations",
+      "lectures.types.presentation.text":
+        "Conference talks and product presentations from our team and manufacturer partners.",
+      "lectures.types.tutorial.title": "Tutorials",
+      "lectures.types.tutorial.text":
+        "Step-by-step device walkthroughs — setup, operation, and day-to-day maintenance.",
+      "lectures.types.webinar.title": "Webinars",
+      "lectures.types.webinar.text":
+        "Recorded online sessions for clinicians, engineers, and procurement teams.",
+      "lectures.library.eyebrow": "Video library",
+      "lectures.library.title": "Browse the lectures",
+      "lectures.soon.title": "The library is being prepared",
+      "lectures.soon.text":
+        "We're recording and editing the first sessions now — check back soon, or send us a topic you'd like covered.",
+
+      // Documentation page
+      "docs.hero.h1": "Documentation",
+      "docs.hero.lead":
+        "Company documents, certifications, device user manuals, and product catalogs — all in one place, ready to view or download.",
+      "docs.hero.cta": "Browse documents",
+      "docs.library.eyebrow": "Document center",
+      "docs.library.title": "Browse & download",
+      "docs.library.lead":
+        "Official AKA documents in PDF format — open them in your browser or save them for tenders, audits, and day-to-day reference.",
+      "docs.search.ph": "Search documents...",
+      "docs.filter.all": "All",
+      "docs.filter.profile": "Company",
+      "docs.filter.certification": "Certifications",
+      "docs.filter.manual": "User manuals",
+      "docs.filter.catalog": "Catalogs",
+      "docs.view": "View",
+      "docs.download": "Download",
+      "docs.empty": "No documents match your search.",
+      "docs.soon.title": "Documents are being uploaded",
+      "docs.soon.text":
+        "We're preparing the files for publication — the company profile, certifications, user manuals, and catalogs will appear here soon.",
+      "docs.cta.title": "Need a specific document?",
+      "docs.cta.p":
+        "If you can't find a manual, certificate, or technical file here, contact us and we'll send it to you directly.",
+      "docs.cta.btn": "Contact us",
 
       // ---- About page ----
       "about.est": "Established 1998 · Damascus, Syria",
@@ -555,7 +597,7 @@ const I18N = (() => {
       "devices.video.label": "Watch: Installation & training",
       "devices.docs.eyebrow": "Documentation",
       "devices.docs.title": "Device documentation for Syria",
-      "devices.docs.btn": "View details",
+      "devices.docs.btn": "Browse documentation",
       "devices.docs.p1":
         "Access technical files, user manuals, compatibility notes, and safety information for every AKA medical device supplied in Syria including installation requirements and Syrian regulatory references for biomedical engineers, hospital teams, and distributors.",
       "devices.docs.p2":
@@ -893,6 +935,7 @@ const I18N = (() => {
       "products.note.title": "لم تجد ما تبحث عنه؟",
       "products.note.text": "يعرض هذا الكتالوج مختارات من محفظتنا. من خلال شراكاتنا مع الشركات المصنّعة يمكننا تأمين أي جهاز طبي معتمد تقريباً — أرسل لنا استفسارك.",
       "nav.lectures": "محاضرات",
+      "nav.docs": "الوثائق",
       "lang.toggle": "EN",
       "lang.toggleLabel": "Switch to English",
 
@@ -907,6 +950,7 @@ const I18N = (() => {
       "footer.partners": "شركاؤنا",
       "footer.projects": "المشاريع",
       "footer.lectures": "محاضرات",
+      "footer.docs": "الوثائق",
       "footer.about": "من نحن",
       "footer.support": "خدماتنا",
       "footer.careers": "الوظائف",
@@ -1236,6 +1280,46 @@ const I18N = (() => {
       "lectures.cta.title": "هل لديك موضوع تودّ أن نتناوله؟",
       "lectures.cta.p": "تواصل معنا وسننظر في طرحه في جلسة قادمة.",
       "lectures.cta.btn": "تواصل معنا",
+      "lectures.types.presentation.title": "عروض تقديمية",
+      "lectures.types.presentation.text":
+        "محاضرات مؤتمرات وعروض منتجات من فريقنا ومن شركائنا المصنّعين.",
+      "lectures.types.tutorial.title": "شروحات",
+      "lectures.types.tutorial.text":
+        "شروحات خطوة بخطوة للأجهزة — التركيب والتشغيل والصيانة اليومية.",
+      "lectures.types.webinar.title": "ندوات عبر الإنترنت",
+      "lectures.types.webinar.text":
+        "جلسات مسجّلة عبر الإنترنت للأطباء والمهندسين وفرق المشتريات.",
+      "lectures.library.eyebrow": "مكتبة الفيديو",
+      "lectures.library.title": "تصفّح المحاضرات",
+      "lectures.soon.title": "المكتبة قيد التحضير",
+      "lectures.soon.text":
+        "نعمل حاليًا على تسجيل الجلسات الأولى وتحريرها — عاودوا الزيارة قريبًا، أو أرسلوا لنا موضوعًا تودّون تغطيته.",
+
+      // صفحة الوثائق
+      "docs.hero.h1": "الوثائق",
+      "docs.hero.lead":
+        "وثائق الشركة والشهادات وأدلة استخدام الأجهزة وكتالوجات المنتجات — في مكان واحد، جاهزة للاطلاع أو التحميل.",
+      "docs.hero.cta": "تصفّح الوثائق",
+      "docs.library.eyebrow": "مركز الوثائق",
+      "docs.library.title": "تصفّح وحمّل",
+      "docs.library.lead":
+        "وثائق AKA الرسمية بصيغة PDF — افتحها في المتصفح أو احفظها للمناقصات والتدقيق والاستخدام اليومي.",
+      "docs.search.ph": "ابحث في الوثائق...",
+      "docs.filter.all": "الكل",
+      "docs.filter.profile": "الشركة",
+      "docs.filter.certification": "الشهادات",
+      "docs.filter.manual": "أدلة الاستخدام",
+      "docs.filter.catalog": "الكتالوجات",
+      "docs.view": "عرض",
+      "docs.download": "تحميل",
+      "docs.empty": "لا توجد وثائق مطابقة لبحثك.",
+      "docs.soon.title": "الوثائق قيد الرفع",
+      "docs.soon.text":
+        "نقوم بتجهيز الملفات للنشر — ملف الشركة والشهادات وأدلة الاستخدام والكتالوجات ستظهر هنا قريبًا.",
+      "docs.cta.title": "هل تحتاج وثيقة معيّنة؟",
+      "docs.cta.p":
+        "إذا لم تجد دليلًا أو شهادة أو ملفًا تقنيًا هنا، تواصل معنا وسنرسله إليك مباشرة.",
+      "docs.cta.btn": "تواصل معنا",
 
       // ---- About page ----
       "about.est": "تأسست عام 1998 · دمشق، سوريا",
@@ -1383,7 +1467,7 @@ const I18N = (() => {
       "devices.video.label": "شاهد: التركيب والتدريب",
       "devices.docs.eyebrow": "الوثائق",
       "devices.docs.title": "وثائق الأجهزة لسوريا",
-      "devices.docs.btn": "عرض التفاصيل",
+      "devices.docs.btn": "تصفّح الوثائق",
       "devices.docs.p1":
         "اطّلع على الملفات التقنية وأدلة الاستخدام وملاحظات التوافق ومعلومات السلامة لكل جهاز طبي توردّه AKA في سوريا — بما في ذلك متطلبات التركيب والمراجع التنظيمية السورية للمهندسين الطبيين وفرق المشافي والموزّعين.",
       "devices.docs.p2":

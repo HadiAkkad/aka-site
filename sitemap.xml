@@ -6,5 +6,7 @@
   <url><loc>https://aka1.hadi-alakkadd.workers.dev/partners.html</loc><priority>0.8</priority></url>
   <url><loc>https://aka1.hadi-alakkadd.workers.dev/projects.html</loc><priority>0.8</priority></url>
   <url><loc>https://aka1.hadi-alakkadd.workers.dev/about.html</loc><priority>0.8</priority></url>
+  <url><loc>https://aka1.hadi-alakkadd.workers.dev/lectures.html</loc><priority>0.7</priority></url>
+  <url><loc>https://aka1.hadi-alakkadd.workers.dev/documentation.html</loc><priority>0.7</priority></url>
   <url><loc>https://aka1.hadi-alakkadd.workers.dev/careers.html</loc><priority>0.6</priority></url>
 </urlset>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1d2b36" />
+  <title>Documentation &amp; Downloads — AKA</title>
+  <meta name="description" content="Download AKA's company profile, certifications, device user manuals, and product catalogs — official documents for hospitals, engineers, and procurement teams in Syria." />
+  <link rel="stylesheet" href="css/style.css?v=21" />
+  <!-- Social sharing & SEO (update base URL when the custom domain is live) -->
+  <link rel="canonical" href="https://aka1.hadi-alakkadd.workers.dev/documentation.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AKA Associates" />
+  <meta property="og:title" content="Documentation &amp; Downloads — AKA" />
+  <meta property="og:description" content="Download AKA's company profile, certifications, device user manuals, and product catalogs — official documents for hospitals, engineers, and procurement teams in Syria." />
+  <meta property="og:url" content="https://aka1.hadi-alakkadd.workers.dev/documentation.html" />
+  <meta property="og:image" content="https://aka1.hadi-alakkadd.workers.dev/images/cats/diagnostic.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Documentation &amp; Downloads — AKA" />
+  <meta name="twitter:description" content="Download AKA's company profile, certifications, device user manuals, and product catalogs — official documents for hospitals, engineers, and procurement teams in Syria." />
+  <meta name="twitter:image" content="https://aka1.hadi-alakkadd.workers.dev/images/cats/diagnostic.jpg" />
+  <link rel="icon" href="images/aka-logo-vector.svg?v=7" type="image/svg+xml" />
+  <link rel="alternate icon" href="images/aka-logo.png" type="image/png" />
+</head>
+<body data-page="documentation.html" class="has-fullbleed-hero">
+  <div id="site-header"></div>
+
+  <main>
+    <!-- FULL-BLEED HERO (hero--devices supplies the overlay stack; hero--docs
+         swaps in this page's photo — see the override near the end of style.css) -->
+    <section class="hero hero--devices hero--docs">
+      <div class="container hero__content">
+        <h1 data-i18n="docs.hero.h1">Documentation</h1>
+        <p class="lead" data-i18n="docs.hero.lead">Company documents, certifications, device user manuals, and product catalogs — all in one place, ready to view or download.</p>
+        <a class="btn btn--on-dark" href="#library" data-i18n="docs.hero.cta">Browse documents</a>
+      </div>
+    </section>
+
+    <!-- DOCUMENT LIBRARY (search + category filters + grid, rendered by
+         js/docs.js from the DOCS array — that file explains how to add a PDF) -->
+    <section class="section" id="library">
+      <div class="container">
+        <p class="eyebrow center" data-i18n="docs.library.eyebrow">Document center</p>
+        <h2 class="center heading-accent" data-i18n="docs.library.title">Browse &amp; download</h2>
+        <p class="center measure-center" data-i18n="docs.library.lead">Official AKA documents in PDF format — open them in your browser or save them for tenders, audits, and day-to-day reference.</p>
+
+        <div class="product-toolbar" id="doc-toolbar" style="display:none">
+          <div class="product-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="doc-search" autocomplete="off"
+              data-i18n-attr="placeholder:docs.search.ph" placeholder="Search documents..." />
+          </div>
+          <div class="product-filters" id="doc-filters"></div>
+        </div>
+
+        <div class="doc-grid" id="doc-grid"></div>
+        <p class="product-empty" id="doc-empty" style="display:none" data-i18n="docs.empty">No documents match your search.</p>
+
+        <!-- Shown instead of the grid while the DOCS array is still empty -->
+        <div class="library-soon" id="doc-soon" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+          <h3 data-i18n="docs.soon.title">Documents are being uploaded</h3>
+          <p data-i18n="docs.soon.text">We're preparing the files for publication — the company profile, certifications, user manuals, and catalogs will appear here soon.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST A DOCUMENT -->
+    <section class="section section--dark center">
+      <div class="container">
+        <h2 data-i18n="docs.cta.title">Need a specific document?</h2>
+        <p style="max-width:560px;margin:0 auto 1.75rem" data-i18n="docs.cta.p">If you can't find a manual, certificate, or technical file here, contact us and we'll send it to you directly.</p>
+        <a class="btn btn--on-dark" href="index.html#contact" data-i18n="docs.cta.btn">Contact us</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="js/i18n.js?v=11"></script>
+  <script src="js/vendor/motion.min.js?v=1"></script>
+  <script src="js/components.js?v=17"></script>
+  <script src="js/docs.js?v=1"></script>
+</body>
+</html>
