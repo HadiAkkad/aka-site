@@ -38,13 +38,16 @@ window.AKA_initCardStack = function (PRODUCTS) {
       <div class="stack-card__footer">
         <div class="stack-card__text">
           <span class="stack-card__name">${product.name}</span>
-          <span class="stack-card__brand" data-i18n="cat.${product.category}">${I18N.t("cat." + product.category)}</span>
+          <span class="stack-card__brand">${window.AKA_catSpan(product.category)}</span>
         </div>
         <a class="stack-card__cta" href="devices.html#catalog">
           <span data-i18n="home.products.stack.view">${I18N.t("home.products.stack.view")}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true"><path d="M9.5 18L15.5 12L9.5 6"/></svg>
         </a>
       </div>`;
+    // Fill the CMS category label for the current language (cards are also
+    // built later while cycling, after the initial page-wide apply).
+    if (window.AKA_applyBi) window.AKA_applyBi(card);
     return card;
   }
 

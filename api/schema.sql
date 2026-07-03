@@ -87,6 +87,14 @@ CREATE TABLE IF NOT EXISTS partners (
   logo_key TEXT                -- R2 key (content/...) OR a site path (images/...)
 );
 
+CREATE TABLE IF NOT EXISTS categories (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at TEXT NOT NULL,
+  slug TEXT NOT NULL UNIQUE,    -- machine name, e.g. "dental" (lowercase, dashes)
+  label TEXT NOT NULL,          -- English display name, e.g. "Dental Equipment"
+  label_ar TEXT                -- Arabic display name
+);
+
 CREATE INDEX IF NOT EXISTS idx_lectures_created ON lectures (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_documents_created ON documents (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_products_created ON products (created_at DESC);

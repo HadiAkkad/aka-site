@@ -186,21 +186,24 @@ The header and footer are injected on every page by `aka-site/js/components.js`
 
 ## 7. Product categories
 
-There are **no per-category pages** any more (they were deleted — you didn't want to
-navigate to them). The catalog on `devices.html` is a single, searchable grid, and the
-**category filter buttons above it are generated automatically** from whatever devices
-are published in the content manager. Publish a device in a category and its filter
-button appears; remove the last device in a category and the button disappears.
+There are **no per-category pages** any more. The catalog on `devices.html` is a single,
+searchable grid, and the **category filter buttons above it are generated automatically**
+from whatever devices are published in the content manager.
 
-- **The list of allowed category slugs** lives in two places, kept in sync:
-  `PRODUCT_CATS` in `api/src/index.js` (the dropdown in the admin panel) and
-  `QUOTE_CATEGORIES` in `js/components.js` (the quote modal).
-- **Category display names / translations** are the `cat.<slug>` keys in `js/i18n.js`
-  (EN + AR).
-- **To add a brand-new category slug:** add it to `PRODUCT_CATS` (redeploy the Worker),
-  to `QUOTE_CATEGORIES`, and add a `cat.<slug>` label to `i18n.js` — then it's selectable
-  when publishing a device.
-- Deep link to a filtered catalog with `devices.html?cat=<slug>#catalog`.
+**Categories are fully self-service** — managed in **/admin/content → Categories tab**:
+
+1. Click **Categories** → fill in a **slug** (machine name, e.g. `dental`), the
+   **English name** (e.g. "Dental Equipment"), and the **Arabic name**.
+2. Click **Add category**. It immediately appears in:
+   - the category dropdown when publishing a **device**,
+   - the **filter buttons** on the catalog (once a device uses it),
+   - the category dropdown in the **"Request a quote"** form.
+3. **Edit** changes the display names (the slug is locked — devices reference it).
+   **Delete** works only when no device uses the category.
+
+Deep link to a filtered catalog with `devices.html?cat=<slug>#catalog`.
+(The old hardcoded lists in `api/src/index.js` and `js/components.js` remain only as
+offline fallbacks; the database is the source of truth.)
 
 ---
 
@@ -310,6 +313,9 @@ code editing, no redeploy.**
 - **Projects** → the hospitals timeline on `projects.html` (English + Arabic fields)
 - **Partners** → `partners.html` — type `manufacturer` fills the "Our partners"
   grid, type `ngo` fills the NGO slideshow (English + Arabic descriptions)
+- **Categories** → the device categories themselves (slug + English + Arabic
+  name). New categories instantly appear in the Devices dropdown, the catalog
+  filter buttons, and the "Request a quote" form — no code, no deploy.
 
 Every published item has an **Edit** button (prefills the form — change anything,
 file fields are optional and only replace the old file if you pick a new one) and

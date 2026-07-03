@@ -35,8 +35,9 @@ const PARTNERS = [
 // on pages that load both scripts.
 const QUOTE_API = "https://aka-api.hadi-alakkadd.workers.dev";
 
-// Device categories offered in the quote line-item dropdown. Each pair is
-// [slug used by data-quote-category, i18n key reused from the devices page].
+// Built-in device categories, used ONLY as an offline fallback for the quote
+// dropdown. The live list (including any new categories) is managed in the
+// content manager (/admin/content -> Categories tab) and fetched below.
 const QUOTE_CATEGORIES = [
   ["diagnostic", "cat.diagnostic"],
   ["imaging", "cat.imaging"],
@@ -51,11 +52,87 @@ const QUOTE_CATEGORIES = [
   ["hospital", "cat.hospital"],
 ];
 
+/* -------------------------------------------------------------------------
+   Device categories from the content manager.
+   window.AKA_CATS caches the fetched [{slug,label,label_ar}] list; until it
+   arrives (or if the backend is unreachable) labels fall back to the i18n
+   cat.<slug> keys. Category labels are rendered as [data-bi-en]/[data-bi-ar]
+   nodes so the EN/العربية toggle swaps them in place (see AKA_applyBi).
+   ------------------------------------------------------------------------- */
+function akaEsc(s) {
+  return String(s || "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+  );
+}
+
+window.AKA_CATS = null;
+window.AKA_CATS_READY = (async () => {
+  try {
+    const res = await fetch(`${QUOTE_API}/content?type=categories`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length) window.AKA_CATS = data;
+    }
+  } catch (e) {
+    /* offline — i18n fallback labels are used */
+  }
+  return window.AKA_CATS;
+})();
+
+// HTML span for a category label that follows the language toggle.
+window.AKA_catSpan = function (slug) {
+  const cat = (window.AKA_CATS || []).find((c) => c.slug === slug);
+  if (cat) {
+    return `<span data-bi-en="${akaEsc(cat.label)}" data-bi-ar="${akaEsc(cat.label_ar || cat.label)}">${akaEsc(cat.label)}</span>`;
+  }
+  return `<span data-i18n="cat.${akaEsc(slug)}">${I18N.t("cat." + slug)}</span>`;
+};
+
+// Fill every [data-bi-en] node under root with the current language's text.
+window.AKA_applyBi = function (root) {
+  const isAr = document.documentElement.lang === "ar";
+  (root || document).querySelectorAll("[data-bi-en]").forEach((el) => {
+    el.textContent = isAr ? el.dataset.biAr : el.dataset.biEn;
+  });
+};
+// Re-apply whenever the language toggle flips <html lang="...">.
+new MutationObserver(() => window.AKA_applyBi(document)).observe(
+  document.documentElement,
+  { attributes: true, attributeFilter: ["lang"] }
+);
+
+// Once the live category list lands, upgrade any quote dropdowns that were
+// built with the fallback list (preserving the user's selection).
+window.AKA_CATS_READY.then(() => {
+  if (!window.AKA_CATS) return;
+  document.querySelectorAll(".quote-item__cat").forEach((sel) => {
+    const current = sel.value;
+    const placeholder = sel.querySelector('option[value=""]');
+    sel.innerHTML = "";
+    if (placeholder) sel.appendChild(placeholder);
+    window.AKA_CATS.forEach((c) => {
+      const o = document.createElement("option");
+      o.value = c.slug;
+      o.dataset.biEn = c.label;
+      o.dataset.biAr = c.label_ar || c.label;
+      o.textContent = c.label;
+      sel.appendChild(o);
+    });
+    sel.value = current;
+  });
+  window.AKA_applyBi(document);
+});
+
 // One repeatable product row inside the quote form.
 function buildQuoteLineItem() {
-  const opts = QUOTE_CATEGORIES.map(
-    ([slug, key]) => `<option value="${slug}" data-i18n="${key}">${I18N.t(key)}</option>`
-  ).join("");
+  const opts = window.AKA_CATS
+    ? window.AKA_CATS.map(
+        (c) =>
+          `<option value="${akaEsc(c.slug)}" data-bi-en="${akaEsc(c.label)}" data-bi-ar="${akaEsc(c.label_ar || c.label)}">${akaEsc(c.label)}</option>`
+      ).join("")
+    : QUOTE_CATEGORIES.map(
+        ([slug, key]) => `<option value="${slug}" data-i18n="${key}">${I18N.t(key)}</option>`
+      ).join("");
   return `
   <div class="quote-item">
     <select class="quote-item__cat" aria-label="${I18N.t("quote.items.category")}">
@@ -508,6 +585,7 @@ function initQuoteModal() {
     if (e.target.closest("[data-quote-add]")) {
       itemsWrap.insertAdjacentHTML("beforeend", buildQuoteLineItem());
       I18N.apply(); // translate the freshly added row
+      window.AKA_applyBi(itemsWrap); // and its CMS category labels
     }
     const removeBtn = e.target.closest("[data-quote-remove]");
     if (removeBtn) {
@@ -568,6 +646,7 @@ function initQuoteModal() {
         form.reset();
         itemsWrap.innerHTML = buildQuoteLineItem();
         I18N.apply();
+        window.AKA_applyBi(itemsWrap);
         status.className = "form-status form-status--ok";
         status.textContent = I18N.t("quote.success");
       } else {

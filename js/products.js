@@ -15,9 +15,13 @@ const API_BASE = "https://aka-api.hadi-alakkadd.workers.dev";
 
 document.addEventListener("DOMContentLoaded", async () => {
   // Load the live catalog once; used by both the grid and the home stack.
+  // Also wait for the category list (components.js) so labels are ready.
   let items = [];
   try {
-    const res = await fetch(`${API_BASE}/content?type=products`);
+    const [res] = await Promise.all([
+      fetch(`${API_BASE}/content?type=products`),
+      window.AKA_CATS_READY,
+    ]);
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) items = data;
@@ -45,8 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     categories
       .map(
         (c) =>
-          `<button class="product-filter" type="button" data-filter="${c}"
-             data-i18n="cat.${c}">${I18N.t("cat." + c)}</button>`
+          `<button class="product-filter" type="button" data-filter="${c}">${window.AKA_catSpan(c)}</button>`
       )
       .join("");
 
@@ -58,8 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <img src="${p.image}" alt="${p.name} — ${p.brand}" decoding="async" />
       </div>
       <div class="product-card__body">
-        <button class="product-card__cat" type="button" data-cat-filter="${p.category}"
-          data-i18n="cat.${p.category}">${I18N.t("cat." + p.category)}</button>
+        <button class="product-card__cat" type="button" data-cat-filter="${p.category}">${window.AKA_catSpan(p.category)}</button>
         <h3 class="product-card__name">${p.name}</h3>
         <p class="product-card__brand">${p.brand}</p>
         <button class="btn" type="button" data-quote-open
@@ -69,8 +71,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     </article>`
   ).join("");
 
-  // Translate the freshly injected filter buttons and cards.
+  // Translate the freshly injected filter buttons and cards (i18n keys +
+  // CMS category labels).
   I18N.apply();
+  window.AKA_applyBi(document);
 
   let activeCategory = "all";
 

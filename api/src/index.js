@@ -392,6 +392,21 @@ async function handleContentList(request, env, origin) {
         origin
       );
     }
+    if (type === "categories") {
+      const rows =
+        (await env.DB.prepare(
+          "SELECT * FROM categories ORDER BY created_at ASC"
+        ).all()).results || [];
+      return json(
+        rows.map((r) => ({
+          slug: r.slug,
+          label: r.label,
+          label_ar: r.label_ar || undefined,
+        })),
+        200,
+        origin
+      );
+    }
     if (type === "projects") {
       const rows =
         (await env.DB.prepare(
@@ -602,6 +617,29 @@ async function handleContentCreate(request, env) {
       return backToAdmin(request);
     }
 
+    if (type === "categories") {
+      const slug = String(form.get("slug") || "").trim().toLowerCase();
+      const label = String(form.get("label") || "").trim();
+      if (!slug || !label)
+        return new Response("Missing slug/label.", { status: 400 });
+      if (!/^[a-z0-9-]+$/.test(slug))
+        return new Response(
+          "Slug may only contain lowercase letters, numbers, and dashes (e.g. dental-care).",
+          { status: 400 }
+        );
+      const dupe = await env.DB.prepare("SELECT id FROM categories WHERE slug = ?")
+        .bind(slug)
+        .first();
+      if (dupe)
+        return new Response(`A category with slug "${slug}" already exists.`, { status: 400 });
+      await env.DB.prepare(
+        "INSERT INTO categories (created_at, slug, label, label_ar) VALUES (?,?,?,?)"
+      )
+        .bind(now, slug, label, String(form.get("label_ar") || "").trim() || null)
+        .run();
+      return backToAdmin(request);
+    }
+
     return new Response("Unknown content type.", { status: 400 });
   } catch (err) {
     return new Response("Server error: " + err.message, { status: 500 });
@@ -782,6 +820,18 @@ async function handleContentUpdate(request, env) {
       return backToAdmin(request);
     }
 
+    if (type === "categories") {
+      const row = await env.DB.prepare("SELECT * FROM categories WHERE id = ?").bind(id).first();
+      if (!row) return new Response("Not found.", { status: 404 });
+      // The slug is intentionally NOT editable: published devices reference it.
+      await env.DB.prepare(
+        "UPDATE categories SET label=?, label_ar=? WHERE id=?"
+      )
+        .bind(val("label") || row.label, val("label_ar"), id)
+        .run();
+      return backToAdmin(request);
+    }
+
     return new Response("Unknown content type.", { status: 400 });
   } catch (err) {
     return new Response("Server error: " + err.message, { status: 500 });
@@ -794,13 +844,27 @@ async function handleContentDelete(request, env) {
     const form = await request.formData();
     const table = String(form.get("table") || "");
     const id = Number(form.get("id"));
-    const ALLOWED = { lectures: 1, documents: 1, products: 1, projects: 1, partners: 1 };
+    const ALLOWED = { lectures: 1, documents: 1, products: 1, projects: 1, partners: 1, categories: 1 };
     if (!ALLOWED[table] || !id)
       return new Response("Bad request.", { status: 400 });
 
     const row = await env.DB.prepare(
       `SELECT * FROM ${table} WHERE id = ?`
     ).bind(id).first();
+
+    // A category can only be deleted once no device uses it.
+    if (row && table === "categories") {
+      const used = await env.DB.prepare(
+        "SELECT COUNT(*) AS n FROM products WHERE category = ?"
+      ).bind(row.slug).first();
+      if (used && used.n > 0) {
+        return new Response(
+          `Cannot delete "${row.slug}" — ${used.n} device(s) still use it. ` +
+            `Edit or delete those devices first (Devices tab), then try again.`,
+          { status: 400 }
+        );
+      }
+    }
 
     if (row) {
       // Remove any R2 files this row owns.
@@ -868,6 +932,15 @@ async function handleContentAdmin(request, env) {
   const products = await q("SELECT * FROM products ORDER BY created_at DESC");
   const projects = await q("SELECT * FROM projects ORDER BY year DESC, created_at DESC");
   const partners = await q("SELECT * FROM partners ORDER BY kind, created_at ASC");
+  const categories = await q("SELECT * FROM categories ORDER BY created_at ASC");
+
+  // Device-category dropdown comes from the categories table (falls back to
+  // the built-in list only if the table is somehow empty).
+  const productCatOptions = categories.length
+    ? categories
+        .map((c) => `<option value="${esc(c.slug)}">${esc(c.label)} (${esc(c.slug)})</option>`)
+        .join("")
+    : optionList(PRODUCT_CATS);
 
   const actions = (type, row) => `
     <div class="row-actions">
@@ -918,6 +991,16 @@ async function handleContentAdmin(request, env) {
       <td>${actions("partners", p)}</td>
     </tr>`).join("");
 
+  const usedBySlug = {};
+  for (const p of products) usedBySlug[p.category] = (usedBySlug[p.category] || 0) + 1;
+  const categoryRows = categories.map((c) => `<tr>
+      <td><code>${esc(c.slug)}</code></td>
+      <td>${esc(c.label)}</td>
+      <td dir="rtl">${esc(c.label_ar || "")}</td>
+      <td>${usedBySlug[c.slug] || 0}</td>
+      <td>${actions("categories", c)}</td>
+    </tr>`).join("");
+
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AKA — Content manager</title>
@@ -966,6 +1049,7 @@ async function handleContentAdmin(request, env) {
       <button class="tab" data-tab="products" type="button">Devices (${products.length})</button>
       <button class="tab" data-tab="projects" type="button">Projects (${projects.length})</button>
       <button class="tab" data-tab="partners" type="button">Partners (${partners.length})</button>
+      <button class="tab" data-tab="categories" type="button">Categories (${categories.length})</button>
     </div>
 
     <!-- LECTURES -->
@@ -1042,7 +1126,8 @@ async function handleContentAdmin(request, env) {
           <div><label>Brand / manufacturer</label><input name="brand" required></div>
         </div>
         <div class="row">
-          <div><label>Category</label><select name="category">${optionList(PRODUCT_CATS)}</select></div>
+          <div><label>Category</label><select name="category">${productCatOptions}</select>
+            <p class="hint">Manage the list in the Categories tab.</p></div>
           <div><label>Product image</label><input type="file" name="image" accept="image/*" required>
             <p class="current-file" data-current="image">An image is already uploaded — choose a new one only to replace it.</p></div>
         </div>
@@ -1106,6 +1191,26 @@ async function handleContentAdmin(request, env) {
       <table><thead><tr><th></th><th>Name</th><th>Type</th><th>Website</th><th></th></tr></thead>
       <tbody>${partnerRows || '<tr><td colspan="5">None yet.</td></tr>'}</tbody></table>
     </section>
+
+    <!-- CATEGORIES -->
+    <section class="panel" id="p-categories">
+      <div class="editing-note" id="note-categories">Editing a category — the slug can't change (devices reference it), only the display names.<button type="button" onclick="cancelEdit('categories')">Cancel</button></div>
+      <form id="form-categories" method="post" action="/admin/content" enctype="multipart/form-data">
+        <input type="hidden" name="type" value="categories">
+        <input type="hidden" name="id" value="" disabled>
+        <div class="row">
+          <div><label>Slug (machine name)</label><input name="slug" required placeholder="dental" pattern="[a-z0-9-]+">
+            <p class="hint">Lowercase letters, numbers, dashes. Used internally — can't be changed later.</p></div>
+          <div><label>Display name (English)</label><input name="label" required placeholder="Dental Equipment"></div>
+        </div>
+        <label>Display name (Arabic)</label><input name="label_ar" dir="rtl" placeholder="معدات طب الأسنان">
+        <button class="primary" type="submit" data-create="Add category" data-edit="Save changes">Add category</button>
+      </form>
+      <h2>Categories</h2>
+      <p class="hint">Filter buttons on the site only appear for categories that have published devices. A category can be deleted only when no device uses it.</p>
+      <table><thead><tr><th>Slug</th><th>English</th><th>Arabic</th><th>Devices using it</th><th></th></tr></thead>
+      <tbody>${categoryRows || '<tr><td colspan="5">None yet.</td></tr>'}</tbody></table>
+    </section>
   </main>
   <script>
     // ---- tabs ----
@@ -1167,6 +1272,7 @@ async function handleContentAdmin(request, env) {
       if (type === 'documents') toggleCurrent(form, 'file', !!data.file_key);
       if (type === 'products') toggleCurrent(form, 'image', !!data.image_key);
       if (type === 'partners') toggleCurrent(form, 'logo', !!data.logo_key);
+      if (type === 'categories') form.querySelector('input[name=slug]').readOnly = true;
 
       document.getElementById('note-' + type).style.display = 'block';
       var submit = form.querySelector('button[type=submit]');
@@ -1189,6 +1295,7 @@ async function handleContentAdmin(request, env) {
       // Restore create-mode required flags.
       if (type === 'documents') form.querySelector('input[name=file]').required = true;
       if (type === 'products') form.querySelector('input[name=image]').required = true;
+      if (type === 'categories') form.querySelector('input[name=slug]').readOnly = false;
       form.querySelectorAll('.current-file').forEach(function(el){ el.style.display = 'none'; });
       if (type === 'lectures') syncVideoKind(form.querySelector('select[name=video_kind]'));
       document.getElementById('note-' + type).style.display = 'none';
