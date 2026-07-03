@@ -920,7 +920,12 @@ function thumbHtml(key) {
 
 // The row's full data, JSON-encoded into a data attribute for the Edit button.
 function dataAttr(obj) {
-  return esc(JSON.stringify(obj));
+  // esc() handles & < > but NOT quotes; the JSON is full of double quotes and
+  // lives inside a double-quoted HTML attribute, so escape them too (and single
+  // quotes for safety). The browser decodes these back before JSON.parse.
+  return esc(JSON.stringify(obj))
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 async function handleContentAdmin(request, env) {
