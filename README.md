@@ -306,7 +306,14 @@ code editing, no redeploy.**
 
 - **Lectures** → appear on `lectures.html`
 - **Documents (PDFs)** → appear on `documentation.html`
-- **Devices** → appear on `devices.html` (the product catalog)
+- **Devices** → appear on `devices.html` (the product catalog + home card stack)
+- **Projects** → the hospitals timeline on `projects.html` (English + Arabic fields)
+- **Partners** → `partners.html` — type `manufacturer` fills the "Our partners"
+  grid, type `ngo` fills the NGO slideshow (English + Arabic descriptions)
+
+Every published item has an **Edit** button (prefills the form — change anything,
+file fields are optional and only replace the old file if you pick a new one) and
+a **Delete** button.
 
 ### How it works (in plain terms)
 You log into one password-protected page and fill in a short form (title, category, etc.)
@@ -350,10 +357,19 @@ It's built to handle **hundreds** of items.
 3. Click **Choose file** next to **Product image** and select the photo.
 4. Click **Publish device**. It appears in the catalog on `devices.html`.
 
-### Deleting something
-Every tab shows a table of what's already published, each row with a **Delete** button.
-Deleting also removes the uploaded file from storage. (There is no "edit" yet — to change
-an item, delete it and re-upload.)
+### Tutorial 4 — add a project (hospital) or partner
+- **Projects tab:** name + year are required; location, beds, departments, and key
+  equipment are optional. Each text field has an **Arabic twin** — fill it so the
+  Arabic site shows proper Arabic (if left empty, the English text is shown).
+- **Partners tab:** pick the type (`manufacturer` → partners grid, `ngo` → NGO
+  slideshow), add the description in both languages, the website, and upload a logo.
+
+### Editing & deleting
+Every tab lists what's published. **Edit** prefills the form with the item's data —
+change what you need and press *Save changes*. While editing, file fields are
+optional: leave them empty to keep the current file, or pick a new one to replace it
+(the old file is cleaned up automatically). **Delete** removes the item and its
+uploaded files.
 
 ### Tips
 - **Uploads are live immediately.** No `git push`, no waiting.
@@ -439,6 +455,7 @@ version number in its references so visitors get the new version:
 | Swap the logo | Replace `images/aka-logo.svg`, bump `?v=` |
 | Read job applications / CVs | Open the **/admin** page (section 11) |
 | Upload a lecture / PDF / device | Open the **/admin/content** page (section 11b) |
+| Add / edit a project or partner | **/admin/content** → Projects / Partners tab (section 11b) |
 | Edit form behaviour | `js/forms.js` (frontend) / `api/src/index.js` (backend) |
 | Deploy the site | `git push origin master` (or manual Wrangler) |
 | Deploy the backend | `cd api && npx wrangler@3 deploy` |
@@ -467,9 +484,8 @@ Built as a plain, dependency-light site so it stays easy to edit and cheap to ru
 
 ## Still to do (needs real content)
 
-- **Lectures page** — hidden from the nav until real videos exist; re-add `nav.lectures` in `js/components.js` (`NAV_LINKS`) when ready.
-- **Product catalog** — add more products to the `PRODUCTS` array in `js/products.js` (photos go in `images/devices/`).
-- **Certifications page** — collect CE/ISO certificates and manufacturer authorization letters, then build a page around them.
+- **Lectures & documents** — publish the real videos and PDFs via **/admin/content**.
+- **Certifications page** — collect CE/ISO certificates and manufacturer authorization letters (can be published as Documents → `certification`).
 - **Testimonials & case studies** — get quotes and photos from delivered hospital projects.
 - **Team section** — names, roles, and photos of key people for the About page.
-- **Verify project data** — confirm the bed counts / departments / equipment listed in `projects.html` are accurate.
+- **Verify project data** — confirm the bed counts / departments / equipment in the Projects tab of /admin/content are accurate (edit them there).

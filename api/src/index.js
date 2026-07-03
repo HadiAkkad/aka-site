@@ -68,6 +68,9 @@ export default {
     if (url.pathname === "/admin/content" && request.method === "POST") {
       return handleContentCreate(request, env);
     }
+    if (url.pathname === "/admin/content/update" && request.method === "POST") {
+      return handleContentUpdate(request, env);
+    }
     if (url.pathname === "/admin/content/delete" && request.method === "POST") {
       return handleContentDelete(request, env);
     }
@@ -324,8 +327,15 @@ async function putContent(env, file, prefix) {
 async function handleContentList(request, env, origin) {
   const url = new URL(request.url);
   const type = url.searchParams.get("type");
+  // R2-hosted files (content/...) are served via /media; anything else is a
+  // site-relative path (e.g. images/partners/edan.png) returned unchanged so
+  // the page resolves it against its own origin.
   const media = (key) =>
-    key ? `${url.origin}/media?key=${encodeURIComponent(key)}` : null;
+    key
+      ? key.startsWith("content/")
+        ? `${url.origin}/media?key=${encodeURIComponent(key)}`
+        : key
+      : null;
 
   try {
     if (type === "lectures") {
@@ -377,6 +387,46 @@ async function handleContentList(request, env, origin) {
           brand: r.brand,
           category: r.category,
           image: media(r.image_key),
+        })),
+        200,
+        origin
+      );
+    }
+    if (type === "projects") {
+      const rows =
+        (await env.DB.prepare(
+          "SELECT * FROM projects ORDER BY year DESC, created_at DESC"
+        ).all()).results || [];
+      return json(
+        rows.map((r) => ({
+          name: r.name,
+          name_ar: r.name_ar || undefined,
+          year: r.year,
+          location: r.location || undefined,
+          location_ar: r.location_ar || undefined,
+          beds: r.beds || undefined,
+          departments: r.departments || undefined,
+          departments_ar: r.departments_ar || undefined,
+          equipment: r.equipment || undefined,
+          equipment_ar: r.equipment_ar || undefined,
+        })),
+        200,
+        origin
+      );
+    }
+    if (type === "partners") {
+      const rows =
+        (await env.DB.prepare(
+          "SELECT * FROM partners ORDER BY created_at ASC"
+        ).all()).results || [];
+      return json(
+        rows.map((r) => ({
+          kind: r.kind,
+          name: r.name,
+          desc: r.description || undefined,
+          desc_ar: r.description_ar || undefined,
+          website: r.website || undefined,
+          logo: media(r.logo_key),
         })),
         200,
         origin
@@ -505,6 +555,233 @@ async function handleContentCreate(request, env) {
       return backToAdmin(request);
     }
 
+    if (type === "projects") {
+      const name = String(form.get("name") || "").trim();
+      const year = String(form.get("year") || "").trim();
+      if (!name || !year)
+        return new Response("Missing name/year.", { status: 400 });
+      await env.DB.prepare(
+        "INSERT INTO projects (created_at, name, name_ar, year, location, location_ar, beds, departments, departments_ar, equipment, equipment_ar) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+      )
+        .bind(
+          now,
+          name,
+          String(form.get("name_ar") || "").trim() || null,
+          year,
+          String(form.get("location") || "").trim() || null,
+          String(form.get("location_ar") || "").trim() || null,
+          String(form.get("beds") || "").trim() || null,
+          String(form.get("departments") || "").trim() || null,
+          String(form.get("departments_ar") || "").trim() || null,
+          String(form.get("equipment") || "").trim() || null,
+          String(form.get("equipment_ar") || "").trim() || null
+        )
+        .run();
+      return backToAdmin(request);
+    }
+
+    if (type === "partners") {
+      const name = String(form.get("name") || "").trim();
+      const kind = String(form.get("kind") || "").trim();
+      if (!name || !["manufacturer", "ngo"].includes(kind))
+        return new Response("Missing name/kind.", { status: 400 });
+      const logoKey = await putContent(env, form.get("logo"), "partners");
+      await env.DB.prepare(
+        "INSERT INTO partners (created_at, kind, name, description, description_ar, website, logo_key) VALUES (?,?,?,?,?,?,?)"
+      )
+        .bind(
+          now,
+          kind,
+          name,
+          String(form.get("description") || "").trim() || null,
+          String(form.get("description_ar") || "").trim() || null,
+          String(form.get("website") || "").trim() || null,
+          logoKey
+        )
+        .run();
+      return backToAdmin(request);
+    }
+
+    return new Response("Unknown content type.", { status: 400 });
+  } catch (err) {
+    return new Response("Server error: " + err.message, { status: 500 });
+  }
+}
+
+/* ---- Update (edit) an existing post ----------------------------------------
+   Same forms as create, plus a hidden id. File fields are OPTIONAL on update:
+   left empty -> the existing file is kept; a new file replaces the old one
+   (the old R2 object is deleted, unless it is a site path like images/...). */
+
+async function deleteIfR2(env, key) {
+  if (key && key.startsWith("content/")) await env.CVS.delete(key);
+}
+
+async function handleContentUpdate(request, env) {
+  if (!checkAuth(request, env)) return unauthorized();
+  try {
+    const form = await request.formData();
+    const type = String(form.get("type") || "");
+    const id = Number(form.get("id"));
+    if (!id) return new Response("Missing id.", { status: 400 });
+    const val = (k) => String(form.get(k) || "").trim() || null;
+
+    if (type === "lectures") {
+      const row = await env.DB.prepare("SELECT * FROM lectures WHERE id = ?").bind(id).first();
+      if (!row) return new Response("Not found.", { status: 404 });
+
+      let srcKind = row.src_kind;
+      let srcValue = row.src_value;
+      const kind = String(form.get("video_kind") || "youtube");
+      if (kind === "file") {
+        const key = await putContent(env, form.get("video_file"), "lectures");
+        if (key) {
+          await deleteIfR2(env, row.src_kind === "file" ? row.src_value : null);
+          srcKind = "file";
+          srcValue = key;
+        }
+        // no new file chosen: keep whatever was there before
+      } else {
+        const yt = val("youtube_url");
+        if (yt) {
+          await deleteIfR2(env, row.src_kind === "file" ? row.src_value : null);
+          srcKind = "youtube";
+          srcValue = yt;
+        }
+      }
+
+      let thumbKey = row.thumb_key;
+      const newThumb = await putContent(env, form.get("thumb_file"), "lectures");
+      if (newThumb) {
+        await deleteIfR2(env, row.thumb_key);
+        thumbKey = newThumb;
+      }
+
+      await env.DB.prepare(
+        "UPDATE lectures SET title=?, category=?, speaker=?, date_label=?, duration=?, src_kind=?, src_value=?, thumb_key=?, featured=? WHERE id=?"
+      )
+        .bind(
+          val("title") || row.title,
+          val("category") || row.category,
+          val("speaker"),
+          val("date_label"),
+          val("duration"),
+          srcKind,
+          srcValue,
+          thumbKey,
+          form.get("featured") ? 1 : 0,
+          id
+        )
+        .run();
+      return backToAdmin(request);
+    }
+
+    if (type === "documents") {
+      const row = await env.DB.prepare("SELECT * FROM documents WHERE id = ?").bind(id).first();
+      if (!row) return new Response("Not found.", { status: 404 });
+
+      let fileKey = row.file_key;
+      let fileName = row.file_name;
+      const file = form.get("file");
+      const newKey = await putContent(env, file, "documents");
+      if (newKey) {
+        await deleteIfR2(env, row.file_key);
+        fileKey = newKey;
+        fileName = (file && file.name) || null;
+      }
+
+      await env.DB.prepare(
+        "UPDATE documents SET title=?, category=?, description=?, lang=?, size_label=?, file_key=?, file_name=? WHERE id=?"
+      )
+        .bind(
+          val("title") || row.title,
+          val("category") || row.category,
+          val("description"),
+          val("lang"),
+          val("size_label"),
+          fileKey,
+          fileName,
+          id
+        )
+        .run();
+      return backToAdmin(request);
+    }
+
+    if (type === "products") {
+      const row = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
+      if (!row) return new Response("Not found.", { status: 404 });
+
+      let imageKey = row.image_key;
+      const newKey = await putContent(env, form.get("image"), "products");
+      if (newKey) {
+        await deleteIfR2(env, row.image_key);
+        imageKey = newKey;
+      }
+
+      await env.DB.prepare(
+        "UPDATE products SET name=?, brand=?, category=?, image_key=? WHERE id=?"
+      )
+        .bind(
+          val("name") || row.name,
+          val("brand") || row.brand,
+          val("category") || row.category,
+          imageKey,
+          id
+        )
+        .run();
+      return backToAdmin(request);
+    }
+
+    if (type === "projects") {
+      const row = await env.DB.prepare("SELECT * FROM projects WHERE id = ?").bind(id).first();
+      if (!row) return new Response("Not found.", { status: 404 });
+      await env.DB.prepare(
+        "UPDATE projects SET name=?, name_ar=?, year=?, location=?, location_ar=?, beds=?, departments=?, departments_ar=?, equipment=?, equipment_ar=? WHERE id=?"
+      )
+        .bind(
+          val("name") || row.name,
+          val("name_ar"),
+          val("year") || row.year,
+          val("location"),
+          val("location_ar"),
+          val("beds"),
+          val("departments"),
+          val("departments_ar"),
+          val("equipment"),
+          val("equipment_ar"),
+          id
+        )
+        .run();
+      return backToAdmin(request);
+    }
+
+    if (type === "partners") {
+      const row = await env.DB.prepare("SELECT * FROM partners WHERE id = ?").bind(id).first();
+      if (!row) return new Response("Not found.", { status: 404 });
+
+      let logoKey = row.logo_key;
+      const newKey = await putContent(env, form.get("logo"), "partners");
+      if (newKey) {
+        await deleteIfR2(env, row.logo_key);
+        logoKey = newKey;
+      }
+
+      await env.DB.prepare(
+        "UPDATE partners SET kind=?, name=?, description=?, description_ar=?, website=?, logo_key=? WHERE id=?"
+      )
+        .bind(
+          val("kind") || row.kind,
+          val("name") || row.name,
+          val("description"),
+          val("description_ar"),
+          val("website"),
+          logoKey,
+          id
+        )
+        .run();
+      return backToAdmin(request);
+    }
+
     return new Response("Unknown content type.", { status: 400 });
   } catch (err) {
     return new Response("Server error: " + err.message, { status: 500 });
@@ -517,7 +794,7 @@ async function handleContentDelete(request, env) {
     const form = await request.formData();
     const table = String(form.get("table") || "");
     const id = Number(form.get("id"));
-    const ALLOWED = { lectures: 1, documents: 1, products: 1 };
+    const ALLOWED = { lectures: 1, documents: 1, products: 1, projects: 1, partners: 1 };
     if (!ALLOWED[table] || !id)
       return new Response("Bad request.", { status: 400 });
 
@@ -535,9 +812,11 @@ async function handleContentDelete(request, env) {
         keys.push(row.file_key);
       } else if (table === "products") {
         keys.push(row.image_key);
-      }
+      } else if (table === "partners") {
+        keys.push(row.logo_key);
+      } // projects own no files
       for (const k of keys) {
-        if (k) await env.CVS.delete(k);
+        await deleteIfR2(env, k); // only removes R2 objects (content/*), never site files
       }
       await env.DB.prepare(`DELETE FROM ${table} WHERE id = ?`).bind(id).run();
     }
@@ -547,7 +826,7 @@ async function handleContentDelete(request, env) {
   }
 }
 
-/* ---- Admin content panel (upload UI + existing-post lists) ---- */
+/* ---- Admin content panel (create + EDIT + delete, 5 content types) ---- */
 
 const LECTURE_CATS = ["presentation", "tutorial", "webinar"];
 const DOC_CATS = ["profile", "certification", "manual", "catalog"];
@@ -555,86 +834,108 @@ const PRODUCT_CATS = [
   "diagnostic", "imaging", "endoscopy", "surgical", "orthopedics",
   "monitoring", "cardiology", "neurology", "lab", "sterilization", "hospital",
 ];
+const PARTNER_KINDS = ["manufacturer", "ngo"];
 
-function optionList(values, selected) {
-  return values
-    .map(
-      (v) =>
-        `<option value="${esc(v)}"${v === selected ? " selected" : ""}>${esc(v)}</option>`
-    )
-    .join("");
+// Base URL of the public site, used only to preview seeded images that are
+// stored as site paths (images/...) rather than R2 keys.
+const SITE_BASE = "https://aka1.hadi-alakkadd.workers.dev";
+
+function optionList(values) {
+  return values.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join("");
+}
+
+// Small preview <img> for a stored key: R2 keys go through /media, site
+// paths are resolved against the public site.
+function thumbHtml(key) {
+  if (!key) return "—";
+  const src = key.startsWith("content/")
+    ? `/media?key=${encodeURIComponent(key)}`
+    : `${SITE_BASE}/${key}`;
+  return `<img class="mini" src="${esc(src)}" alt="" loading="lazy">`;
+}
+
+// The row's full data, JSON-encoded into a data attribute for the Edit button.
+function dataAttr(obj) {
+  return esc(JSON.stringify(obj));
 }
 
 async function handleContentAdmin(request, env) {
   if (!checkAuth(request, env)) return unauthorized();
 
-  const lectures =
-    (await env.DB.prepare("SELECT * FROM lectures ORDER BY created_at DESC").all())
-      .results || [];
-  const documents =
-    (await env.DB.prepare("SELECT * FROM documents ORDER BY created_at DESC").all())
-      .results || [];
-  const products =
-    (await env.DB.prepare("SELECT * FROM products ORDER BY created_at DESC").all())
-      .results || [];
+  const q = async (sql) => ((await env.DB.prepare(sql).all()).results || []);
+  const lectures = await q("SELECT * FROM lectures ORDER BY created_at DESC");
+  const documents = await q("SELECT * FROM documents ORDER BY created_at DESC");
+  const products = await q("SELECT * FROM products ORDER BY created_at DESC");
+  const projects = await q("SELECT * FROM projects ORDER BY year DESC, created_at DESC");
+  const partners = await q("SELECT * FROM partners ORDER BY kind, created_at ASC");
 
-  const delBtn = (table, id) =>
-    `<form method="post" action="/admin/content/delete" class="del" onsubmit="return confirm('Delete this item?')">
-       <input type="hidden" name="table" value="${table}">
-       <input type="hidden" name="id" value="${id}">
-       <button type="submit">Delete</button>
-     </form>`;
+  const actions = (type, row) => `
+    <div class="row-actions">
+      <button type="button" class="edit" data-type="${type}" data-item="${dataAttr(row)}">Edit</button>
+      <form method="post" action="/admin/content/delete" class="del" onsubmit="return confirm('Delete this item?')">
+        <input type="hidden" name="table" value="${type}">
+        <input type="hidden" name="id" value="${row.id}">
+        <button type="submit">Delete</button>
+      </form>
+    </div>`;
 
-  const lectureRows = lectures
-    .map(
-      (l) => `<tr>
+  const lectureRows = lectures.map((l) => `<tr>
       <td>${esc(l.title)}${l.featured ? ' <span class="badge">featured</span>' : ""}</td>
       <td>${esc(l.category)}</td>
       <td>${l.src_kind === "youtube" ? "YouTube" : "File"}</td>
       <td>${esc(l.speaker || "")}</td>
-      <td>${delBtn("lectures", l.id)}</td>
-    </tr>`
-    )
-    .join("");
+      <td>${actions("lectures", l)}</td>
+    </tr>`).join("");
 
-  const docRows = documents
-    .map(
-      (d) => `<tr>
+  const docRows = documents.map((d) => `<tr>
       <td>${esc(d.title)}</td>
       <td>${esc(d.category)}</td>
       <td>${esc(d.file_name || "")}</td>
-      <td>${delBtn("documents", d.id)}</td>
-    </tr>`
-    )
-    .join("");
+      <td>${actions("documents", d)}</td>
+    </tr>`).join("");
 
-  const productRows = products
-    .map(
-      (p) => `<tr>
+  const productRows = products.map((p) => `<tr>
+      <td>${thumbHtml(p.image_key)}</td>
       <td>${esc(p.name)}</td>
       <td>${esc(p.brand)}</td>
       <td>${esc(p.category)}</td>
-      <td>${delBtn("products", p.id)}</td>
-    </tr>`
-    )
-    .join("");
+      <td>${actions("products", p)}</td>
+    </tr>`).join("");
+
+  const projectRows = projects.map((p) => `<tr>
+      <td>${esc(p.year)}</td>
+      <td>${esc(p.name)}</td>
+      <td>${esc(p.location || "")}</td>
+      <td>${esc(p.beds || "")}</td>
+      <td>${actions("projects", p)}</td>
+    </tr>`).join("");
+
+  const partnerRows = partners.map((p) => `<tr>
+      <td>${thumbHtml(p.logo_key)}</td>
+      <td>${esc(p.name)}</td>
+      <td>${esc(p.kind)}</td>
+      <td>${p.website ? `<a href="${esc(p.website)}" target="_blank" rel="noopener">link</a>` : "—"}</td>
+      <td>${actions("partners", p)}</td>
+    </tr>`).join("");
 
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AKA — Content manager</title>
   <style>
-    :root{--ink:#1d2b36;--line:#dce3e6;--accent:#2f7d6b}
+    :root{--ink:#1d2b36;--line:#dce3e6;--accent:#2f7d6b;--warn:#b26a00}
     *{box-sizing:border-box}
     body{font-family:system-ui,Segoe UI,Arial,sans-serif;margin:0;color:var(--ink);background:#f5f7f8}
-    header{background:var(--ink);color:#fff;padding:1rem 1.5rem}
+    header{background:var(--ink);color:#fff;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
     header h1{margin:0;font-size:1.15rem}
-    header a{color:#bfe3d8;font-size:.85rem;margin-left:1rem}
-    main{max-width:960px;margin:0 auto;padding:1.5rem}
+    header a{color:#bfe3d8;font-size:.85rem}
+    main{max-width:1020px;margin:0 auto;padding:1.5rem}
     .tabs{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
     .tab{border:1px solid var(--line);background:#fff;padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.9rem}
     .tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
     .panel{display:none;background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
     .panel.active{display:block}
+    .editing-note{display:none;background:#fff7e8;border:1px solid #f0d9a8;color:var(--warn);padding:.6rem .9rem;border-radius:8px;margin-bottom:.75rem;font-size:.85rem}
+    .editing-note button{margin-left:.75rem;border:1px solid var(--warn);background:#fff;color:var(--warn);border-radius:6px;padding:.2rem .6rem;cursor:pointer;font-size:.8rem}
     label{display:block;font-size:.8rem;font-weight:600;margin:.75rem 0 .25rem}
     input,select,textarea{width:100%;padding:.55rem .65rem;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
     textarea{min-height:70px;resize:vertical}
@@ -649,9 +950,13 @@ async function handleContentAdmin(request, env) {
     th,td{border:1px solid var(--line);padding:.5rem;text-align:left;vertical-align:middle}
     th{background:#eef3f2}
     .badge{background:#e0f0ea;color:var(--accent);font-size:.7rem;padding:.1rem .4rem;border-radius:4px}
+    .mini{width:52px;height:40px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:6px;display:block}
+    .row-actions{display:flex;gap:.4rem;align-items:center}
+    .row-actions .edit{background:#fff;border:1px solid var(--accent);color:var(--accent);padding:.3rem .6rem;border-radius:6px;cursor:pointer;font-size:.8rem}
     .del{margin:0}
     .del button{background:#fff;border:1px solid #d9534f;color:#d9534f;padding:.3rem .6rem;border-radius:6px;cursor:pointer;font-size:.8rem}
     .hint{font-size:.75rem;color:#667;margin-top:.25rem}
+    .current-file{font-size:.75rem;color:#2f7d6b;margin-top:.25rem;display:none}
   </style></head><body>
   <header><h1>AKA — Content manager</h1><a href="/admin">form submissions →</a></header>
   <main>
@@ -659,12 +964,16 @@ async function handleContentAdmin(request, env) {
       <button class="tab active" data-tab="lectures" type="button">Lectures (${lectures.length})</button>
       <button class="tab" data-tab="documents" type="button">Documents (${documents.length})</button>
       <button class="tab" data-tab="products" type="button">Devices (${products.length})</button>
+      <button class="tab" data-tab="projects" type="button">Projects (${projects.length})</button>
+      <button class="tab" data-tab="partners" type="button">Partners (${partners.length})</button>
     </div>
 
     <!-- LECTURES -->
     <section class="panel active" id="p-lectures">
-      <form method="post" action="/admin/content" enctype="multipart/form-data">
+      <div class="editing-note" id="note-lectures">Editing an existing lecture — file fields are optional (leave empty to keep the current file).<button type="button" onclick="cancelEdit('lectures')">Cancel</button></div>
+      <form id="form-lectures" method="post" action="/admin/content" enctype="multipart/form-data">
         <input type="hidden" name="type" value="lectures">
+        <input type="hidden" name="id" value="" disabled>
         <label>Title</label><input name="title" required>
         <div class="row">
           <div><label>Category</label><select name="category">${optionList(LECTURE_CATS)}</select></div>
@@ -675,7 +984,7 @@ async function handleContentAdmin(request, env) {
           <div><label>Duration (optional)</label><input name="duration" placeholder="12:45"></div>
         </div>
         <label>Video source</label>
-        <select name="video_kind" onchange="document.getElementById('yt-field').style.display=this.value==='youtube'?'block':'none';document.getElementById('file-field').style.display=this.value==='file'?'block':'none'">
+        <select name="video_kind" onchange="syncVideoKind(this)">
           <option value="youtube">YouTube link</option>
           <option value="file">Upload video file</option>
         </select>
@@ -685,11 +994,13 @@ async function handleContentAdmin(request, env) {
         <div id="file-field" style="display:none">
           <label>Video file (mp4)</label><input type="file" name="video_file" accept="video/*">
           <p class="hint">Large files may fail to upload — for long videos, prefer a YouTube link.</p>
+          <p class="current-file" data-current="video">A video file is already uploaded — choose a new one only to replace it.</p>
         </div>
         <label>Cover image (optional — recommended for uploaded files)</label>
         <input type="file" name="thumb_file" accept="image/*">
+        <p class="current-file" data-current="thumb">A cover image is already uploaded — choose a new one only to replace it.</p>
         <div class="check"><input type="checkbox" name="featured" id="feat"><label for="feat">Feature this at the top of the page</label></div>
-        <button class="primary" type="submit">Publish lecture</button>
+        <button class="primary" type="submit" data-create="Publish lecture" data-edit="Save changes">Publish lecture</button>
       </form>
       <h2>Published lectures</h2>
       <table><thead><tr><th>Title</th><th>Category</th><th>Source</th><th>Speaker</th><th></th></tr></thead>
@@ -698,8 +1009,10 @@ async function handleContentAdmin(request, env) {
 
     <!-- DOCUMENTS -->
     <section class="panel" id="p-documents">
-      <form method="post" action="/admin/content" enctype="multipart/form-data">
+      <div class="editing-note" id="note-documents">Editing an existing document — leave the PDF empty to keep the current file.<button type="button" onclick="cancelEdit('documents')">Cancel</button></div>
+      <form id="form-documents" method="post" action="/admin/content" enctype="multipart/form-data">
         <input type="hidden" name="type" value="documents">
+        <input type="hidden" name="id" value="" disabled>
         <label>Title</label><input name="title" required>
         <div class="row">
           <div><label>Category</label><select name="category">${optionList(DOC_CATS)}</select></div>
@@ -707,44 +1020,181 @@ async function handleContentAdmin(request, env) {
         </div>
         <label>Description (optional)</label><textarea name="description"></textarea>
         <div class="row">
-          <div><label>PDF file</label><input type="file" name="file" accept="application/pdf" required></div>
+          <div><label>PDF file</label><input type="file" name="file" accept="application/pdf" required>
+            <p class="current-file" data-current="file">A PDF is already uploaded — choose a new one only to replace it.</p></div>
           <div><label>Size label (optional)</label><input name="size_label" placeholder="2.4 MB"></div>
         </div>
-        <button class="primary" type="submit">Publish document</button>
+        <button class="primary" type="submit" data-create="Publish document" data-edit="Save changes">Publish document</button>
       </form>
       <h2>Published documents</h2>
       <table><thead><tr><th>Title</th><th>Category</th><th>File</th><th></th></tr></thead>
       <tbody>${docRows || '<tr><td colspan="4">None yet.</td></tr>'}</tbody></table>
     </section>
 
-    <!-- PRODUCTS -->
+    <!-- DEVICES -->
     <section class="panel" id="p-products">
-      <form method="post" action="/admin/content" enctype="multipart/form-data">
+      <div class="editing-note" id="note-products">Editing an existing device — leave the image empty to keep the current photo.<button type="button" onclick="cancelEdit('products')">Cancel</button></div>
+      <form id="form-products" method="post" action="/admin/content" enctype="multipart/form-data">
         <input type="hidden" name="type" value="products">
+        <input type="hidden" name="id" value="" disabled>
         <div class="row">
           <div><label>Model name</label><input name="name" required></div>
           <div><label>Brand / manufacturer</label><input name="brand" required></div>
         </div>
         <div class="row">
           <div><label>Category</label><select name="category">${optionList(PRODUCT_CATS)}</select></div>
-          <div><label>Product image</label><input type="file" name="image" accept="image/*" required></div>
+          <div><label>Product image</label><input type="file" name="image" accept="image/*" required>
+            <p class="current-file" data-current="image">An image is already uploaded — choose a new one only to replace it.</p></div>
         </div>
-        <button class="primary" type="submit">Publish device</button>
+        <button class="primary" type="submit" data-create="Publish device" data-edit="Save changes">Publish device</button>
       </form>
       <h2>Published devices</h2>
-      <table><thead><tr><th>Name</th><th>Brand</th><th>Category</th><th></th></tr></thead>
-      <tbody>${productRows || '<tr><td colspan="4">None yet.</td></tr>'}</tbody></table>
+      <table><thead><tr><th></th><th>Name</th><th>Brand</th><th>Category</th><th></th></tr></thead>
+      <tbody>${productRows || '<tr><td colspan="5">None yet.</td></tr>'}</tbody></table>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="panel" id="p-projects">
+      <div class="editing-note" id="note-projects">Editing an existing project.<button type="button" onclick="cancelEdit('projects')">Cancel</button></div>
+      <form id="form-projects" method="post" action="/admin/content" enctype="multipart/form-data">
+        <input type="hidden" name="type" value="projects">
+        <input type="hidden" name="id" value="" disabled>
+        <div class="row">
+          <div><label>Name (English)</label><input name="name" required placeholder="Al Noor Hospital — Tartous"></div>
+          <div><label>Name (Arabic, optional)</label><input name="name_ar" dir="rtl"></div>
+        </div>
+        <div class="row">
+          <div><label>Year</label><input name="year" required placeholder="2024"></div>
+          <div><label>Beds (optional)</label><input name="beds" placeholder="150"></div>
+        </div>
+        <div class="row">
+          <div><label>Location (English)</label><input name="location" placeholder="Tartous"></div>
+          <div><label>Location (Arabic)</label><input name="location_ar" dir="rtl"></div>
+        </div>
+        <label>Departments (English)</label><input name="departments" placeholder="Emergency, Surgery, ICU, Radiology">
+        <label>Departments (Arabic)</label><input name="departments_ar" dir="rtl">
+        <label>Key equipment (English)</label><input name="equipment" placeholder="CT Scanner, Ultrasound, Digital X-ray">
+        <label>Key equipment (Arabic)</label><input name="equipment_ar" dir="rtl">
+        <button class="primary" type="submit" data-create="Publish project" data-edit="Save changes">Publish project</button>
+      </form>
+      <h2>Published projects</h2>
+      <table><thead><tr><th>Year</th><th>Name</th><th>Location</th><th>Beds</th><th></th></tr></thead>
+      <tbody>${projectRows || '<tr><td colspan="5">None yet.</td></tr>'}</tbody></table>
+    </section>
+
+    <!-- PARTNERS -->
+    <section class="panel" id="p-partners">
+      <div class="editing-note" id="note-partners">Editing an existing partner — leave the logo empty to keep the current one.<button type="button" onclick="cancelEdit('partners')">Cancel</button></div>
+      <form id="form-partners" method="post" action="/admin/content" enctype="multipart/form-data">
+        <input type="hidden" name="type" value="partners">
+        <input type="hidden" name="id" value="" disabled>
+        <div class="row">
+          <div><label>Name</label><input name="name" required placeholder="EDAN"></div>
+          <div><label>Type</label><select name="kind">${optionList(PARTNER_KINDS)}</select>
+            <p class="hint">manufacturer = "Our partners" grid · ngo = the NGO slideshow</p></div>
+        </div>
+        <label>Description (English)</label><textarea name="description"></textarea>
+        <label>Description (Arabic)</label><textarea name="description_ar" dir="rtl"></textarea>
+        <div class="row">
+          <div><label>Website (optional)</label><input name="website" placeholder="https://..."></div>
+          <div><label>Logo</label><input type="file" name="logo" accept="image/*">
+            <p class="current-file" data-current="logo">A logo is already set — choose a new one only to replace it.</p></div>
+        </div>
+        <button class="primary" type="submit" data-create="Publish partner" data-edit="Save changes">Publish partner</button>
+      </form>
+      <h2>Published partners</h2>
+      <table><thead><tr><th></th><th>Name</th><th>Type</th><th>Website</th><th></th></tr></thead>
+      <tbody>${partnerRows || '<tr><td colspan="5">None yet.</td></tr>'}</tbody></table>
     </section>
   </main>
   <script>
-    document.querySelectorAll('.tab').forEach(function(t){
-      t.addEventListener('click',function(){
-        document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
-        document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active')});
-        t.classList.add('active');
-        document.getElementById('p-'+t.dataset.tab).classList.add('active');
-      });
+    // ---- tabs ----
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){ showTab(t.dataset.tab); });
     });
+    function showTab(name){
+      tabs.forEach(function(x){ x.classList.toggle('active', x.dataset.tab === name); });
+      document.querySelectorAll('.panel').forEach(function(x){ x.classList.remove('active'); });
+      document.getElementById('p-' + name).classList.add('active');
+    }
+
+    // ---- lecture video-kind toggle ----
+    function syncVideoKind(sel){
+      document.getElementById('yt-field').style.display = sel.value === 'youtube' ? 'block' : 'none';
+      document.getElementById('file-field').style.display = sel.value === 'file' ? 'block' : 'none';
+    }
+
+    // ---- edit mode ----
+    // Clicking Edit prefills the tab's form from the row's JSON, switches the
+    // form action to /update, relaxes required file inputs, and shows a note.
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest('.row-actions .edit');
+      if (!btn) return;
+      var type = btn.dataset.type;
+      var data = JSON.parse(btn.dataset.item);
+      var form = document.getElementById('form-' + type);
+
+      cancelEdit(type); // reset first so stale state never leaks between edits
+      showTab(type);
+
+      form.action = '/admin/content/update';
+      var idInput = form.querySelector('input[name=id]');
+      idInput.value = data.id;
+      idInput.disabled = false;
+
+      // Generic prefill: every non-file input/select/textarea whose name
+      // matches a data key.
+      form.querySelectorAll('input,select,textarea').forEach(function(el){
+        if (!el.name || el.type === 'file' || el.type === 'hidden') return;
+        if (el.type === 'checkbox') { el.checked = !!data[el.name]; return; }
+        if (data[el.name] != null) el.value = data[el.name];
+      });
+
+      // File inputs are optional while editing.
+      form.querySelectorAll('input[type=file]').forEach(function(el){ el.required = false; });
+
+      // Type-specific touches.
+      if (type === 'lectures') {
+        var kindSel = form.querySelector('select[name=video_kind]');
+        kindSel.value = data.src_kind === 'file' ? 'file' : 'youtube';
+        syncVideoKind(kindSel);
+        form.querySelector('input[name=youtube_url]').value =
+          data.src_kind === 'youtube' ? (data.src_value || '') : '';
+        toggleCurrent(form, 'video', data.src_kind === 'file');
+        toggleCurrent(form, 'thumb', !!data.thumb_key);
+      }
+      if (type === 'documents') toggleCurrent(form, 'file', !!data.file_key);
+      if (type === 'products') toggleCurrent(form, 'image', !!data.image_key);
+      if (type === 'partners') toggleCurrent(form, 'logo', !!data.logo_key);
+
+      document.getElementById('note-' + type).style.display = 'block';
+      var submit = form.querySelector('button[type=submit]');
+      submit.textContent = submit.dataset.edit;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    function toggleCurrent(form, which, show){
+      var el = form.querySelector('.current-file[data-current=' + which + ']');
+      if (el) el.style.display = show ? 'block' : 'none';
+    }
+
+    function cancelEdit(type){
+      var form = document.getElementById('form-' + type);
+      form.reset();
+      form.action = '/admin/content';
+      var idInput = form.querySelector('input[name=id]');
+      idInput.value = '';
+      idInput.disabled = true;
+      // Restore create-mode required flags.
+      if (type === 'documents') form.querySelector('input[name=file]').required = true;
+      if (type === 'products') form.querySelector('input[name=image]').required = true;
+      form.querySelectorAll('.current-file').forEach(function(el){ el.style.display = 'none'; });
+      if (type === 'lectures') syncVideoKind(form.querySelector('select[name=video_kind]'));
+      document.getElementById('note-' + type).style.display = 'none';
+      var submit = form.querySelector('button[type=submit]');
+      submit.textContent = submit.dataset.create;
+    }
   </script>
   </body></html>`;
 

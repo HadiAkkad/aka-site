@@ -61,6 +61,32 @@ CREATE TABLE IF NOT EXISTS products (
   image_key TEXT NOT NULL       -- R2 key of the product photo
 );
 
+CREATE TABLE IF NOT EXISTS projects (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at TEXT NOT NULL,
+  name TEXT NOT NULL,           -- hospital / project name (English)
+  name_ar TEXT,                -- Arabic name (optional)
+  year TEXT NOT NULL,           -- timeline marker, e.g. "2024"
+  location TEXT,
+  location_ar TEXT,
+  beds TEXT,                   -- e.g. "150"
+  departments TEXT,
+  departments_ar TEXT,
+  equipment TEXT,
+  equipment_ar TEXT
+);
+
+CREATE TABLE IF NOT EXISTS partners (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at TEXT NOT NULL,
+  kind TEXT NOT NULL,           -- 'manufacturer' (partners grid) | 'ngo' (slideshow)
+  name TEXT NOT NULL,
+  description TEXT,
+  description_ar TEXT,
+  website TEXT,
+  logo_key TEXT                -- R2 key (content/...) OR a site path (images/...)
+);
+
 CREATE INDEX IF NOT EXISTS idx_lectures_created ON lectures (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_documents_created ON documents (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_products_created ON products (created_at DESC);

@@ -1,5 +1,8 @@
-// Timeline accordion functionality
-document.addEventListener('DOMContentLoaded', function() {
+// Timeline accordion functionality.
+// Exposed as window.AKA_initTimeline so pages that inject timeline items
+// dynamically (js/projects.js) can (re)bind after rendering; each item is
+// guarded so calling it twice never double-binds.
+window.AKA_initTimeline = function () {
   const timelineItems = document.querySelectorAll('.timeline-item');
 
   function closeItem(item) {
@@ -17,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   timelineItems.forEach(item => {
+    if (item.dataset.bound) return;
+    item.dataset.bound = '1';
     const header = item.querySelector('.timeline-header');
     if (!header) return;
 
@@ -35,4 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  window.AKA_initTimeline();
 });
