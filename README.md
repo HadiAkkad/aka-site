@@ -35,6 +35,7 @@ If the admin password is ever exposed, change it (see *Backend → Change the ad
 9. [Partner brands (Partners page)](#9-partner-brands-partners-page)
 10. [The backend (Cloudflare)](#10-the-backend-cloudflare)
 11. [The admin page (view applications & CVs)](#11-the-admin-page)
+11b. [The content manager (upload lectures, documents & devices)](#11b-the-content-manager--upload-lectures-documents--devices)
 12. [Credentials & resource IDs](#12-credentials--resource-ids)
 13. [Deployment](#13-deployment)
 14. [Cache busting (`?v=`)](#14-cache-busting-v)
@@ -256,6 +257,9 @@ third-party form service is used.
 | `POST /apply`   | Save a job application + upload the CV to R2 |
 | `GET  /admin`   | Password-protected list of all submissions |
 | `GET  /file?key=…` | Password-protected CV download |
+| `GET  /admin/content` | Password-protected **content manager** — upload lectures, documents & devices |
+| `GET  /content?type=…` | Public JSON feed the pages read (`lectures` / `documents` / `products`) |
+| `GET  /media?key=content/…` | Public serving of an uploaded file (video/PDF/image) |
 
 The website forms talk to it through `aka-site/js/forms.js`, which posts the form and
 shows an inline "Sending… / Thank you / error" message.
@@ -304,6 +308,72 @@ To read job applications and contact messages, and to download CVs:
    - **Password:** see *Credentials* below
 3. You'll see two tables: **Job applications** (with a CV download link per row) and
    **Contact messages**. Newest first.
+
+---
+
+## 11b. The content manager — upload lectures, documents & devices
+
+This is the system for publishing content that appears as **posts** on the site.
+Everything the company uploads here shows up instantly on the matching page — **no
+code editing, no redeploy.**
+
+- **Lectures** → appear on `lectures.html`
+- **Documents (PDFs)** → appear on `documentation.html`
+- **Devices** → appear on `devices.html` (the product catalog)
+
+### How it works (in plain terms)
+You log into one password-protected page and fill in a short form (title, category, etc.)
+and either paste a link or upload a file. The file is stored in Cloudflare **R2** (storage),
+the info is saved in **D1** (database), and the public pages read it automatically.
+It's built to handle **hundreds** of items.
+
+### Step-by-step: open the content manager
+1. Open **https://aka-api.hadi-alakkadd.workers.dev/admin/content**
+2. The browser asks for a username and password:
+   - **Username:** anything (e.g. `admin`)
+   - **Password:** the admin password (see *Credentials*, section 12 — same one as `/admin`)
+3. You'll see three tabs: **Lectures**, **Documents**, **Devices**. Click a tab to switch.
+
+### Tutorial 1 — upload a lecture video
+1. Click the **Lectures** tab.
+2. Fill in **Title** (required) and pick a **Category** (Presentation / Tutorial / Webinar).
+3. Optionally add **Speaker**, **Date** (e.g. "March 2026"), and **Duration** (e.g. "12:45").
+4. Choose the **Video source**:
+   - **YouTube link** *(recommended for long videos)* — upload the video to the company's
+     YouTube channel first (it can be *Unlisted* if you don't want it public on YouTube),
+     then paste the link (e.g. `https://youtube.com/watch?v=...`). The thumbnail is
+     pulled in automatically.
+   - **Upload video file** — pick an `.mp4` from your computer. Best for short clips;
+     for long lectures use a YouTube link (files over ~100 MB can fail to upload).
+     Add a **Cover image** so the card looks good.
+5. Tick **"Feature this at the top of the page"** if you want it highlighted (optional).
+6. Click **Publish lecture**. Open `lectures.html` — it's there.
+
+### Tutorial 2 — upload a document (PDF)
+1. Click the **Documents** tab.
+2. Fill in **Title** and pick a **Category** (Profile / Certification / Manual / Catalog).
+3. Optionally add **Language** (e.g. "EN / AR"), a **Description**, and a **Size label**.
+4. Click **Choose file** next to **PDF file** and select the PDF.
+5. Click **Publish document**. It appears on `documentation.html` with **View** and
+   **Download** buttons.
+
+### Tutorial 3 — add a device to the catalog
+1. Click the **Devices** tab.
+2. Fill in **Model name**, **Brand / manufacturer**, and pick a **Category**.
+3. Click **Choose file** next to **Product image** and select the photo.
+4. Click **Publish device**. It appears in the catalog on `devices.html`.
+
+### Deleting something
+Every tab shows a table of what's already published, each row with a **Delete** button.
+Deleting also removes the uploaded file from storage. (There is no "edit" yet — to change
+an item, delete it and re-upload.)
+
+### Tips
+- **Uploads are live immediately.** No `git push`, no waiting.
+- **Videos:** prefer YouTube links for anything long — faster for viewers and no upload limit.
+- **Privacy:** uploaded files are served from `/media?key=content/…` and are publicly
+  viewable (that's the point — the site shows them). Don't upload anything confidential.
+  CVs from the careers form are kept in a separate, private area and are **never** exposed here.
 
 ---
 
@@ -381,6 +451,7 @@ version number in its references so visitors get the new version:
 | Add a category | Copy `diagnostic-devices.html`, add a card in `devices.html`'s `#category-grid` |
 | Swap the logo | Replace `images/aka-logo.svg`, bump `?v=` |
 | Read job applications / CVs | Open the **/admin** page (section 11) |
+| Upload a lecture / PDF / device | Open the **/admin/content** page (section 11b) |
 | Edit form behaviour | `js/forms.js` (frontend) / `api/src/index.js` (backend) |
 | Deploy the site | `git push origin master` (or manual Wrangler) |
 | Deploy the backend | `cd api && npx wrangler@3 deploy` |

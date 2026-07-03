@@ -21,11 +21,14 @@
    //   desc: "Who we are, what we supply, and the manufacturers we represent." },
    ========================================================================= */
 
-const DOCS = [
-  // Add your documents here (see the instructions above).
+/* Documents are now managed from the admin panel (/admin/content) and loaded
+   from the backend at runtime. The array below is only an offline fallback. */
+const API_BASE = "https://aka-api.hadi-alakkadd.workers.dev";
+const DOCS_FALLBACK = [
+  // Optional: hardcode a document here as a fallback (see the instructions above).
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const grid = document.getElementById("doc-grid");
   const toolbar = document.getElementById("doc-toolbar");
   const filtersWrap = document.getElementById("doc-filters");
@@ -33,6 +36,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const empty = document.getElementById("doc-empty");
   const soonPanel = document.getElementById("doc-soon");
   if (!grid || !filtersWrap) return;
+
+  // Load from the backend; fall back to the built-in list on any error.
+  let DOCS = DOCS_FALLBACK;
+  try {
+    const res = await fetch(`${API_BASE}/content?type=documents`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) DOCS = data;
+    }
+  } catch (e) {
+    /* offline — keep the fallback list */
+  }
 
   // NOTE: I18N is a top-level const (not a window property), so feature-detect
   // it with typeof — window.I18N would always be undefined.

@@ -24,14 +24,30 @@
    //   featured: true },
    ========================================================================= */
 
-const LECTURES = [
-  // Add your videos here (see the instructions above).
+/* Videos are now managed from the admin panel (/admin/content) and loaded
+   from the backend at runtime. The array below is only an offline fallback,
+   used if the backend can't be reached. */
+const API_BASE = "https://aka-api.hadi-alakkadd.workers.dev";
+const LECTURES_FALLBACK = [
+  // Optional: hardcode a video here as a fallback (see the instructions above).
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const modal = document.getElementById("lecture-modal");
   const grid = document.getElementById("lecture-grid");
   if (!modal || !grid) return;
+
+  // Load from the backend; fall back to the built-in list on any error.
+  let LECTURES = LECTURES_FALLBACK;
+  try {
+    const res = await fetch(`${API_BASE}/content?type=lectures`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) LECTURES = data;
+    }
+  } catch (e) {
+    /* offline — keep the fallback list */
+  }
 
   const featuredSlot = document.getElementById("lecture-featured-slot");
   const filtersWrap = document.getElementById("lecture-filters");

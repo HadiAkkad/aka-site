@@ -19,6 +19,11 @@
    that have a #product-grid element.
    ========================================================================= */
 
+/* Devices are now managed from the admin panel (/admin/content). The catalog
+   on devices.html loads the live list from the backend; this array stays as an
+   offline fallback and as the seed for the home-page card stack (card-stack.js
+   reads PRODUCTS synchronously, so it always shows this built-in selection). */
+const API_BASE = "https://aka-api.hadi-alakkadd.workers.dev";
 const PRODUCTS = [
   { name: "SE-310 ECG", brand: "Edan", category: "cardiology", image: "images/devices/ecg.png" },
   { name: "HLT-712 v.201 Holter", brand: "ASPEL", category: "cardiology", image: "images/devices/ecg2.jpg" },
@@ -31,15 +36,27 @@ const PRODUCTS = [
   { name: "Ultrapro S100 EMG", brand: "Micromed", category: "neurology", image: "images/devices/emg.png" },
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const grid = document.getElementById("product-grid");
   const filtersWrap = document.getElementById("product-filters");
   const empty = document.getElementById("product-empty");
   const search = document.getElementById("product-search");
   if (!grid || !filtersWrap) return;
 
+  // Load the live catalog from the backend; fall back to the built-in list.
+  let items = PRODUCTS;
+  try {
+    const res = await fetch(`${API_BASE}/content?type=products`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length) items = data;
+    }
+  } catch (e) {
+    /* offline — keep the fallback list */
+  }
+
   // Filter buttons: "All" + one per category that actually has products.
-  const categories = [...new Set(PRODUCTS.map((p) => p.category))];
+  const categories = [...new Set(items.map((p) => p.category))];
   filtersWrap.innerHTML =
     `<button class="product-filter is-active" type="button" data-filter="all"
        data-i18n="products.filter.all">${I18N.t("products.filter.all")}</button>` +
@@ -51,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       )
       .join("");
 
-  grid.innerHTML = PRODUCTS.map(
+  grid.innerHTML = items.map(
     (p) => `
     <article class="product-card" data-category="${p.category}"
       data-search="${(p.name + " " + p.brand).toLowerCase()}">
