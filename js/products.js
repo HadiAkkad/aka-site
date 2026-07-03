@@ -1,59 +1,41 @@
 /* =========================================================================
    AKA — Product catalog (devices.html #catalog)
    -------------------------------------------------------------------------
-   TO ADD A PRODUCT: add one object to the PRODUCTS array below.
-     name     - model name shown on the card (not translated)
-     brand    - manufacturer name
-     category - one of the slugs from QUOTE_CATEGORIES in components.js
-                (diagnostic, imaging, endoscopy, surgical, orthopedics,
-                 monitoring, cardiology, neurology, lab, sterilization,
-                 hospital) — drives the filter buttons and the quote modal
-     image    - path to the product photo (put files in images/devices/)
-   Filter buttons are generated automatically from the categories present.
-   The search box matches against product name + brand, combined with the
-   active category filter. Each card's category chip links to that
-   category's detail page (CATEGORY_PAGES below).
+   Products are managed entirely from the admin panel (/admin/content →
+   Devices tab). There is no hardcoded product list any more — this file
+   loads the live list from the backend and renders:
+     • the catalog grid on any page with a #product-grid element, and
+     • the animated home-page card stack (via card-stack.js), which it
+       kicks off with the same data through window.AKA_initCardStack().
 
-   This file is also loaded on the home page, where only the PRODUCTS data
-   is used (by js/card-stack.js) — the catalog UI renders only on pages
-   that have a #product-grid element.
+   To add / remove a device, use the content manager — nothing to edit here.
    ========================================================================= */
 
-/* Devices are now managed from the admin panel (/admin/content). The catalog
-   on devices.html loads the live list from the backend; this array stays as an
-   offline fallback and as the seed for the home-page card stack (card-stack.js
-   reads PRODUCTS synchronously, so it always shows this built-in selection). */
 const API_BASE = "https://aka-api.hadi-alakkadd.workers.dev";
-const PRODUCTS = [
-  { name: "SE-310 ECG", brand: "Edan", category: "cardiology", image: "images/devices/ecg.png" },
-  { name: "HLT-712 v.201 Holter", brand: "ASPEL", category: "cardiology", image: "images/devices/ecg2.jpg" },
-  { name: "Ultra 7FR IAB Catheter Kit", brand: "Insightra", category: "cardiology", image: "images/devices/catheterKit.png" },
-  { name: "POCT-i2 Point-of-Care Analyzer", brand: "Edan", category: "diagnostic", image: "images/devices/poct.png" },
-  { name: "NeuMR Universal MRI", brand: "Neusoft", category: "imaging", image: "images/devices/mri.jpg" },
-  { name: "NeuViz Epoch CT", brand: "Neusoft", category: "imaging", image: "images/devices/ct.jpg" },
-  { name: "Grand-Promerix Operating Table", brand: "Merivaara", category: "surgical", image: "images/devices/Grand-Promerix.jpg" },
-  { name: "Endoscopic Units", brand: "Hermann", category: "endoscopy", image: "images/random/endo.png" },
-  { name: "Ultrapro S100 EMG", brand: "Micromed", category: "neurology", image: "images/devices/emg.png" },
-];
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const grid = document.getElementById("product-grid");
-  const filtersWrap = document.getElementById("product-filters");
-  const empty = document.getElementById("product-empty");
-  const search = document.getElementById("product-search");
-  if (!grid || !filtersWrap) return;
-
-  // Load the live catalog from the backend; fall back to the built-in list.
-  let items = PRODUCTS;
+  // Load the live catalog once; used by both the grid and the home stack.
+  let items = [];
   try {
     const res = await fetch(`${API_BASE}/content?type=products`);
     if (res.ok) {
       const data = await res.json();
-      if (Array.isArray(data) && data.length) items = data;
+      if (Array.isArray(data)) items = data;
     }
   } catch (e) {
-    /* offline — keep the fallback list */
+    /* offline — leave the list empty */
   }
+
+  // Feed the home-page card stack (no-op on pages without it).
+  if (typeof window.AKA_initCardStack === "function") {
+    window.AKA_initCardStack(items);
+  }
+
+  const grid = document.getElementById("product-grid");
+  const filtersWrap = document.getElementById("product-filters");
+  const empty = document.getElementById("product-empty");
+  const search = document.getElementById("product-search");
+  if (!grid || !filtersWrap) return; // e.g. the home page — stack handled above
 
   // Filter buttons: "All" + one per category that actually has products.
   const categories = [...new Set(items.map((p) => p.category))];

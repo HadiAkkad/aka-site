@@ -5,15 +5,19 @@
    stacked cards cycle automatically: the front card slides down and out,
    the two behind promote forward, and a new card slides in at the back.
 
-   Data comes from the PRODUCTS array in js/products.js (loaded first on
-   index.html), so the stack always mirrors the product catalog. Autoplay
-   pauses on hover, only runs while the stack is on screen, and is skipped
-   entirely for users who prefer reduced motion.
+   Data comes from the backend (loaded by js/products.js, which is included
+   first on index.html): products.js fetches the live catalog and calls
+   window.AKA_initCardStack(products) with it, so the stack always mirrors
+   the product catalog managed in /admin/content. Autoplay pauses on hover,
+   only runs while the stack is on screen, and is skipped entirely for users
+   who prefer reduced motion.
    ========================================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+window.AKA_initCardStack = function (PRODUCTS) {
   const root = document.getElementById("card-stack");
-  if (!root || typeof PRODUCTS === "undefined" || PRODUCTS.length === 0) return;
+  if (!root || !Array.isArray(PRODUCTS) || PRODUCTS.length === 0) return;
+  if (root.dataset.built) return; // guard against a double init
+  root.dataset.built = "1";
 
   const CYCLE_MS = 3500;   // time between automatic advances
   const EXIT_MS = 900;     // must match the CSS transition duration
@@ -102,4 +106,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   sync();
-});
+};
