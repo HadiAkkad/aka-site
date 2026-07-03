@@ -50,21 +50,12 @@ aka-site/                      ← repo root (GitHub: HadiAkkad/aka-site)
 ├── aka-site/                  ← THE WEBSITE (served by the "aka1" Worker)
 │   ├── index.html             Home (full-bleed hero)
 │   ├── about.html             About (story, specialties, location, contact)
-│   ├── devices.html           Devices overview + category grid (#categories)
+│   ├── devices.html           Product catalog (search + category filters, #catalog)
 │   ├── partners.html          NGOs + "Our partners" manufacturer section
 │   ├── support.html           "Services" page (file name kept as support.html)
 │   ├── careers.html           Careers — application form + CV upload
-│   ├── diagnostic-devices.html  A category page (also the TEMPLATE)
-│   ├── patient-monitoring.html  ┐
-│   ├── cardiology.html          │
-│   ├── medical-imaging.html     │
-│   ├── surgical-equipment.html  │ one page per category
-│   ├── laboratory-equipment.html│ (Imaging & Ultrasound)
-│   ├── endoscopy.html           │
-│   ├── sterilization.html       │
-│   ├── hospital-equipment.html  │
-│   ├── neurology.html           │
-│   ├── orthopedics.html         ┘
+│   ├── lectures.html          Video library (posts from the content manager)
+│   ├── documentation.html     PDF library (posts from the content manager)
 │   ├── css/style.css          ALL styling (one file, sectioned & commented)
 │   ├── js/
 │   │   ├── i18n.js            ALL text in English + Arabic (the dictionary)
@@ -174,7 +165,7 @@ The header and footer are injected on every page by `aka-site/js/components.js`
 ## 6. Adding a new page
 
 1. **Copy an existing page** that's closest to what you want (e.g. `about.html` for a
-   content page, or `diagnostic-devices.html` for a category page).
+   content page).
 2. Rename it, e.g. `news.html`.
 3. Set `data-page="news.html"` on the `<body>` (used to highlight the nav).
 4. Replace the content; use `data-i18n` keys for any text and add those keys to
@@ -193,27 +184,23 @@ The header and footer are injected on every page by `aka-site/js/components.js`
 
 ---
 
-## 7. Adding / editing a product category
+## 7. Product categories
 
-Categories are listed in the `#categories` grid on `devices.html` (a grid of image
-cards), and each has its own page. `diagnostic-devices.html` is the **template**.
+There are **no per-category pages** any more (they were deleted — you didn't want to
+navigate to them). The catalog on `devices.html` is a single, searchable grid, and the
+**category filter buttons above it are generated automatically** from whatever devices
+are published in the content manager. Publish a device in a category and its filter
+button appears; remove the last device in a category and the button disappears.
 
-**To edit a category's text:** change its keys in `i18n.js` (e.g. `mon.lead`,
-`card.cardiology`, etc.).
-
-**To add a new category:**
-1. Copy `diagnostic-devices.html` → `my-category.html`. Set
-   `data-page="devices.html"` on its `<body>` so the Devices nav tab highlights.
-2. Change the hero image, the `data-i18n` keys, and the "What we offer" items.
-3. Add the new keys to `i18n.js` (EN + AR).
-4. In `devices.html`, add a card to the `#category-grid`:
-   ```html
-   <a class="card" href="my-category.html">
-     <img src="images/..." alt="My Category" />
-     <span class="card__label" data-i18n="cat.mycategory">My Category</span>
-   </a>
-   ```
-5. Add `cat.mycategory` to `i18n.js` (EN + AR).
+- **The list of allowed category slugs** lives in two places, kept in sync:
+  `PRODUCT_CATS` in `api/src/index.js` (the dropdown in the admin panel) and
+  `QUOTE_CATEGORIES` in `js/components.js` (the quote modal).
+- **Category display names / translations** are the `cat.<slug>` keys in `js/i18n.js`
+  (EN + AR).
+- **To add a brand-new category slug:** add it to `PRODUCT_CATS` (redeploy the Worker),
+  to `QUOTE_CATEGORIES`, and add a `cat.<slug>` label to `i18n.js` — then it's selectable
+  when publishing a device.
+- Deep link to a filtered catalog with `devices.html?cat=<slug>#catalog`.
 
 ---
 
@@ -448,7 +435,7 @@ version number in its references so visitors get the new version:
 | Change the menu | `js/components.js` → `NAV_LINKS` |
 | Change footer brand strip | `js/components.js` → `PARTNERS` |
 | Add a page | Copy a page, rename, add nav link + i18n keys |
-| Add a category | Copy `diagnostic-devices.html`, add a card in `devices.html`'s `#category-grid` |
+| Add a device / category | Publish it in the **/admin/content** Devices tab (new slugs: see section 7) |
 | Swap the logo | Replace `images/aka-logo.svg`, bump `?v=` |
 | Read job applications / CVs | Open the **/admin** page (section 11) |
 | Upload a lecture / PDF / device | Open the **/admin/content** page (section 11b) |
