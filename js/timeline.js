@@ -8,15 +8,27 @@ window.AKA_initTimeline = function () {
   function closeItem(item) {
     const content = item.querySelector('.timeline-content');
     item.classList.remove('is-open');
+    // From "none" the browser can't animate, so lock the real height first.
+    if (content.style.maxHeight === 'none') {
+      content.style.maxHeight = content.scrollHeight + 'px';
+      void content.offsetHeight;
+    }
     content.style.maxHeight = '0px';
+    item.querySelector('.timeline-header')?.setAttribute('aria-expanded', 'false');
   }
 
   function openItem(item) {
     const content = item.querySelector('.timeline-content');
     item.classList.add('is-open');
-    // Measure after the open class applies the padding, so the height
-    // includes it — this keeps the animation matched to the real size.
+    item.querySelector('.timeline-header')?.setAttribute('aria-expanded', 'true');
     content.style.maxHeight = content.scrollHeight + 'px';
+    // Once open, drop the limit so nothing clips when the language or the
+    // screen width changes the text height.
+    content.addEventListener('transitionend', function done(e) {
+      if (e.propertyName !== 'max-height') return;
+      content.removeEventListener('transitionend', done);
+      if (item.classList.contains('is-open')) content.style.maxHeight = 'none';
+    });
   }
 
   timelineItems.forEach(item => {
@@ -24,6 +36,7 @@ window.AKA_initTimeline = function () {
     item.dataset.bound = '1';
     const header = item.querySelector('.timeline-header');
     if (!header) return;
+    header.setAttribute('aria-expanded', 'false');
 
     header.addEventListener('click', function(e) {
       e.preventDefault();

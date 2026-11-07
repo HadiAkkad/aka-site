@@ -15,7 +15,9 @@
 
 window.AKA_initCardStack = function (PRODUCTS) {
   const root = document.getElementById("card-stack");
-  if (!root || !Array.isArray(PRODUCTS) || PRODUCTS.length === 0) return;
+  if (!root) return;
+  // Nothing to show (catalog empty or API unreachable): no blank gap on the page.
+  if (!Array.isArray(PRODUCTS) || PRODUCTS.length === 0) { root.style.display = "none"; return; }
   if (root.dataset.built) return; // guard against a double init
   root.dataset.built = "1";
 
@@ -93,13 +95,20 @@ window.AKA_initCardStack = function (PRODUCTS) {
   let timer = null;
   let hovered = false;
   let onScreen = true;
+  let userPaused = false;
   const sync = () => {
-    if (!hovered && onScreen && !timer) timer = setInterval(advance, CYCLE_MS);
-    if ((hovered || !onScreen) && timer) { clearInterval(timer); timer = null; }
+    const stopped = hovered || !onScreen || userPaused;
+    if (!stopped && !timer) timer = setInterval(advance, CYCLE_MS);
+    if (stopped && timer) { clearInterval(timer); timer = null; }
   };
+
+  window.AKA_motionToggle(root, (paused) => { userPaused = paused; sync(); });
 
   root.addEventListener("mouseenter", () => { hovered = true; sync(); });
   root.addEventListener("mouseleave", () => { hovered = false; sync(); });
+  // Keyboard users get the same pause while focus is inside the stack.
+  root.addEventListener("focusin", () => { hovered = true; sync(); });
+  root.addEventListener("focusout", () => { hovered = false; sync(); });
 
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(

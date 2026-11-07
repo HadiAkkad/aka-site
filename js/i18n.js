@@ -9,7 +9,7 @@
 
    TO TRANSLATE MORE TEXT:
    1. Add  data-i18n="some.key"  to the HTML element.
-   2. Add  "some.key": "..."  to BOTH the en and ar dictionaries below.
+   2. Add  "some.key": "…"  to BOTH the en and ar dictionaries below.
    For attributes (e.g. a placeholder) use  data-i18n-attr="placeholder:some.key".
    ========================================================================= */
 
@@ -20,6 +20,8 @@ const I18N = (() => {
     en: {
       // Accessibility
       "a11y.skip": "Skip to content",
+      "a11y.pause": "Pause animation",
+      "a11y.play": "Play animation",
       "a11y.closeMenu": "Close menu",
       "a11y.toggleMenu": "Toggle menu",
       "a11y.prev": "Previous",
@@ -29,7 +31,7 @@ const I18N = (() => {
       "footer.area": "Baramkeh, Syria",
       "footer.est": "Est. 1998 — Damascus, Syria",
       "about.address": "Baramkeh, Damascus, Syria",
-      "careers.form.position.choose": "Select a position...",
+      "careers.form.position.choose": "Select a position…",
       "careers.form.position.other": "Other",
       "form.required": "Please fill in the facility name, your name, and your email.",
       "form.invalidEmail": "Please enter a valid email address.",
@@ -75,7 +77,7 @@ const I18N = (() => {
       "products.hero.h1": "Product Catalog",
       "products.hero.lead": "Browse the devices AKA supplies and services across Syria — filter by clinical category and request a quotation for any product.",
       "products.filter.all": "All categories",
-      "products.search.ph": "Search by product or manufacturer...",
+      "products.search.ph": "Search by product or manufacturer…",
       "products.empty": "No products in this category yet — contact us and we will source it for you.",
       "products.quote": "Request a quote",
       "products.note.title": "Don't see what you need?",
@@ -112,7 +114,7 @@ const I18N = (() => {
       "quote.facility.legend": "Facility information",
       "quote.facility.name": "Facility name",
       "quote.facility.type": "Facility type",
-      "quote.facility.type.choose": "Select type...",
+      "quote.facility.type.choose": "Select type…",
       "quote.facility.type.hospital": "Hospital",
       "quote.facility.type.clinic": "Clinic",
       "quote.facility.type.lab": "Laboratory",
@@ -125,13 +127,13 @@ const I18N = (() => {
       "quote.contact.phone": "Phone",
       "quote.items.legend": "Products requested",
       "quote.items.category": "Category",
-      "quote.items.category.choose": "Select a category...",
+      "quote.items.category.choose": "Select a category…",
       "quote.items.product": "Product / model (optional)",
       "quote.items.qty": "Qty",
       "quote.items.add": "+ Add another item",
       "quote.items.remove": "Remove item",
       "quote.notes": "Additional notes",
-      "quote.notes.ph": "Timeline, budget, delivery location, or any other details...",
+      "quote.notes.ph": "Timeline, budget, delivery location, or any other details…",
       "quote.submit": "Submit request",
       "quote.close": "Close",
       "quote.success": "Thank you — your quote request has been sent. Our team will get back to you shortly.",
@@ -451,7 +453,7 @@ const I18N = (() => {
       "docs.library.title": "Browse & download",
       "docs.library.lead":
         "Official AKA documents in PDF format — open them in your browser or save them for tenders, audits, and day-to-day reference.",
-      "docs.search.ph": "Search documents...",
+      "docs.search.ph": "Search documents…",
       "docs.filter.all": "All",
       "docs.filter.profile": "Company",
       "docs.filter.certification": "Certifications",
@@ -906,6 +908,8 @@ const I18N = (() => {
     ar: {
       // Accessibility
       "a11y.skip": "تخطّي إلى المحتوى",
+      "a11y.pause": "إيقاف الحركة مؤقتًا",
+      "a11y.play": "تشغيل الحركة",
       "a11y.closeMenu": "إغلاق القائمة",
       "a11y.toggleMenu": "فتح أو إغلاق القائمة",
       "a11y.prev": "السابق",
@@ -915,7 +919,7 @@ const I18N = (() => {
       "footer.area": "البرامكة، سوريا",
       "footer.est": "تأسست عام 1998 — دمشق، سوريا",
       "about.address": "البرامكة، دمشق، سوريا",
-      "careers.form.position.choose": "اختر وظيفة...",
+      "careers.form.position.choose": "اختر وظيفة…",
       "careers.form.position.other": "أخرى",
       "form.required": "يرجى إدخال اسم المنشأة واسمك وبريدك الإلكتروني.",
       "form.invalidEmail": "يرجى إدخال بريد إلكتروني صحيح.",
@@ -961,7 +965,7 @@ const I18N = (() => {
       "products.hero.h1": "كتالوج المنتجات",
       "products.hero.lead": "تصفّح الأجهزة التي تورّدها وتصونها AKA في جميع أنحاء سوريا — صفِّ حسب الفئة السريرية واطلب عرض سعر لأي منتج.",
       "products.filter.all": "جميع الفئات",
-      "products.search.ph": "ابحث باسم المنتج أو الشركة المصنّعة...",
+      "products.search.ph": "ابحث باسم المنتج أو الشركة المصنّعة…",
       "products.empty": "لا توجد منتجات في هذه الفئة بعد — تواصل معنا وسنؤمّنها لك.",
       "products.quote": "اطلب عرض سعر",
       "products.note.title": "لم تجد ما تبحث عنه؟",
@@ -998,7 +1002,7 @@ const I18N = (() => {
       "quote.facility.legend": "معلومات المنشأة",
       "quote.facility.name": "اسم المنشأة",
       "quote.facility.type": "نوع المنشأة",
-      "quote.facility.type.choose": "اختر النوع...",
+      "quote.facility.type.choose": "اختر النوع…",
       "quote.facility.type.hospital": "مشفى",
       "quote.facility.type.clinic": "عيادة",
       "quote.facility.type.lab": "مختبر",
@@ -1011,13 +1015,13 @@ const I18N = (() => {
       "quote.contact.phone": "الهاتف",
       "quote.items.legend": "المنتجات المطلوبة",
       "quote.items.category": "الفئة",
-      "quote.items.category.choose": "اختر الفئة...",
+      "quote.items.category.choose": "اختر الفئة…",
       "quote.items.product": "المنتج / الموديل (اختياري)",
       "quote.items.qty": "الكمية",
       "quote.items.add": "+ إضافة عنصر آخر",
       "quote.items.remove": "حذف العنصر",
       "quote.notes": "ملاحظات إضافية",
-      "quote.notes.ph": "الجدول الزمني، الميزانية، موقع التسليم، أو أي تفاصيل أخرى...",
+      "quote.notes.ph": "الجدول الزمني، الميزانية، موقع التسليم، أو أي تفاصيل أخرى…",
       "quote.submit": "إرسال الطلب",
       "quote.close": "إغلاق",
       "quote.success": "شكرًا لك — تم إرسال طلب عرض السعر. سيتواصل معك فريقنا قريبًا.",
@@ -1336,7 +1340,7 @@ const I18N = (() => {
       "docs.library.title": "تصفّح وحمّل",
       "docs.library.lead":
         "وثائق AKA الرسمية بصيغة PDF — افتحها في المتصفح أو احفظها للمناقصات والتدقيق والاستخدام اليومي.",
-      "docs.search.ph": "ابحث في الوثائق...",
+      "docs.search.ph": "ابحث في الوثائق…",
       "docs.filter.all": "الكل",
       "docs.filter.profile": "الشركة",
       "docs.filter.certification": "الشهادات",
@@ -1797,7 +1801,13 @@ const I18N = (() => {
 
   function getLang() {
     // Default to English for first-time visitors (no saved choice yet).
-    return localStorage.getItem(STORAGE_KEY) || "en";
+    // Storage can be blocked (private modes, strict settings); never let that
+    // stop the page from building.
+    try {
+      return localStorage.getItem(STORAGE_KEY) || "en";
+    } catch (e) {
+      return document.documentElement.lang === "ar" ? "ar" : "en";
+    }
   }
 
   // Apply the chosen language to the whole document.
@@ -1828,7 +1838,11 @@ const I18N = (() => {
   }
 
   function set(lang) {
-    localStorage.setItem(STORAGE_KEY, lang);
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch (e) {
+      /* language still applies for this page view */
+    }
     apply(lang);
   }
 

@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <article class="product-card" data-category="${akaEsc(p.category)}"
       data-search="${akaEsc((p.name + " " + p.brand).toLowerCase())}">
       <div class="product-card__media">
-        <img src="${akaEsc(p.image)}" alt="${akaEsc(p.name)} — ${akaEsc(p.brand)}" decoding="async" />
+        <img src="${akaEsc(p.image)}" alt="${akaEsc(p.name)} — ${akaEsc(p.brand)}" loading="lazy" decoding="async" />
       </div>
       <div class="product-card__body">
         <button class="product-card__cat" type="button" data-cat-filter="${akaEsc(p.category)}">${window.AKA_catSpan(p.category)}</button>
@@ -77,6 +77,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   window.AKA_applyBi(document);
 
   let activeCategory = "all";
+
+  // Backend unreachable or nothing published: say so instead of a blank area.
+  if (items.length === 0) {
+    grid.style.display = "none"; // also ends the loading placeholder
+    if (empty) empty.style.display = "";
+  }
 
   function refresh() {
     const q = (search?.value || "").trim().toLowerCase();

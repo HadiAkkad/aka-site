@@ -185,12 +185,12 @@ function buildQuoteModal() {
           <div class="quote-grid">
             <div class="quote-field">
               <label for="q-facility" data-i18n="quote.facility.name">Facility name</label>
-              <input type="text" id="q-facility" name="facility" required />
+              <input type="text" id="q-facility" name="facility" autocomplete="organization" required />
             </div>
             <div class="quote-field">
               <label for="q-type" data-i18n="quote.facility.type">Facility type</label>
               <select id="q-type" name="facilityType">
-                <option value="" data-i18n="quote.facility.type.choose">Select type...</option>
+                <option value="" data-i18n="quote.facility.type.choose">Select type…</option>
                 <option value="Hospital" data-i18n="quote.facility.type.hospital">Hospital</option>
                 <option value="Clinic" data-i18n="quote.facility.type.clinic">Clinic</option>
                 <option value="Laboratory" data-i18n="quote.facility.type.lab">Laboratory</option>
@@ -200,7 +200,7 @@ function buildQuoteModal() {
             </div>
             <div class="quote-field">
               <label for="q-location" data-i18n="quote.facility.location">City / Location</label>
-              <input type="text" id="q-location" name="location" />
+              <input type="text" id="q-location" name="location" autocomplete="address-level2" />
             </div>
           </div>
         </fieldset>
@@ -210,15 +210,15 @@ function buildQuoteModal() {
           <div class="quote-grid">
             <div class="quote-field">
               <label for="q-name" data-i18n="quote.contact.name">Your name</label>
-              <input type="text" id="q-name" name="name" required />
+              <input type="text" id="q-name" name="name" autocomplete="name" required />
             </div>
             <div class="quote-field">
               <label for="q-email" data-i18n="quote.contact.email">Email</label>
-              <input type="email" id="q-email" name="email" required />
+              <input type="email" id="q-email" name="email" autocomplete="email" spellcheck="false" required />
             </div>
             <div class="quote-field">
               <label for="q-phone" data-i18n="quote.contact.phone">Phone</label>
-              <input type="tel" id="q-phone" name="phone" />
+              <input type="tel" id="q-phone" name="phone" autocomplete="tel" />
             </div>
           </div>
         </fieldset>
@@ -282,10 +282,8 @@ function buildHeader() {
 }
 
 function buildFooter() {
-  // Duplicate the partner list so the marquee loops seamlessly.
-  const items = [...PARTNERS, ...PARTNERS]
-    .map((p) => `<span>${p}</span>`)
-    .join("");
+  // One set of names — initMarquee() clones what it needs for the loop.
+  const items = PARTNERS.map((p) => `<span>${p}</span>`).join("");
 
   const icon = {
     pin: '<path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/>',
@@ -414,7 +412,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Shared page fragments (category "Why buy" + CTA sections, NGO strip
   // repetitions) are built here so no page carries copy-pasted blocks.
   buildSharedSections();
-  expandNgoStrip();
 
   // Floating WhatsApp button — the fastest contact channel for most visitors.
   document.body.insertAdjacentHTML(
@@ -431,6 +428,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Home page stats bar: years of experience since AKA's 1998 founding.
   const yearsEl = document.getElementById("stat-years");
   if (yearsEl) yearsEl.dataset.count = String(new Date().getFullYear() - 1998);
+  const aboutYearsEl = document.getElementById("about-years");
+  if (aboutYearsEl) aboutYearsEl.firstChild.nodeValue = String(new Date().getFullYear() - 1998);
 
   // Apply the saved language to the whole page (header, footer, and content).
   I18N.apply();
@@ -462,8 +461,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  initMarquee(".ngo-strip", ".ngo-strip__track", 40);
+  initMarquee(".logo-strip", ".logo-strip__track", 50);
   initScrollReveal();
-  initSectionMotion();
   initStickyHeader();
   initNgoSlideshow();
   initStatsCounter();
@@ -496,24 +496,86 @@ function buildSharedSections() {
 }
 
 /* -------------------------------------------------------------------------
-   NGO partners strip (home hero)
-   index.html contains ONE set of logos; we clone it so the CSS marquee's
-   seamless -50% loop always spans past the viewport edge on wide screens.
+   Pause/play control for anything that moves on its own (WCAG 2.2.2).
+   Calls onChange(true) when paused, onChange(false) when playing.
    ------------------------------------------------------------------------- */
-function expandNgoStrip() {
-  const track = document.querySelector(".ngo-strip__track");
-  if (!track || track.dataset.expanded) return;
-  track.dataset.expanded = "true";
+window.AKA_motionToggle = function (host, onChange, extraClass) {
+  const ICONS = {
+    pause: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg>',
+    play: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1l8 5-8 5z"/></svg>',
+  };
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "motion-toggle" + (extraClass ? " " + extraClass : "");
+  let paused = false;
+  const render = () => {
+    const key = paused ? "a11y.play" : "a11y.pause";
+    btn.setAttribute("data-i18n-attr", `aria-label:${key},title:${key}`);
+    btn.setAttribute("aria-label", I18N.t(key));
+    btn.setAttribute("title", I18N.t(key));
+    btn.innerHTML = `<span>${paused ? ICONS.play : ICONS.pause}</span>`;
+  };
+  btn.addEventListener("click", () => {
+    paused = !paused;
+    render();
+    onChange(paused);
+  });
+  render();
+  host.appendChild(btn);
+  return btn;
+};
+
+/* -------------------------------------------------------------------------
+   Marquees (home NGO strip + footer partner strip)
+   The HTML holds ONE set of items. This clones exactly enough to cover the
+   screen twice, decodes the logos BEFORE moving them (so nothing pops in or
+   stutters mid-scroll), keeps a constant speed, and pauses off-screen so it
+   costs nothing while out of view. Clones are hidden from screen readers.
+   ------------------------------------------------------------------------- */
+function initMarquee(stripSelector, trackSelector, pxPerSecond) {
+  const strip = document.querySelector(stripSelector);
+  const track = strip && strip.querySelector(trackSelector);
+  if (!track || track.dataset.ready) return;
+  track.dataset.ready = "true";
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    strip.classList.add("is-static");
+    return;
+  }
 
   const set = [...track.children];
-  if (set.length === 0) return;
+  const setWidth = track.getBoundingClientRect().width;
+  if (!set.length || !setWidth) return;
 
-  const SETS = 8; // 4 sets per half × 2 identical halves for the loop
+  const screenWidth = Math.max(window.screen.width || 0, window.innerWidth);
+  const copiesPerHalf = Math.max(1, Math.ceil(screenWidth / setWidth));
   const frag = document.createDocumentFragment();
-  for (let i = 1; i < SETS; i++) {
-    set.forEach((logo) => frag.appendChild(logo.cloneNode(true)));
+  for (let i = 1; i < copiesPerHalf * 2; i++) {
+    set.forEach((item) => {
+      const clone = item.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      if (clone.tagName === "IMG") clone.alt = "";
+      frag.appendChild(clone);
+    });
   }
   track.appendChild(frag);
+  track.style.setProperty(
+    "--marquee-duration",
+    `${Math.round((setWidth * copiesPerHalf) / pxPerSecond)}s`
+  );
+
+  const images = [...track.querySelectorAll("img")];
+  const decoded = images.map((img) => (img.decode ? img.decode().catch(() => {}) : null));
+  const timeout = new Promise((resolve) => setTimeout(resolve, 2500));
+  Promise.race([Promise.all(decoded), timeout]).then(() => track.classList.add("is-ready"));
+
+  window.AKA_motionToggle(strip, (paused) => strip.classList.toggle("is-paused", paused));
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) =>
+      entries.forEach((e) => strip.classList.toggle("is-offscreen", !e.isIntersecting))
+    ).observe(strip);
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -623,6 +685,8 @@ function initQuoteModal() {
     if (invalid) {
       status.className = "form-status form-status--err";
       status.textContent = I18N.t(invalid);
+      const field = !facility ? "facility" : !name ? "name" : "email";
+      form.querySelector(`[name="${field}"]`).focus();
       return;
     }
 
@@ -755,6 +819,7 @@ function initNgoSlideshow() {
 
   let index = 0;
   let autoplay;
+  let userPaused = false;
 
   const dots = slides.map((_, i) => {
     const dot = document.createElement("button");
@@ -786,6 +851,8 @@ function initNgoSlideshow() {
   }
 
   function startAutoplay() {
+    window.clearInterval(autoplay);
+    if (userPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     autoplay = window.setInterval(next, 6000);
   }
 
@@ -797,6 +864,16 @@ function initNgoSlideshow() {
   if (nextBtn) nextBtn.addEventListener("click", () => { next(); stopAutoplay(); startAutoplay(); });
   root.addEventListener("mouseenter", stopAutoplay);
   root.addEventListener("mouseleave", startAutoplay);
+  root.addEventListener("focusin", stopAutoplay);
+  root.addEventListener("focusout", startAutoplay);
+
+  if (dotsWrap) {
+    window.AKA_motionToggle(dotsWrap, (paused) => {
+      userPaused = paused;
+      if (paused) stopAutoplay();
+      else startAutoplay();
+    }, "motion-toggle--inline");
+  }
 
   // Slide direction depends on the page direction, which the language toggle flips.
   new MutationObserver(render).observe(document.documentElement, {
@@ -839,14 +916,14 @@ function initScrollReveal() {
   const coarsePointer =
     window.matchMedia("(hover: none)").matches || window.innerWidth <= 860;
 
-  // Motion path: spring-physics reveals with a per-grid stagger.
+  // Motion path: eased reveals with a per-grid stagger.
   if (!coarsePointer && window.Motion && window.Motion.inView && window.Motion.animate) {
     const { inView, animate } = window.Motion;
     const targetSet = new Set(targets);
 
     targets.forEach((el) => {
       el.style.opacity = "0";
-      el.style.transform = "translateY(28px)";
+      el.style.transform = "translateY(16px)";
     });
 
     targets.forEach((el) => {
@@ -858,18 +935,19 @@ function initScrollReveal() {
             targetSet.has(c)
           );
           const index = Math.max(siblings.indexOf(el), 0);
-          animate(
+          const delay = Math.min(index, 4) * 0.05;
+          const animation = animate(
             el,
             { opacity: 1, transform: "translateY(0px)" },
-            {
-              delay: Math.min(index, 6) * 0.07,
-              type: "spring",
-              stiffness: 110,
-              damping: 18,
-              // Opacity shouldn't spring — fade it on a short ease-out.
-              opacity: { duration: 0.45, ease: "easeOut" },
-            }
+            { delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
           );
+          // Hand the element back to CSS when done: leftover inline styles
+          // would override every hover effect on it.
+          setTimeout(() => {
+            if (animation && animation.cancel) animation.cancel();
+            el.style.opacity = "";
+            el.style.transform = "";
+          }, (delay + 0.55) * 1000);
           // No cleanup returned → each element animates once, then unobserves.
         },
         // The huge top margin counts anything ALREADY SCROLLED PAST as "in
@@ -902,51 +980,6 @@ function initScrollReveal() {
   );
 
   targets.forEach((el) => observer.observe(el));
-}
-
-/* -------------------------------------------------------------------------
-   Section scroll motion
-   Continuous, scroll-LINKED parallax on framed cover-images across every
-   page. As each image's frame passes through the viewport we shift the
-   image's crop (object-position) — NOT its transform — so it never fights
-   the CSS hover-zoom that lives on these same images. Subtle depth that
-   makes sections feel alive while scrolling, per the design system's
-   "parallax-subtle" rule. Fully disabled under reduced-motion.
-   ------------------------------------------------------------------------- */
-function initSectionMotion() {
-  const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-  if (reduceMotion) return;
-  if (!(window.Motion && window.Motion.scroll)) return;
-
-  // object-position updates repaint on every scroll frame — cheap on desktop
-  // GPUs, janky on phones. Parallax is desktop-only by design.
-  if (window.matchMedia("(hover: none)").matches || window.innerWidth <= 860) return;
-
-  const { scroll } = window.Motion;
-
-  // Cover-images that sit inside an overflow-hidden frame. Limited to images
-  // present in the static HTML — dynamically injected catalog thumbnails
-  // (js/products.js) already have their own hover-zoom and don't need this.
-  const images = document.querySelectorAll(
-    ".hospital-card img, .card img, .hero .split img, .partner img"
-  );
-
-  const SHIFT = 12; // max crop travel each way, in %
-
-  images.forEach((img) => {
-    const frame = img.parentElement;
-    scroll(
-      (progress) => {
-        // progress 0 (frame entering) → 1 (frame leaving).
-        // Map to -SHIFT..+SHIFT so the crop drifts as it passes.
-        const offset = (progress - 0.5) * 2 * SHIFT;
-        img.style.objectPosition = `center calc(50% + ${offset.toFixed(2)}%)`;
-      },
-      { target: frame, offset: ["start end", "end start"] }
-    );
-  });
 }
 
 /* -------------------------------------------------------------------------
