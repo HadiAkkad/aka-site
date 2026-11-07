@@ -3825,3 +3825,213 @@ html[lang="ar"] .heading-accent { padding-bottom: 1.1rem; }
   .logo-strip::before,
   .logo-strip::after { width: 36px; }
 }
+
+/* -------------------------------------------------------------------------
+   SQUEEZE CAROUSEL (home page: Hospitals we've equipped) — see js/squeeze.js
+   One open photo; the rest narrow towards the far side. Widths are worked out
+   from the carousel's own width (container units), so nothing is measured in
+   JavaScript. --w0 to --w3 are shares of the free room and add up to 1.
+   ------------------------------------------------------------------------- */
+.squeeze { container-type: inline-size; }
+
+/* Before the script runs (or without JavaScript): a plain grid of photos */
+.squeeze:not(.is-ready) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+.squeeze:not(.is-ready) img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  margin-bottom: 0.75rem;
+}
+.squeeze:not(.is-ready) .squeeze__place { display: none; }
+
+.squeeze__viewport {
+  --sq-ms: 550ms;
+  --sq-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --g: 16px;           /* gap between the four columns */
+  --sg: 8px;           /* gap between thin strips */
+  --slat: 8px;         /* width of a thin strip */
+  --h: clamp(240px, 31cqi, 340px);
+  --room: calc(100cqi - 3 * var(--g) - var(--slats, 0) * (var(--slat) + var(--sg)));
+  --w0: 0.52; --w1: 0.25; --w2: 0.15; --w3: 0.08;
+  /* Every photo is drawn at the open size, so it never rescales as it moves */
+  --pic: calc(var(--room) * 0.52);
+  --dir: 1;
+  height: var(--h);
+  overflow: hidden;
+  touch-action: pan-y;
+}
+[dir="rtl"] .squeeze__viewport { --dir: -1; }
+
+.squeeze__strip {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  transform: translateX(calc(var(--slid, 0) * (var(--slat) + var(--g)) * var(--dir)));
+  transition: transform var(--sq-ms) var(--sq-ease);
+}
+/* Pointer over a narrow photo: it widens a little, its neighbours give way */
+.squeeze__strip[data-hover="1"] { --w0: 0.46; --w1: 0.33; --w2: 0.14; --w3: 0.07; }
+.squeeze__strip[data-hover="2"] { --w0: 0.46; --w1: 0.23; --w2: 0.24; --w3: 0.07; }
+.squeeze__strip[data-hover="3"] { --w0: 0.46; --w1: 0.23; --w2: 0.14; --w3: 0.17; }
+
+.squeeze__panel {
+  position: relative;
+  flex: none;
+  height: 100%;
+  width: var(--slat);
+  margin: 0;
+  margin-inline-start: var(--sg);
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  contain: layout paint;
+  background: #dfe8ef;
+  cursor: pointer;
+  transition: width var(--sq-ms) var(--sq-ease), margin var(--sq-ms) var(--sq-ease);
+}
+.squeeze__panel[data-col^="-"],
+.squeeze__panel[data-col="0"],
+.squeeze__panel[data-col="1"],
+.squeeze__panel[data-col="2"],
+.squeeze__panel[data-col="3"] { margin-inline-start: var(--g); }
+.squeeze__panel:first-child { margin-inline-start: 0; }
+.squeeze__panel[data-col="0"] { width: calc(var(--room) * var(--w0)); }
+.squeeze__panel[data-col="1"] { width: calc(var(--room) * var(--w1)); }
+.squeeze__panel[data-col="2"] { width: calc(var(--room) * var(--w2)); }
+.squeeze__panel[data-col="3"] { width: calc(var(--room) * var(--w3)); }
+.squeeze__panel.is-open { cursor: default; }
+
+.squeeze__panel img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--pic);
+  min-width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  transform: translateX(-50%);
+  user-select: none;
+}
+/* Closed photos sit slightly back so the open one leads */
+.squeeze__panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 32, 44, 0.32);
+  transition: opacity var(--sq-ms) var(--sq-ease);
+}
+.squeeze__panel:hover::after { opacity: 0.45; }
+.squeeze__panel.is-open::after { opacity: 0; }
+
+/* Place name in the corner of the open photo */
+.squeeze__tag {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 3rem 1.25rem 1rem;
+  background: linear-gradient(to top, rgba(8, 12, 12, 0.7), rgba(8, 12, 12, 0));
+  color: var(--color-white);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+  text-align: start;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--sq-ms) var(--sq-ease);
+}
+.squeeze__panel.is-open .squeeze__tag { opacity: 1; }
+
+/* While the copies that left are tidied away: no movement at all */
+.squeeze__strip.is-still,
+.squeeze__strip.is-still .squeeze__panel,
+.squeeze__strip.is-still .squeeze__panel::after,
+.squeeze__strip.is-still .squeeze__tag { transition: none; }
+
+/* Text and controls under the photos */
+.squeeze__foot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  margin-top: 1.5rem;
+}
+.squeeze__captions {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+.squeeze__text {
+  grid-area: 1 / 1;
+  text-align: start;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s;
+}
+.squeeze:not(.is-ready) .squeeze__text,
+.squeeze__text.is-active { opacity: 1; visibility: visible; }
+.squeeze__text h3 { margin: 0 0 0.5rem; font-size: 1.3rem; color: var(--color-ink); }
+.squeeze__text p { margin: 0 0 0.2rem; font-size: 0.95rem; line-height: 1.55; color: var(--color-text-soft); }
+.squeeze__text strong { color: var(--color-ink); font-weight: 600; }
+
+.squeeze__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.squeeze__count {
+  min-width: 3.5em;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  direction: ltr; /* "1 / 4" in both languages, never "4 / 1" */
+}
+.squeeze__arrow {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-black);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.squeeze__arrow:hover {
+  background: var(--color-cta-dark);
+  border-color: var(--color-cta-dark);
+  color: var(--color-white);
+}
+.squeeze__arrow svg { width: 20px; height: 20px; }
+.squeeze__arrow--prev svg { transform: scaleX(-1); }
+[dir="rtl"] .squeeze__arrow--prev svg { transform: none; }
+[dir="rtl"] .squeeze__arrow--next svg { transform: scaleX(-1); }
+
+/* Narrow screens: a taller open photo and slim slivers beside it */
+@container (max-width: 640px) {
+  .squeeze__viewport {
+    --g: 8px;
+    --sg: 6px;
+    --slat: 6px;
+    --h: 62cqi;
+    --w0: 0.7; --w1: 0.15; --w2: 0.09; --w3: 0.06;
+    --pic: calc(var(--room) * 0.7);
+  }
+  .squeeze__foot { flex-direction: column; gap: 1rem; }
+  .squeeze__controls { align-self: flex-end; }
+  .squeeze__text h3 { font-size: 1.1rem; }
+  .squeeze__text p { font-size: 0.88rem; }
+  .squeeze__tag { padding: 2.25rem 0.9rem 0.75rem; font-size: 0.8rem; }
+}

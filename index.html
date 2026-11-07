@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1d2b36" />
   <title>AKA — Your Partner in Healthcare</title>
   <meta name="description" content="AKA (Al-Akkad) supplies certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — with agency services, installation, training, and dependable local support since 1998." />
-  <link rel="stylesheet" href="css/style.css?v=31" />
+  <link rel="stylesheet" href="css/style.css?v=33" />
   <!-- Social sharing & SEO (update base URL when the custom domain is live) -->
   <link rel="canonical" href="https://aka1.hadi-alakkadd.workers.dev/" />
   <meta property="og:type" content="website" />
@@ -239,23 +239,46 @@
         <p class="eyebrow center" data-i18n="home.featured.eyebrow">Our track record</p>
         <h2 class="center heading-accent" data-i18n="home.featured.title">Hospitals we've equipped</h2>
         <p class="center measure-center" data-i18n="home.featured.lead">A selection of hospitals AKA Group has built and/or equipped across Syria.</p>
-        <div class="grid grid--4 grid--gap-top">
-          <a class="hospital-card" href="projects.html">
-            <img src="images/hospitals/noor.jpeg" width="448" height="446" alt="Al Noor Hospital — Tartous" loading="lazy" decoding="async" />
-            <span class="hospital-card__caption" data-i18n="proj.hosp.alnoor.name">Al Noor Hospital — Tartous</span>
-          </a>
-          <a class="hospital-card" href="projects.html">
-            <img src="images/hospitals/banyas.jpeg" width="448" height="446" alt="Banyas National Hospital" loading="lazy" decoding="async" />
-            <span class="hospital-card__caption" data-i18n="proj.hosp.banyas.name">Banyas National Hospital</span>
-          </a>
-          <a class="hospital-card" href="projects.html">
-            <img src="images/hospitals/latakia.png" width="900" height="579" alt="Latakia National Hospital" loading="lazy" decoding="async" />
-            <span class="hospital-card__caption" data-i18n="proj.hosp.latakia.name">Latakia National Hospital</span>
-          </a>
-          <a class="hospital-card" href="projects.html">
-            <img src="images/hospitals/tartous.jpg" width="548" height="364" alt="Tartous National Hospital" loading="lazy" decoding="async" />
-            <span class="hospital-card__caption" data-i18n="proj.hosp.tartous.name">Tartous National Hospital</span>
-          </a>
+        <!-- Photo carousel, built by js/squeeze.js. To add a hospital, copy one
+             <article> block, change the photo and the text keys (js/i18n.js).
+             Without JavaScript the slides simply show as a grid. -->
+        <div class="squeeze grid--gap-top" data-squeeze role="group" aria-roledescription="carousel" aria-label="Hospitals we've equipped" data-i18n-attr="aria-label:home.featured.title">
+          <article class="squeeze__slide">
+            <img src="images/hospitals/noor.jpeg" width="448" height="446" alt="Al Noor Hospital — Tartous" data-i18n-attr="alt:proj.hosp.alnoor.name" loading="lazy" decoding="async" />
+            <span class="squeeze__place" data-i18n="proj.hosp.alnoor.location">Tartous</span>
+            <div class="squeeze__text">
+              <h3 data-i18n="proj.hosp.alnoor.name">Al Noor Hospital — Tartous</h3>
+              <p><strong data-i18n="proj.spec.departments">Departments:</strong> <span data-i18n="proj.hosp.alnoor.departments">Emergency, Surgery, ICU, Radiology</span></p>
+              <p><strong data-i18n="proj.spec.equipment">Key Equipment:</strong> <span data-i18n="proj.hosp.alnoor.equipment">CT Scanner, Ultrasound, Digital X-ray</span></p>
+            </div>
+          </article>
+          <article class="squeeze__slide">
+            <img src="images/hospitals/banyas.jpeg" width="448" height="446" alt="Banyas National Hospital" data-i18n-attr="alt:proj.hosp.banyas.name" loading="lazy" decoding="async" />
+            <span class="squeeze__place" data-i18n="proj.hosp.banyas.location">Banyas</span>
+            <div class="squeeze__text">
+              <h3 data-i18n="proj.hosp.banyas.name">Banyas National Hospital</h3>
+              <p><strong data-i18n="proj.spec.departments">Departments:</strong> <span data-i18n="proj.hosp.banyas.departments">General Surgery, Orthopedics, Emergency Medicine</span></p>
+              <p><strong data-i18n="proj.spec.equipment">Key Equipment:</strong> <span data-i18n="proj.hosp.banyas.equipment">Surgical Instruments, Operating Tables, Anesthesia Systems</span></p>
+            </div>
+          </article>
+          <article class="squeeze__slide">
+            <img src="images/hospitals/latakia.png" width="900" height="579" alt="Latakia National Hospital" data-i18n-attr="alt:proj.hosp.latakia.name" loading="lazy" decoding="async" />
+            <span class="squeeze__place" data-i18n="proj.hosp.latakia.location">Latakia</span>
+            <div class="squeeze__text">
+              <h3 data-i18n="proj.hosp.latakia.name">Latakia National Hospital</h3>
+              <p><strong data-i18n="proj.spec.departments">Departments:</strong> <span data-i18n="proj.hosp.latakia.departments">Emergency, Internal Medicine, Surgery, Laboratory</span></p>
+              <p><strong data-i18n="proj.spec.equipment">Key Equipment:</strong> <span data-i18n="proj.hosp.latakia.equipment">Imaging Systems, Lab Equipment, Sterilization Units</span></p>
+            </div>
+          </article>
+          <article class="squeeze__slide">
+            <img src="images/hospitals/tartous.jpg" width="548" height="364" alt="Tartous National Hospital" data-i18n-attr="alt:proj.hosp.tartous.name" loading="lazy" decoding="async" />
+            <span class="squeeze__place" data-i18n="proj.hosp.tartous.location">Tartous</span>
+            <div class="squeeze__text">
+              <h3 data-i18n="proj.hosp.tartous.name">Tartous National Hospital</h3>
+              <p><strong data-i18n="proj.spec.departments">Departments:</strong> <span data-i18n="proj.hosp.tartous.departments">Cardiology, Neurology, General Medicine, Surgery</span></p>
+              <p><strong data-i18n="proj.spec.equipment">Key Equipment:</strong> <span data-i18n="proj.hosp.tartous.equipment">CT Scanner, MRI, Digital Radiography, ECG Systems</span></p>
+            </div>
+          </article>
         </div>
         <p class="cta-row center"><a class="btn" href="projects.html" data-i18n="home.featured.cta">See all our projects</a></p>
       </div>
@@ -294,5 +317,6 @@
   <script src="js/forms.js?v=2"></script>
   <script src="js/products.js?v=9"></script>
   <script src="js/card-stack.js?v=7"></script>
+  <script src="js/squeeze.js?v=1"></script>
 </body>
 </html>
