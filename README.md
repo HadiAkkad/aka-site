@@ -12,14 +12,15 @@ contact and careers forms.
 
 ## ⚠️ SECURITY — READ FIRST
 
-This repository is **PUBLIC** on GitHub. Anything written in these files (including the
-admin password below) is visible to anyone on the internet.
+This repository is **PUBLIC** on GitHub, so never write passwords, API tokens or other
+secrets in any file here. Keep them in a password manager, and set them on the Worker
+with `wrangler secret put`.
 
-**Before relying on this in production, do ONE of these:**
-1. Make the GitHub repo **private** (GitHub → repo → Settings → General → Change visibility), **or**
-2. Remove the credentials from this README and keep them somewhere private.
+Removing a secret from a file does **not** remove it from git history. If one is ever
+committed, treat it as exposed: revoke or change it straight away.
 
-If the admin password is ever exposed, change it (see *Backend → Change the admin password*).
+Files that must not be public are listed in `.assetsignore`, which stops Cloudflare
+publishing them. Add any new non-website file or folder to that list.
 
 ---
 
@@ -295,7 +296,7 @@ To read job applications and contact messages, and to download CVs:
 1. Open **https://aka-api.hadi-alakkadd.workers.dev/admin**
 2. The browser asks for a username and password (HTTP Basic Auth):
    - **Username:** anything (e.g. `admin`)
-   - **Password:** see *Credentials* below
+   - **Password:** the admin password (kept in your password manager, not in this repo)
 3. You'll see two tables: **Job applications** (with a CV download link per row) and
    **Contact messages**. Newest first.
 
@@ -331,7 +332,7 @@ It's built to handle **hundreds** of items.
 1. Open **https://aka-api.hadi-alakkadd.workers.dev/admin/content**
 2. The browser asks for a username and password:
    - **Username:** anything (e.g. `admin`)
-   - **Password:** the admin password (see *Credentials*, section 12 — same one as `/admin`)
+   - **Password:** the admin password (same one as `/admin`)
 3. You'll see three tabs: **Lectures**, **Documents**, **Devices**. Click a tab to switch.
 
 ### Tutorial 1 — upload a lecture video
@@ -388,16 +389,15 @@ uploaded files.
 
 ## 12. Credentials & resource IDs
 
-> ⚠️ **These are secrets. See the SECURITY note at the top — do not leave them in a
-> public repo.**
+> Secrets are not stored here. Keep the admin password in a password manager.
 
 **Admin page login**
 - URL: `https://aka-api.hadi-alakkadd.workers.dev/admin`
 - Username: `admin` (any value works)
-- Password: `z2B6PpdXAkysaUKCwNWb`
+- Password: kept in your password manager (change it with `wrangler secret put ADMIN_PASSWORD`, section 10)
 
 **Cloudflare resources**
-- Account ID: `fea3dbe17d7ac6b85c8981160fccf01c`
+- Account ID: see the Cloudflare dashboard
 - Site Worker: `aka1` → https://aka1.hadi-alakkadd.workers.dev
 - API Worker: `aka-api` → https://aka-api.hadi-alakkadd.workers.dev
 - R2 bucket (CVs): `aka-cvs`
@@ -416,7 +416,8 @@ The site auto-deploys from GitHub: **push to `master` → Cloudflare rebuilds th
 Worker** (build command `npx wrangler deploy`, production branch `master`).
 
 ```bash
-git add -A
+git status              # check what will be included
+git add <the files you changed>
 git commit -m "your message"
 git push origin master
 ```

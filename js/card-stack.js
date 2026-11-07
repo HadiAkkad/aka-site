@@ -33,11 +33,11 @@ window.AKA_initCardStack = function (PRODUCTS) {
     card.className = `stack-card ${posClass}`;
     card.innerHTML = `
       <div class="stack-card__media">
-        <img src="${product.image}" alt="${product.name} — ${product.brand}" decoding="async" />
+        <img src="${akaEsc(product.image)}" alt="${akaEsc(product.name)} — ${akaEsc(product.brand)}" decoding="async" />
       </div>
       <div class="stack-card__footer">
         <div class="stack-card__text">
-          <span class="stack-card__name">${product.name}</span>
+          <span class="stack-card__name">${akaEsc(product.name)}</span>
           <span class="stack-card__brand">${window.AKA_catSpan(product.category)}</span>
         </div>
         <a class="stack-card__cta" href="devices.html#catalog">

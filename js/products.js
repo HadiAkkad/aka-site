@@ -49,23 +49,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     categories
       .map(
         (c) =>
-          `<button class="product-filter" type="button" data-filter="${c}">${window.AKA_catSpan(c)}</button>`
+          `<button class="product-filter" type="button" data-filter="${akaEsc(c)}">${window.AKA_catSpan(c)}</button>`
       )
       .join("");
 
   grid.innerHTML = items.map(
     (p) => `
-    <article class="product-card" data-category="${p.category}"
-      data-search="${(p.name + " " + p.brand).toLowerCase()}">
+    <article class="product-card" data-category="${akaEsc(p.category)}"
+      data-search="${akaEsc((p.name + " " + p.brand).toLowerCase())}">
       <div class="product-card__media">
-        <img src="${p.image}" alt="${p.name} — ${p.brand}" decoding="async" />
+        <img src="${akaEsc(p.image)}" alt="${akaEsc(p.name)} — ${akaEsc(p.brand)}" decoding="async" />
       </div>
       <div class="product-card__body">
-        <button class="product-card__cat" type="button" data-cat-filter="${p.category}">${window.AKA_catSpan(p.category)}</button>
-        <h3 class="product-card__name">${p.name}</h3>
-        <p class="product-card__brand">${p.brand}</p>
+        <button class="product-card__cat" type="button" data-cat-filter="${akaEsc(p.category)}">${window.AKA_catSpan(p.category)}</button>
+        <h3 class="product-card__name">${akaEsc(p.name)}</h3>
+        <p class="product-card__brand">${akaEsc(p.brand)}</p>
         <button class="btn" type="button" data-quote-open
-          data-quote-category="${p.category}"
+          data-quote-category="${akaEsc(p.category)}"
           data-i18n="products.quote">${I18N.t("products.quote")}</button>
       </div>
     </article>`

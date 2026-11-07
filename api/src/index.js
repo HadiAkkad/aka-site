@@ -38,48 +38,179 @@ function json(obj, status, origin) {
   });
 }
 
+/* ---- Security helpers ---- */
+
+const FORM_LIMIT = { max: 20, windowSeconds: 3600 }; // per IP, /contact
+const APPLY_LIMIT = { max: 10, windowSeconds: 3600 }; // per IP, /apply
+const LOGIN_LIMIT = { max: 10, windowSeconds: 900 }; // failed logins per IP
+
+const MAX_LENGTH = { name: 200, email: 254, phone: 50, position: 200, message: 10000 };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+async function sha256(text) {
+  return crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+}
+
+// Rate-limit key: a hash of the IP, so no addresses are stored.
+async function rateKey(scope, request) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const hash = new Uint8Array(await sha256(ip));
+  const hex = [...hash].map((b) => b.toString(16).padStart(2, "0")).join("");
+  return `${scope}:${hex}`;
+}
+
+/* Counts one attempt and returns true once the limit is passed. If the table is
+   missing or D1 fails this returns false: a limiter problem must never lose a
+   real customer's message. */
+async function overLimit(env, key, limit) {
+  try {
+    const now = Math.floor(Date.now() / 1000);
+    const expired = now - limit.windowSeconds;
+    const row = await env.DB.prepare(
+      `INSERT INTO rate_limits (key, window_start, count) VALUES (?1, ?2, 1)
+       ON CONFLICT(key) DO UPDATE SET
+         count = CASE WHEN window_start <= ?3 THEN 1 ELSE count + 1 END,
+         window_start = CASE WHEN window_start <= ?3 THEN ?2 ELSE window_start END
+       RETURNING count`
+    )
+      .bind(key, now, expired)
+      .first();
+    if (Math.random() < 0.02) {
+      await env.DB.prepare("DELETE FROM rate_limits WHERE window_start < ?")
+        .bind(now - 86400)
+        .run();
+    }
+    return Boolean(row) && row.count > limit.max;
+  } catch {
+    return false;
+  }
+}
+
+// Read-only check, so a locked-out visitor doesn't keep extending the count.
+async function isLocked(env, key, limit) {
+  try {
+    const now = Math.floor(Date.now() / 1000);
+    const row = await env.DB.prepare(
+      "SELECT count, window_start FROM rate_limits WHERE key = ?"
+    )
+      .bind(key)
+      .first();
+    return Boolean(row) && row.window_start > now - limit.windowSeconds && row.count > limit.max;
+  } catch {
+    return false;
+  }
+}
+
+// Admin requests that change data must come from the admin pages themselves.
+// Browsers always send Origin on cross-site POSTs, and Basic Auth logins are
+// attached automatically, so without this any website could submit these forms.
+function isSameOrigin(request, url) {
+  const origin = request.headers.get("Origin");
+  if (origin) return origin === url.origin;
+  const site = request.headers.get("Sec-Fetch-Site");
+  return !site || site === "same-origin" || site === "none";
+}
+
+// Extra headers added to every response.
+function withSecurityHeaders(response, pathname) {
+  const res = new Response(response.body, response);
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  if (pathname.startsWith("/admin") || pathname === "/file") {
+    res.headers.set("X-Frame-Options", "DENY");
+    res.headers.set("Cache-Control", "no-store");
+    if (!res.headers.has("Content-Security-Policy")) {
+      res.headers.set("Content-Security-Policy", "frame-ancestors 'none'");
+    }
+  }
+  return res;
+}
+
+// Checks the real file contents as well as the name, so a renamed file is refused.
+// Returns the content type to store, or null if it isn't a PDF or Word file.
+async function cvContentType(file) {
+  const ext = String(file.name || "").split(".").pop().toLowerCase();
+  const head = new Uint8Array(await file.slice(0, 4).arrayBuffer());
+  const starts = (...bytes) => bytes.every((b, i) => head[i] === b);
+  if (ext === "pdf" && starts(0x25, 0x50, 0x44, 0x46)) return "application/pdf";
+  if (ext === "doc" && starts(0xd0, 0xcf, 0x11, 0xe0)) return "application/msword";
+  if (ext === "docx" && starts(0x50, 0x4b, 0x03, 0x04)) {
+    return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  }
+  return null;
+}
+
+// Partner websites become links on the public site: only allow http(s).
+function safeWebsite(value) {
+  const text = String(value || "").trim();
+  if (!text) return null;
+  try {
+    return ["http:", "https:"].includes(new URL(text).protocol) ? text : null;
+  } catch {
+    return null;
+  }
+}
+
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
-    const origin = request.headers.get("Origin") || "";
-
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders(origin) });
+    const pathname = new URL(request.url).pathname;
+    let response;
+    try {
+      response = await route(request, env);
+    } catch (err) {
+      response = new Response("Server error.", { status: 500 });
     }
-    if (url.pathname === "/apply" && request.method === "POST") {
-      return handleApply(request, env, origin);
-    }
-    if (url.pathname === "/contact" && request.method === "POST") {
-      return handleContact(request, env, origin);
-    }
-    if (url.pathname === "/admin") {
-      return handleAdmin(request, env);
-    }
-    if (url.pathname === "/file") {
-      return handleFile(request, env);
-    }
-    // ---- Content library ----
-    if (url.pathname === "/content" && request.method === "GET") {
-      return handleContentList(request, env, origin);
-    }
-    if (url.pathname === "/media" && request.method === "GET") {
-      return handleMedia(request, env);
-    }
-    if (url.pathname === "/admin/content" && request.method === "POST") {
-      return handleContentCreate(request, env);
-    }
-    if (url.pathname === "/admin/content/update" && request.method === "POST") {
-      return handleContentUpdate(request, env);
-    }
-    if (url.pathname === "/admin/content/delete" && request.method === "POST") {
-      return handleContentDelete(request, env);
-    }
-    if (url.pathname === "/admin/content") {
-      return handleContentAdmin(request, env);
-    }
-    return new Response("AKA API is running.", { status: 200 });
+    return withSecurityHeaders(response, pathname);
   },
 };
+
+async function route(request, env) {
+  const url = new URL(request.url);
+  const origin = request.headers.get("Origin") || "";
+
+  if (request.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders(origin) });
+  }
+  if (
+    url.pathname.startsWith("/admin") &&
+    !["GET", "HEAD"].includes(request.method) &&
+    !isSameOrigin(request, url)
+  ) {
+    return new Response("Forbidden.", { status: 403 });
+  }
+  if (url.pathname === "/apply" && request.method === "POST") {
+    return handleApply(request, env, origin);
+  }
+  if (url.pathname === "/contact" && request.method === "POST") {
+    return handleContact(request, env, origin);
+  }
+  if (url.pathname === "/admin") {
+    return handleAdmin(request, env);
+  }
+  if (url.pathname === "/file") {
+    return handleFile(request, env);
+  }
+  // ---- Content library ----
+  if (url.pathname === "/content" && request.method === "GET") {
+    return handleContentList(request, env, origin);
+  }
+  if (url.pathname === "/media" && request.method === "GET") {
+    return handleMedia(request, env);
+  }
+  if (url.pathname === "/admin/content" && request.method === "POST") {
+    return handleContentCreate(request, env);
+  }
+  if (url.pathname === "/admin/content/update" && request.method === "POST") {
+    return handleContentUpdate(request, env);
+  }
+  if (url.pathname === "/admin/content/delete" && request.method === "POST") {
+    return handleContentDelete(request, env);
+  }
+  if (url.pathname === "/admin/content") {
+    return handleContentAdmin(request, env);
+  }
+  return new Response("AKA API is running.", { status: 200 });
+}
 
 /* Honeypot: the site's forms include a visually hidden "website" field.
    Humans never see it; bots auto-fill it. If it has a value we pretend
@@ -116,6 +247,9 @@ async function notify(env, subject, text) {
 
 async function handleApply(request, env, origin) {
   try {
+    if (await overLimit(env, await rateKey("apply", request), APPLY_LIMIT)) {
+      return json({ ok: false, error: "Too many requests. Please try again later." }, 429, origin);
+    }
     const form = await request.formData();
     if (isSpam(form)) return json({ ok: true }, 200, origin);
     const name = String(form.get("name") || "").trim();
@@ -128,6 +262,18 @@ async function handleApply(request, env, origin) {
     if (!name || !email || !phone || !position) {
       return json({ ok: false, error: "Missing required fields." }, 400, origin);
     }
+    if (
+      name.length > MAX_LENGTH.name ||
+      email.length > MAX_LENGTH.email ||
+      phone.length > MAX_LENGTH.phone ||
+      position.length > MAX_LENGTH.position ||
+      message.length > MAX_LENGTH.message
+    ) {
+      return json({ ok: false, error: "A field is too long." }, 400, origin);
+    }
+    if (!EMAIL_RE.test(email)) {
+      return json({ ok: false, error: "Invalid email address." }, 400, origin);
+    }
 
     let cvKey = null;
     let cvName = null;
@@ -135,12 +281,14 @@ async function handleApply(request, env, origin) {
       if (file.size > 8 * 1024 * 1024) {
         return json({ ok: false, error: "CV too large (max 8 MB)." }, 400, origin);
       }
+      const contentType = await cvContentType(file);
+      if (!contentType) {
+        return json({ ok: false, error: "CV must be a PDF or Word file." }, 400, origin);
+      }
       cvName = file.name || "cv";
       const safe = cvName.replace(/[^a-zA-Z0-9._-]/g, "_");
       cvKey = `applications/${Date.now()}-${crypto.randomUUID()}-${safe}`;
-      await env.CVS.put(cvKey, file.stream(), {
-        httpMetadata: { contentType: file.type || "application/octet-stream" },
-      });
+      await env.CVS.put(cvKey, file.stream(), { httpMetadata: { contentType } });
     }
 
     await env.DB.prepare(
@@ -163,6 +311,9 @@ async function handleApply(request, env, origin) {
 
 async function handleContact(request, env, origin) {
   try {
+    if (await overLimit(env, await rateKey("contact", request), FORM_LIMIT)) {
+      return json({ ok: false, error: "Too many requests. Please try again later." }, 429, origin);
+    }
     const form = await request.formData();
     if (isSpam(form)) return json({ ok: true }, 200, origin);
     const name = String(form.get("name") || "").trim();
@@ -171,6 +322,16 @@ async function handleContact(request, env, origin) {
 
     if (!name || !email || !message) {
       return json({ ok: false, error: "Missing required fields." }, 400, origin);
+    }
+    if (
+      name.length > MAX_LENGTH.name ||
+      email.length > MAX_LENGTH.email ||
+      message.length > MAX_LENGTH.message
+    ) {
+      return json({ ok: false, error: "A field is too long." }, 400, origin);
+    }
+    if (!EMAIL_RE.test(email)) {
+      return json({ ok: false, error: "Invalid email address." }, 400, origin);
     }
 
     await env.DB.prepare(
@@ -200,9 +361,9 @@ function unauthorized() {
   });
 }
 
-function checkAuth(request, env) {
+async function checkAuth(request, env) {
   const header = request.headers.get("Authorization") || "";
-  if (!header.startsWith("Basic ")) return false;
+  if (!header.startsWith("Basic ") || !env.ADMIN_PASSWORD) return false;
   let decoded = "";
   try {
     decoded = atob(header.slice(6));
@@ -210,18 +371,37 @@ function checkAuth(request, env) {
     return false;
   }
   const pass = decoded.slice(decoded.indexOf(":") + 1);
-  return Boolean(env.ADMIN_PASSWORD) && pass === env.ADMIN_PASSWORD;
+  // Compare hashes in constant time so response timing reveals nothing.
+  const [a, b] = await Promise.all([sha256(pass), sha256(env.ADMIN_PASSWORD)]);
+  return crypto.subtle.timingSafeEqual(a, b);
+}
+
+/* Returns a response to send if the visitor may not continue, or null if they
+   are logged in. Too many wrong passwords from one IP locks that IP out for a
+   while, even with the right password, so guessing gets nowhere. */
+async function requireAdmin(request, env) {
+  const key = await rateKey("login", request);
+  if (await isLocked(env, key, LOGIN_LIMIT)) {
+    return new Response("Too many failed logins. Try again in 15 minutes.", { status: 429 });
+  }
+  if (await checkAuth(request, env)) return null;
+  // The browser's first request has no password yet: that isn't a failed login.
+  if (request.headers.has("Authorization")) await overLimit(env, key, LOGIN_LIMIT);
+  return unauthorized();
 }
 
 function esc(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 async function handleAdmin(request, env) {
-  if (!checkAuth(request, env)) return unauthorized();
+  const denied = await requireAdmin(request, env);
+  if (denied) return denied;
 
   const apps = await env.DB.prepare(
     "SELECT * FROM applications ORDER BY id DESC LIMIT 300"
@@ -281,7 +461,8 @@ async function handleAdmin(request, env) {
 }
 
 async function handleFile(request, env) {
-  if (!checkAuth(request, env)) return unauthorized();
+  const denied = await requireAdmin(request, env);
+  if (denied) return denied;
   const url = new URL(request.url);
   const key = url.searchParams.get("key");
   if (!key) return new Response("Missing key.", { status: 400 });
@@ -469,6 +650,13 @@ async function handleMedia(request, env) {
   headers.set("etag", object.httpEtag);
   headers.set("Cache-Control", "public, max-age=3600");
   headers.set("Access-Control-Allow-Origin", "*");
+  // Only show known-safe file types in the browser. Anything else (HTML, SVG...)
+  // is downloaded and sandboxed, so it can't run scripts on this domain.
+  const type = (object.httpMetadata && object.httpMetadata.contentType) || "";
+  if (!/^(image\/(png|jpeg|gif|webp|avif)|video\/|audio\/|application\/pdf$)/.test(type)) {
+    headers.set("Content-Disposition", "attachment");
+    headers.set("Content-Security-Policy", "sandbox; default-src 'none'");
+  }
   return new Response(object.body, { headers });
 }
 
@@ -482,7 +670,8 @@ function backToAdmin(request) {
 }
 
 async function handleContentCreate(request, env) {
-  if (!checkAuth(request, env)) return unauthorized();
+  const denied = await requireAdmin(request, env);
+  if (denied) return denied;
   try {
     const form = await request.formData();
     const type = String(form.get("type") || "");
@@ -610,7 +799,7 @@ async function handleContentCreate(request, env) {
           name,
           String(form.get("description") || "").trim() || null,
           String(form.get("description_ar") || "").trim() || null,
-          String(form.get("website") || "").trim() || null,
+          safeWebsite(form.get("website")),
           logoKey
         )
         .run();
@@ -656,7 +845,8 @@ async function deleteIfR2(env, key) {
 }
 
 async function handleContentUpdate(request, env) {
-  if (!checkAuth(request, env)) return unauthorized();
+  const denied = await requireAdmin(request, env);
+  if (denied) return denied;
   try {
     const form = await request.formData();
     const type = String(form.get("type") || "");
@@ -812,7 +1002,7 @@ async function handleContentUpdate(request, env) {
           val("name") || row.name,
           val("description"),
           val("description_ar"),
-          val("website"),
+          safeWebsite(form.get("website")),
           logoKey,
           id
         )
@@ -839,13 +1029,14 @@ async function handleContentUpdate(request, env) {
 }
 
 async function handleContentDelete(request, env) {
-  if (!checkAuth(request, env)) return unauthorized();
+  const denied = await requireAdmin(request, env);
+  if (denied) return denied;
   try {
     const form = await request.formData();
     const table = String(form.get("table") || "");
     const id = Number(form.get("id"));
-    const ALLOWED = { lectures: 1, documents: 1, products: 1, projects: 1, partners: 1, categories: 1 };
-    if (!ALLOWED[table] || !id)
+    const ALLOWED = new Set(["lectures", "documents", "products", "projects", "partners", "categories"]);
+    if (!ALLOWED.has(table) || !id)
       return new Response("Bad request.", { status: 400 });
 
     const row = await env.DB.prepare(
@@ -929,7 +1120,8 @@ function dataAttr(obj) {
 }
 
 async function handleContentAdmin(request, env) {
-  if (!checkAuth(request, env)) return unauthorized();
+  const denied = await requireAdmin(request, env);
+  if (denied) return denied;
 
   const q = async (sql) => ((await env.DB.prepare(sql).all()).results || []);
   const lectures = await q("SELECT * FROM lectures ORDER BY created_at DESC");

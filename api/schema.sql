@@ -95,6 +95,15 @@ CREATE TABLE IF NOT EXISTS categories (
   label_ar TEXT                -- Arabic display name
 );
 
+/* Rate limiting for the public forms and the admin login. Keys hold a hash of
+   the visitor's IP address, never the address itself. Old rows are cleaned up
+   automatically by the Worker. */
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key TEXT PRIMARY KEY,
+  window_start INTEGER NOT NULL, -- unix seconds
+  count INTEGER NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_lectures_created ON lectures (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_documents_created ON documents (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_products_created ON products (created_at DESC);

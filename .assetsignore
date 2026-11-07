@@ -1,0 +1,24 @@
+# Files Cloudflare must NOT publish on the website (same syntax as .gitignore).
+# The site deploys from the repo root, so anything not listed here goes public.
+.git
+.git/
+.github/
+.claude/
+.wrangler/
+.vscode/
+__pycache__/
+api/
+aka-site/
+node_modules/
+*.md
+*.sql
+.env*
+.dev.vars*
+.gitignore
+.assetsignore
+.nojekyll
+wrangler.json
+wrangler.jsonc
+wrangler.toml
+package.json
+package-lock.json

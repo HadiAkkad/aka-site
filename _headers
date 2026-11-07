@@ -1,0 +1,9 @@
+# Security headers for the website, applied by Cloudflare to every page and file.
+# If you embed something from a new site (a video host, a map, etc.), add that
+# host to the Content-Security-Policy line or the browser will block it.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://aka-api.hadi-alakkadd.workers.dev https://img.youtube.com; media-src 'self' https://aka-api.hadi-alakkadd.workers.dev; font-src 'self'; connect-src 'self' https://aka-api.hadi-alakkadd.workers.dev; frame-src https://www.youtube-nocookie.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'

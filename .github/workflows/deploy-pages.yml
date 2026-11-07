@@ -39,7 +39,10 @@ jobs:
             --exclude '.wrangler' \
             --exclude '.claude' \
             --exclude '__pycache__' \
-            --exclude 'README.md'
+            --exclude '*.md' \
+            --exclude '.assetsignore' \
+            --exclude '_headers' \
+            --exclude '.gitignore'
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
