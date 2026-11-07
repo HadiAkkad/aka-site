@@ -4480,3 +4480,48 @@ html[lang="ar"] .heading-accent { padding-bottom: 1.1rem; }
   .about-specialties { grid-template-columns: 1fr; gap: 0.7rem; }
   .about-sectors > .feature::before { font-size: 2rem; }
 }
+
+/* About page: comfortable tap areas (44px buttons, taller inline links) */
+.about-breakout__btn,
+.contact-map__link { min-height: 44px; display: inline-flex; align-items: center; }
+.contact-card a { display: inline-block; padding-block: 0.3rem; }
+
+/* -------------------------------------------------------------------------
+   ABOUT PAGE (round 3) — centred intro and the full manufacturer logo wall
+   ------------------------------------------------------------------------- */
+/* Tuck the navy hero just under the fixed menu, so no sliver of white shows
+   between them on any screen (the menu is a fraction of a pixel short of 64). */
+.about-hero { margin-top: -4px; }
+
+/* One centred column: label, title, intro, buttons */
+.about-hero .about-intro--hero {
+  display: block;
+  max-width: 780px;
+  margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
+  text-align: center;
+}
+.about-intro--hero .eyebrow { margin-bottom: 0.9rem; }
+.about-intro--hero h1 { margin: 0 0 1rem; font-size: clamp(2.8rem, 7vw, 5rem); }
+.about-hero .about-intro--hero .lead { max-width: 640px; margin: 0 auto 1.9rem; }
+.about-intro--hero .hero__actions { justify-content: center; }
+
+/* Every manufacturer: equal cells, 8 per row on desktop, centred */
+.about-logos__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.75rem 1.5rem;
+  max-width: 1104px;
+  margin-inline: auto;
+}
+.about-logos__row img {
+  width: 116px;
+  height: 44px;
+  max-width: none;
+  object-fit: contain;
+}
+@media (max-width: 640px) {
+  .about-logos__row { gap: 1.25rem 0.75rem; }
+  .about-logos__row img { width: 92px; height: 36px; }
+  .about-intro--hero .hero__actions { flex-wrap: wrap; }
+}

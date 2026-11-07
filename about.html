@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1d2b36" />
   <title>About Us — AKA</title>
   <meta name="description" content="Learn about AKA (Al-Akkad) — a medical-equipment agencies group established in Damascus in 1998. Find our location, phone numbers, and contact details." />
-  <link rel="stylesheet" href="css/style.css?v=38" />
+  <link rel="stylesheet" href="css/style.css?v=40" />
   <!-- Social sharing & SEO (update base URL when the custom domain is live) -->
   <link rel="canonical" href="https://aka1.hadi-alakkadd.workers.dev/about.html" />
   <meta property="og:type" content="website" />
@@ -29,46 +29,58 @@
     <!-- HERO: title + intro, photo mosaic, manufacturer logos -->
     <section class="hero about-hero">
       <div class="container">
-        <div class="about-intro">
-          <div>
-            <p class="eyebrow" data-i18n="about.est">Established 1998 · Damascus, Syria</p>
-            <h1 data-i18n="about.hero.h1">About AKA</h1>
-          </div>
-          <div>
-            <p class="lead" data-i18n="about.hero.lead">Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — backed by installation, training, and dependable local service.</p>
-            <div class="hero__actions">
+        <div class="about-intro about-intro--hero">
+          <p class="eyebrow" data-i18n="about.est">Established 1998 · Damascus, Syria</p>
+          <h1 data-i18n="about.hero.h1">About AKA</h1>
+          <p class="lead" data-i18n="about.hero.lead">Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — backed by installation, training, and dependable local service.</p>
+          <div class="hero__actions">
               <a class="btn btn--on-dark" href="#contact-details" data-i18n="about.hero.cta">Contact us</a>
               <a class="btn btn--ghost" href="#presence" data-i18n="about.global.title">Where we operate</a>
             </div>
-          </div>
         </div>
 
         <div class="about-mosaic">
-          <img class="about-mosaic__main" src="images/random/about-install.webp" width="1400" height="934" alt="AKA technician installing medical equipment" data-i18n-attr="alt:about.img.install" fetchpriority="high" decoding="async" />
+          <img class="about-mosaic__main" src="images/random/about-install.webp" srcset="images/random/about-install-800.webp 800w, images/random/about-install.webp 1400w" sizes="(max-width: 1100px) calc(100vw - 2.5rem), 736px" width="1400" height="934" alt="AKA technician installing medical equipment" data-i18n-attr="alt:about.img.install" fetchpriority="high" decoding="async" />
           <div class="about-mosaic__side">
             <div class="about-breakout">
-              <img src="images/logo/logonoback.png" alt="" class="about-breakout__logo" width="56" height="56" />
+              <img src="images/logo/aka-mark-112.webp" alt="" class="about-breakout__logo" width="56" height="56" />
               <div>
                 <p class="about-breakout__title" data-i18n="home.partnersband.title">International manufacturers, one local partner</p>
                 <p class="about-breakout__text" data-i18n="home.partnersband.lead">AKA represents leading medical manufacturers across Europe and Asia — giving Syrian healthcare providers direct access to world-class equipment with local accountability.</p>
               </div>
               <a class="btn btn--outline about-breakout__btn" href="partners.html" data-i18n="home.partnersband.cta">Meet our partners</a>
             </div>
-            <img class="about-mosaic__second" src="images/random/about-or.webp" width="1000" height="545" alt="A fully equipped operating room" data-i18n-attr="alt:about.img.or" decoding="async" />
+            <img class="about-mosaic__second" src="images/random/about-or.webp" srcset="images/random/about-or-600.webp 600w, images/random/about-or.webp 1000w" sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1100px) 50vw, 360px" width="1000" height="545" alt="A fully equipped operating room" data-i18n-attr="alt:about.img.or" decoding="async" />
           </div>
         </div>
 
         <div class="about-logos">
           <p class="about-logos__title" data-i18n="about.trusted">Authorized agent for leading international manufacturers</p>
-          <div class="about-logos__row">
-            <img src="images/partners/edan.png" alt="EDAN" width="318" height="159" loading="lazy" />
-            <img src="images/partners/neusoft.png" alt="Neusoft" width="500" height="250" loading="lazy" />
-            <img src="images/partners/ems.png" alt="EMS" width="421" height="209" loading="lazy" />
-            <img src="images/partners/hermann.png" alt="Hermann" width="445" height="253" loading="lazy" />
-            <img src="images/partners/micromed.png" alt="Micromed" width="1200" height="334" loading="lazy" />
-            <img src="images/partners/perlove.png" alt="Perlove" width="517" height="197" loading="lazy" />
-            <img src="images/partners/sternmed.png" alt="Sternmed" width="431" height="123" loading="lazy" />
-            <img src="images/partners/elvation.png" alt="Elvation" width="438" height="115" loading="lazy" />
+          <div class="about-logos__row" data-maker-logos>
+            <img src="images/partners/trim/edan.webp" alt="EDAN" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/custo.webp" alt="CUSTO MED" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/ems.webp" alt="EMS" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/merivaara.webp" alt="MERIVAARA" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/neusoft.webp" alt="NEUSOFT" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/hermann.webp" alt="HERMANN" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/imo2.webp" alt="IMO" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/cisa.webp" alt="CISA" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/micromed.webp" alt="MICROMED" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/kasios.webp" alt="KASIOS" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/aspel.webp" alt="ASPEL" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/luxsutures.webp" alt="LUXSUTURES" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/siem.webp" alt="S.I.E.M" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/insightra.webp" alt="INSIGHTRA" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/steel-power.webp" alt="STEEL &amp; POWER" loading="lazy" decoding="async" />
+            <img src="images/partners/item.svg" alt="ITEM" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/sama.webp" alt="SAMA ALTAMAYAZ" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/elvation.webp" alt="ELVATION" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/esumedics.webp" alt="ESUMEDICS" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/sternmed.webp" alt="STERNMED" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/perlove.webp" alt="PERLOVE MEDICAL" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/chenwei.webp" alt="ChenWei" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/villa.webp" alt="VILLA" loading="lazy" decoding="async" />
+            <img src="images/partners/trim/biobase.webp" alt="BIOBASE" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
@@ -120,7 +132,7 @@
         <h2 class="center heading-accent" data-i18n="about.global.title">Where we operate</h2>
         <p class="center measure-center" data-i18n="about.global.lead">From our headquarters in Damascus, AKA Group serves hospitals across Syria and works internationally through FutureMed in Sweden and Albania.</p>
 
-        <div class="world-map" data-world-map>
+        <div class="world-map" data-world-map role="img" aria-label="Map: AKA Group headquarters in Syria, with FutureMed companies in Sweden and Albania" data-i18n-attr="aria-label:about.global.maplabel">
           <div class="world-map__canvas">
           <img src="images/world-dots.svg" alt="" width="2400" height="920" loading="lazy" decoding="async" />
           <svg class="world-map__layer" viewBox="0 0 2400 920" preserveAspectRatio="none" aria-hidden="true">
@@ -196,35 +208,35 @@
         <h2 class="center heading-accent" data-i18n="about.spec.title">What we specialize in</h2>
         <div class="grid grid--4 grid--gap-top about-specialties">
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></div>
             <h3 data-i18n="about.spec.1">Medical device sales &amp; distribution</h3>
           </div>
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3Z"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3Z"/></svg></div>
             <h3 data-i18n="about.spec.2">Repair &amp; after-sales service</h3>
           </div>
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
             <h3 data-i18n="about.spec.3">Installation &amp; operator training</h3>
           </div>
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1ZM6 5h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1ZM6 5h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg></div>
             <h3 data-i18n="about.spec.4">Tender management (national &amp; international)</h3>
           </div>
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/></svg></div>
             <h3 data-i18n="about.spec.5">Medical project management</h3>
           </div>
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8 21h8"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8 21h8"/></svg></div>
             <h3 data-i18n="about.spec.6">Operating room setup &amp; management</h3>
           </div>
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M6 10h3l2-3 2 6 2-3h3M8 21h8M12 17v4"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M6 10h3l2-3 2 6 2-3h3M8 21h8M12 17v4"/></svg></div>
             <h3 data-i18n="about.spec.7">ICU setup &amp; management</h3>
           </div>
           <div class="specialty-card">
-            <div class="specialty-card__icon"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M12 9v6M9 12h6"/></svg></div>
+            <div class="specialty-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M12 9v6M9 12h6"/></svg></div>
             <h3 data-i18n="about.spec.8">Sterilization department setup</h3>
           </div>
         </div>
@@ -239,21 +251,21 @@
         <div class="grid grid--3 grid--gap-top">
           <div class="feature center">
             <div class="icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
             <h3 data-i18n="about.why.certified.title">Certified products</h3>
             <p data-i18n="about.why.certified.text">Genuine, certified equipment and supplies sourced from trusted international manufacturers.</p>
           </div>
           <div class="feature center">
             <div class="icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
             </div>
             <h3 data-i18n="about.why.local.title">Local service</h3>
             <p data-i18n="about.why.local.text">Installation, training, maintenance, and after-sales support delivered on the ground in Syria.</p>
           </div>
           <div class="feature center">
             <div class="icon-circle">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
             </div>
             <h3 data-i18n="about.why.reliable.title">Reliable partner</h3>
             <p data-i18n="about.why.reliable.text">Years of dependable supply to healthcare providers who count on us for the long term.</p>
@@ -271,25 +283,25 @@
         <div class="grid grid--4 grid--gap-top">
           <div class="feature center">
             <div class="icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
             <h3 data-i18n="about.values.customer.title">Customer focus</h3><p data-i18n="about.values.customer.text">We prioritize understanding and meeting customer needs, and addressing risks to product conformity and satisfaction.</p>
           </div>
           <div class="feature center">
             <div class="icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M12 20.3 10.6 19C5.6 14.4 2.3 11.4 2.3 7.7 2.3 4.7 4.6 2.4 7.6 2.4c1.7 0 3.3.8 4.4 2C13.1 3.2 14.7 2.4 16.4 2.4c3 0 5.3 2.3 5.3 5.3 0 3.7-3.3 6.7-8.3 11.3Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.3 10.6 19C5.6 14.4 2.3 11.4 2.3 7.7 2.3 4.7 4.6 2.4 7.6 2.4c1.7 0 3.3.8 4.4 2C13.1 3.2 14.7 2.4 16.4 2.4c3 0 5.3 2.3 5.3 5.3 0 3.7-3.3 6.7-8.3 11.3Z"/></svg>
             </div>
             <h3 data-i18n="about.values.support.title">Support</h3><p data-i18n="about.values.support.text">We provide the resources, people, and infrastructure to deliver excellent service and build team competence.</p>
           </div>
           <div class="feature center">
             <div class="icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2Zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8Z"/><path d="M12 6v6l5 3"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2Zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8Z"/><path d="M12 6v6l5 3"/></svg>
             </div>
             <h3 data-i18n="about.values.quality.title">Quality</h3><p data-i18n="about.values.quality.text">We deliver organized, well-managed services that meet modern standards and satisfy our customers.</p>
           </div>
           <div class="feature center">
             <div class="icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2Zm-2 15l-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2Zm-2 15l-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9Z"/></svg>
             </div>
             <h3 data-i18n="about.values.improvement.title">Continuous improvement</h3><p data-i18n="about.values.improvement.text">We collaborate with reputable partners to enhance our capabilities and drive continuous development.</p>
           </div>
@@ -401,7 +413,7 @@
           <!-- CONTACT CARDS -->
           <div class="contact-cards">
             <div class="contact-card">
-              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
               <div>
                 <h3 data-i18n="about.location.title">Location</h3>
                 <p data-i18n="about.address">Baramkeh, Damascus, Syria</p>
@@ -409,7 +421,7 @@
             </div>
 
             <div class="contact-card">
-              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
               <div>
                 <h3 data-i18n="about.phone.title">Phone</h3>
                 <p>
@@ -420,7 +432,7 @@
             </div>
 
             <div class="contact-card">
-              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="m22 7-10 5L2 7"/></svg></div>
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="m22 7-10 5L2 7"/></svg></div>
               <div>
                 <h3 data-i18n="about.emailhours.title">Email &amp; hours</h3>
                 <p>
@@ -431,7 +443,7 @@
             </div>
 
             <div class="contact-card">
-              <div class="contact-card__icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+              <div class="contact-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
               <div>
                 <h3 data-i18n="about.futuremedsweden.title">FutureMed Sweden</h3>
                 <p>
@@ -451,7 +463,7 @@
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen></iframe>
             <a class="contact-map__link" href="https://www.google.com/maps?q=Baramkeh,Damascus,Syria" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
               <span data-i18n="about.map.open">Open in Google Maps</span>
             </a>
           </div>
@@ -470,9 +482,9 @@
   </main>
 
   <div id="site-footer"></div>
-  <script src="js/i18n.js?v=16"></script>
+  <script src="js/i18n.js?v=17"></script>
   <script src="js/vendor/motion.min.js?v=1"></script>
   <script src="js/components.js?v=21"></script>
-  <script src="js/about.js?v=1"></script>
+  <script src="js/about.js?v=4"></script>
 </body>
 </html>
