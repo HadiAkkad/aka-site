@@ -3294,3 +3294,19 @@ button.product-card__cat:hover { text-decoration: underline; }
   .product-card__brand { font-size: 0.8rem; }
   .product-card__body .btn { font-size: 0.78rem; padding: 0.45rem 0.9rem; }
 }
+
+/* Spam-trap form field: invisible to people, still filled in by bots. It uses no
+   left/right offset, because an offset widens the page in right-to-left layouts. */
+.hp-field,
+.form .hp-field {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden;
+  opacity: 0;
+  clip-path: inset(50%);
+  pointer-events: none;
+}

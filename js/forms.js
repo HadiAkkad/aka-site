@@ -16,6 +16,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      // Catch CV problems before uploading, so the visitor gets a clear reason.
+      const cv = form.querySelector('input[type="file"]')?.files?.[0];
+      const cvProblem = !cv
+        ? null
+        : cv.size > 8 * 1024 * 1024
+          ? "form.cvTooLarge"
+          : !/\.(pdf|docx?)$/i.test(cv.name)
+            ? "form.cvType"
+            : null;
+      if (cvProblem) {
+        if (status) {
+          status.className = "form-status form-status--err";
+          status.textContent = I18N.t(cvProblem);
+        }
+        return;
+      }
+
       if (button) button.disabled = true;
       if (status) {
         status.className = "form-status";
@@ -37,8 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
               endpoint === "apply" ? "form.applied" : "form.success"
             );
           }
-        } else {
-          throw new Error("request failed");
+        } else if (status) {
+          status.classList.add("form-status--err");
+          status.textContent = I18N.t(window.AKA_formErrorKey(res, data));
         }
       } catch (err) {
         if (status) {

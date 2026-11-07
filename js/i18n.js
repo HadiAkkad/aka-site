@@ -20,6 +20,22 @@ const I18N = (() => {
     en: {
       // Accessibility
       "a11y.skip": "Skip to content",
+      "a11y.closeMenu": "Close menu",
+      "a11y.toggleMenu": "Toggle menu",
+      "a11y.prev": "Previous",
+      "a11y.next": "Next",
+      "footer.international": "International",
+      "footer.city": "Damascus —",
+      "footer.area": "Baramkeh, Syria",
+      "footer.est": "Est. 1998 — Damascus, Syria",
+      "about.address": "Baramkeh, Damascus, Syria",
+      "careers.form.position.choose": "Select a position...",
+      "careers.form.position.other": "Other",
+      "form.required": "Please fill in the facility name, your name, and your email.",
+      "form.invalidEmail": "Please enter a valid email address.",
+      "form.cvTooLarge": "Your CV is too large. The maximum size is 8 MB.",
+      "form.cvType": "Please upload your CV as a PDF or Word file.",
+      "form.tooMany": "Too many attempts. Please try again later, or email us directly.",
 
       // Home — hero badge & new sections
       "home.hero.badge": "Trusted since 1998 — Damascus, Syria",
@@ -71,7 +87,7 @@ const I18N = (() => {
 
       // Footer
       "footer.about.text":
-        "Certified medical devices and equipment for hospitals, clinics, and laboratories across Syria backed by agency services, installation, training, and dependable local support.",
+        "Certified medical devices and equipment for hospitals, clinics, and laboratories across Syria — backed by agency services, installation, training, and dependable local support.",
       "footer.explore": "Explore",
       "footer.contact": "Contact",
       "footer.devices": "Devices",
@@ -123,7 +139,7 @@ const I18N = (() => {
       // Home — hero
       "home.hero.h1": "Your Partner in Healthcare",
       "home.hero.lead":
-        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria  backed by installation, training, and dependable local service.",
+        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — backed by installation, training, and dependable local service.",
       "home.hero.cta": "Browse our devices",
 
       // Home — services
@@ -150,7 +166,7 @@ const I18N = (() => {
       // Home — products teaser
       "home.products.title": "Our medical products",
       "home.products.lead":
-        "Explore our device portfolio by clinical category from patient monitoring and diagnostics to surgical and hospital equipment.",
+        "Explore our device portfolio by clinical category — from patient monitoring and diagnostics to surgical and hospital equipment.",
       "home.products.cta": "Browse the catalog",
 
       // Home — featured projects
@@ -168,8 +184,8 @@ const I18N = (() => {
       "form.message": "Message",
       "form.submit": "Submit",
       "form.sending": "Sending…",
-      "form.success": "Thank you your message has been sent.",
-      "form.applied": "Thank you your application has been submitted.",
+      "form.success": "Thank you — your message has been sent.",
+      "form.applied": "Thank you — your application has been submitted.",
       "form.error": "Something went wrong. Please try again or email us directly.",
 
       // Home — contact band
@@ -189,9 +205,9 @@ const I18N = (() => {
       "home.sectors.title": "Our sectors",
       "home.sectors.lead": "AKA Group is a multidisciplinary group serving healthcare through four specialized sectors.",
       "sector.projects.title": "Projects (Turnkey)",
-      "sector.projects.text": "Turnkey healthcare infrastructure from planning and design to installation and commissioning of complete hospitals and medical centers.",
+      "sector.projects.text": "Turnkey healthcare infrastructure — from planning and design to installation and commissioning of complete hospitals and medical centers.",
       "sector.tenders.title": "Tenders",
-      "sector.tenders.text": "Strategic participation in public and private tenders inside and outside Syria across Europe, Asia, and Africa with full regulatory compliance.",
+      "sector.tenders.text": "Strategic participation in public and private tenders inside and outside Syria — across Europe, Asia, and Africa — with full regulatory compliance.",
       "sector.medical.title": "Medical Equipment & Services",
       "sector.medical.text": "Supply, installation, and maintenance of advanced medical devices through FutureMed and affiliated companies, partnering with leading global manufacturers.",
       "sector.humanitarian.title": "Humanitarian & Charitable",
@@ -199,7 +215,7 @@ const I18N = (() => {
 
       // ---- Projects page ----
       "proj.hero.h1": "Projects & Clients",
-      "proj.hero.lead": "AKA Group has delivered large-scale healthcare projects across Syria building, equipping, and commissioning hospitals and medical centers.",
+      "proj.hero.lead": "AKA Group has delivered large-scale healthcare projects across Syria — building, equipping, and commissioning hospitals and medical centers.",
       "proj.hero.cta": "See our projects",
       "proj.hospitals.eyebrow": "Our work",
       "proj.hospitals.title": "Hospitals we've delivered",
@@ -324,7 +340,7 @@ const I18N = (() => {
       "careers.why.eyebrow": "Join us",
       "careers.why.title": "Why work at AKA",
       "careers.why.intro":
-        "We're more than a medical equipment distributor. We're a team passionate about improving healthcare across Syria, with 27 years of experience and a commitment to excellence.",
+        "We're more than a medical equipment distributor. We're a team passionate about improving healthcare across Syria, with experience going back to 1998 and a commitment to excellence.",
       "careers.why.growth.title": "Career growth",
       "careers.why.growth.text":
         "Develop your skills through training, mentorship, and exposure to cutting-edge medical technology and industry partners.",
@@ -372,7 +388,7 @@ const I18N = (() => {
         "Installation, training, maintenance—we don't just sell equipment. We're here for the long haul.",
       "careers.values.integrity.title": "Integrity & trust",
       "careers.values.integrity.text":
-        "27 years in business because we keep our word. Transparency and honesty in every interaction.",
+        "In business since 1998 because we keep our word. Transparency and honesty in every interaction.",
 
       "careers.apply.title": "Apply now",
       "careers.apply.lead":
@@ -465,11 +481,11 @@ const I18N = (() => {
       "about.spec.8": "Sterilization department setup",
       "about.hero.h1": "About AKA",
       "about.hero.lead":
-        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria backed by installation, training, and dependable local service.",
+        "Since 1998, AKA has reliably supplied certified medical devices and equipment to hospitals, clinics, and laboratories across Syria — backed by installation, training, and dependable local service.",
       "about.hero.cta": "Contact us",
       "about.who.title": "Who we are",
       "about.who.p":
-        "Founded in 1998 in Damascus, AKA (Al-Akkad) is a medical agencies group dedicated to advancing healthcare through modern medical equipment at the best quality and value. We supply ultrasound systems, surgical instruments, endoscopy and sterilization equipment, cardiac and neurological monitoring devices, and laboratory equipment backed by installation, training, repair, and dependable after-sales service across Syria.",
+        "Founded in 1998 in Damascus, AKA (Al-Akkad) is a medical agencies group dedicated to advancing healthcare through modern medical equipment at the best quality and value. We supply ultrasound systems, surgical instruments, endoscopy and sterilization equipment, cardiac and neurological monitoring devices, and laboratory equipment — backed by installation, training, repair, and dependable after-sales service across Syria.",
       "about.who.eyebrow": "Our company",
       "about.stat.years": "Years serving Syria",
       "about.stat.hospitals": "Hospitals equipped",
@@ -512,7 +528,7 @@ const I18N = (() => {
       "about.contact.eyebrow": "Get in touch",
       "about.contact.title": "Find & contact us",
       "about.contact.lead":
-        "Reach out by phone or email, or visit us our team is ready to help with products, specifications, and quotations.",
+        "Reach out by phone or email, or visit us — our team is ready to help with products, specifications, and quotations.",
       "about.whatsapp": "WhatsApp",
       "about.map.open": "Open in Google Maps",
       "about.location.title": "Location",
@@ -579,12 +595,12 @@ const I18N = (() => {
       // ---- Devices page ----
       "devices.hero.h1": "Devices",
       "devices.hero.lead":
-        "Browse our medical devices by clinical use. AKA supplies certified equipment for diagnostics, monitoring, surgery, and hospital care each backed by installation, training, and local support.",
+        "Browse our medical devices by clinical use. AKA supplies certified equipment for diagnostics, monitoring, surgery, and hospital care — each backed by installation, training, and local support.",
       "devices.hero.cta": "Browse the catalog",
       "devices.portfolio.eyebrow": "Our catalog",
       "devices.portfolio.title": "A certified device portfolio",
       "devices.portfolio.p":
-        "Every device AKA delivers is selected for reliability, ease of use, and compliance with international quality standards. From compact bedside units to full hospital installations, we help Syrian healthcare providers equip their facilities with confidence and keep them running with maintenance, spare parts, and dependable after-sales service.",
+        "Every device AKA delivers is selected for reliability, ease of use, and compliance with international quality standards. From compact bedside units to full hospital installations, we help Syrian healthcare providers equip their facilities with confidence — and keep them running with maintenance, spare parts, and dependable after-sales service.",
       "devices.process.eyebrow": "How it works",
       "devices.process.title": "From inquiry to installation",
       "devices.process.step1": "Inquiry",
@@ -599,7 +615,7 @@ const I18N = (() => {
       "devices.docs.title": "Device documentation for Syria",
       "devices.docs.btn": "Browse documentation",
       "devices.docs.p1":
-        "Access technical files, user manuals, compatibility notes, and safety information for every AKA medical device supplied in Syria including installation requirements and Syrian regulatory references for biomedical engineers, hospital teams, and distributors.",
+        "Access technical files, user manuals, compatibility notes, and safety information for every AKA medical device supplied in Syria — including installation requirements and Syrian regulatory references for biomedical engineers, hospital teams, and distributors.",
       "devices.docs.p2":
         "Verify whether each device suits your facility, with clear compatibility charts, power and networking standards for Syria, and documentation ready for tenders, audits, and Ministry of Health inspections.",
 
@@ -890,6 +906,22 @@ const I18N = (() => {
     ar: {
       // Accessibility
       "a11y.skip": "تخطّي إلى المحتوى",
+      "a11y.closeMenu": "إغلاق القائمة",
+      "a11y.toggleMenu": "فتح أو إغلاق القائمة",
+      "a11y.prev": "السابق",
+      "a11y.next": "التالي",
+      "footer.international": "دوليًا",
+      "footer.city": "دمشق —",
+      "footer.area": "البرامكة، سوريا",
+      "footer.est": "تأسست عام 1998 — دمشق، سوريا",
+      "about.address": "البرامكة، دمشق، سوريا",
+      "careers.form.position.choose": "اختر وظيفة...",
+      "careers.form.position.other": "أخرى",
+      "form.required": "يرجى إدخال اسم المنشأة واسمك وبريدك الإلكتروني.",
+      "form.invalidEmail": "يرجى إدخال بريد إلكتروني صحيح.",
+      "form.cvTooLarge": "حجم السيرة الذاتية كبير جدًا. الحد الأقصى 8 ميغابايت.",
+      "form.cvType": "يرجى رفع السيرة الذاتية بصيغة PDF أو Word.",
+      "form.tooMany": "محاولات كثيرة جدًا. يرجى المحاولة لاحقًا أو مراسلتنا مباشرة.",
 
       // Home — hero badge & new sections
       "home.hero.badge": "موثوقون منذ 1998 — دمشق، سوريا",
@@ -1193,7 +1225,7 @@ const I18N = (() => {
       "careers.why.eyebrow": "انضمّ إلينا",
       "careers.why.title": "لماذا تعمل في AKA",
       "careers.why.intro":
-        "نحن أكثر من موزّع لأجهزة طبية. نحن فريق متحمّس لتحسين الرعاية الصحية في سوريا، بخبرة 27 عامًا وحرص دائم على التميّز.",
+        "نحن أكثر من موزّع لأجهزة طبية. نحن فريق متحمّس لتحسين الرعاية الصحية في سوريا، بخبرة تمتد منذ عام 1998 وحرص دائم على التميّز.",
       "careers.why.growth.title": "تطوّر مهني",
       "careers.why.growth.text":
         "طوّر مهاراتك من خلال التدريب والإرشاد والتعرّف على أحدث التقنيات الطبية وشركاء الصناعة.",
@@ -1241,7 +1273,7 @@ const I18N = (() => {
         "تركيب وتدريب وصيانة — لا نبيع الأجهزة فقط. نحن معكم على المدى الطويل.",
       "careers.values.integrity.title": "نزاهة وثقة",
       "careers.values.integrity.text":
-        "27 عامًا في هذا المجال لأننا نلتزم بكلمتنا. شفافية وصدق في كل تعامل.",
+        "نعمل في هذا المجال منذ عام 1998 لأننا نلتزم بكلمتنا. شفافية وصدق في كل تعامل.",
 
       "careers.apply.title": "قدّم الآن",
       "careers.apply.lead":

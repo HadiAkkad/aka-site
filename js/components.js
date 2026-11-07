@@ -23,11 +23,11 @@ const NAV_LINKS = [
 // Partner names shown in the scrolling footer strip.
 // Replace with logo <img> tags once you have the image files (see README).
 const PARTNERS = [
-  "EDAN", "NEUSOFT", "CUSTOMED", "HERMANN",
-  "EMS", "IMO", "MERIVAARA", "NEUSOFT", "CISA", "MICROMED",
+  "EDAN", "NEUSOFT", "CUSTO MED", "HERMANN",
+  "EMS", "IMO", "MERIVAARA", "CISA", "MICROMED",
   "LUXSUTURES", "ASPEL", "KASIOS", "STEEL&POWER", "INSIGHTRA",
   "S.I.E.M", "ELVATION", "ITEM", "PERLOVE", "STERNMED", "ESUMEDICS",
-  "SAMA ● ALTAMAYAZ"
+  "SAMA ● ALTAMAYAZ", "CHENWEI", "VILLA", "BIOBASE"
 ];
 
 // Quote/RFQ backend endpoint (same Worker the contact form uses). Named
@@ -123,6 +123,19 @@ window.AKA_CATS_READY.then(() => {
   window.AKA_applyBi(document);
 });
 
+// Shared by the quote form and js/forms.js.
+window.AKA_validEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+// Turns a failed form response into the message visitors should see.
+window.AKA_formErrorKey = function (res, data) {
+  if (res.status === 429) return "form.tooMany";
+  const error = String((data && data.error) || "");
+  if (error.startsWith("CV too large")) return "form.cvTooLarge";
+  if (error.startsWith("CV must be")) return "form.cvType";
+  if (error.startsWith("Invalid email")) return "form.invalidEmail";
+  return "form.error";
+};
+
 // One repeatable product row inside the quote form.
 function buildQuoteLineItem() {
   const opts = window.AKA_CATS
@@ -135,14 +148,16 @@ function buildQuoteLineItem() {
       ).join("");
   return `
   <div class="quote-item">
-    <select class="quote-item__cat" aria-label="${I18N.t("quote.items.category")}">
+    <select class="quote-item__cat" data-i18n-attr="aria-label:quote.items.category" aria-label="${I18N.t("quote.items.category")}">
       <option value="" data-i18n="quote.items.category.choose">${I18N.t("quote.items.category.choose")}</option>
       ${opts}
     </select>
     <input type="text" class="quote-item__product"
-      data-i18n-attr="placeholder:quote.items.product"
+      data-i18n-attr="placeholder:quote.items.product,aria-label:quote.items.product"
+      aria-label="${I18N.t("quote.items.product")}"
       placeholder="${I18N.t("quote.items.product")}" />
     <input type="number" class="quote-item__qty" min="1" value="1"
+      data-i18n-attr="aria-label:quote.items.qty"
       aria-label="${I18N.t("quote.items.qty")}" />
     <button type="button" class="quote-item__remove" data-quote-remove
       data-i18n-attr="aria-label:quote.items.remove"
@@ -164,17 +179,17 @@ function buildQuoteModal() {
       <form class="quote-form" id="quote-form" novalidate>
         <!-- Honeypot: invisible to humans; bots that fill it are dropped server-side -->
         <input type="text" name="website" tabindex="-1" autocomplete="off"
-          style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true" />
+          class="hp-field" aria-hidden="true" />
         <fieldset class="quote-fieldset">
           <legend data-i18n="quote.facility.legend">Facility information</legend>
           <div class="quote-grid">
             <div class="quote-field">
-              <label data-i18n="quote.facility.name">Facility name</label>
-              <input type="text" name="facility" required />
+              <label for="q-facility" data-i18n="quote.facility.name">Facility name</label>
+              <input type="text" id="q-facility" name="facility" required />
             </div>
             <div class="quote-field">
-              <label data-i18n="quote.facility.type">Facility type</label>
-              <select name="facilityType">
+              <label for="q-type" data-i18n="quote.facility.type">Facility type</label>
+              <select id="q-type" name="facilityType">
                 <option value="" data-i18n="quote.facility.type.choose">Select type...</option>
                 <option value="Hospital" data-i18n="quote.facility.type.hospital">Hospital</option>
                 <option value="Clinic" data-i18n="quote.facility.type.clinic">Clinic</option>
@@ -184,8 +199,8 @@ function buildQuoteModal() {
               </select>
             </div>
             <div class="quote-field">
-              <label data-i18n="quote.facility.location">City / Location</label>
-              <input type="text" name="location" />
+              <label for="q-location" data-i18n="quote.facility.location">City / Location</label>
+              <input type="text" id="q-location" name="location" />
             </div>
           </div>
         </fieldset>
@@ -194,16 +209,16 @@ function buildQuoteModal() {
           <legend data-i18n="quote.contact.legend">Contact details</legend>
           <div class="quote-grid">
             <div class="quote-field">
-              <label data-i18n="quote.contact.name">Your name</label>
-              <input type="text" name="name" required />
+              <label for="q-name" data-i18n="quote.contact.name">Your name</label>
+              <input type="text" id="q-name" name="name" required />
             </div>
             <div class="quote-field">
-              <label data-i18n="quote.contact.email">Email</label>
-              <input type="email" name="email" required />
+              <label for="q-email" data-i18n="quote.contact.email">Email</label>
+              <input type="email" id="q-email" name="email" required />
             </div>
             <div class="quote-field">
-              <label data-i18n="quote.contact.phone">Phone</label>
-              <input type="tel" name="phone" />
+              <label for="q-phone" data-i18n="quote.contact.phone">Phone</label>
+              <input type="tel" id="q-phone" name="phone" />
             </div>
           </div>
         </fieldset>
@@ -216,8 +231,8 @@ function buildQuoteModal() {
         </fieldset>
 
         <div class="quote-field">
-          <label data-i18n="quote.notes">Additional notes</label>
-          <textarea name="notes"
+          <label for="q-notes" data-i18n="quote.notes">Additional notes</label>
+          <textarea id="q-notes" name="notes"
             data-i18n-attr="placeholder:quote.notes.ph"
             placeholder="${I18N.t("quote.notes.ph")}"></textarea>
         </div>
@@ -245,7 +260,7 @@ function buildHeader() {
         <img class="site-logo" src="images/aka-logo-vector.svg?v=7" alt="AKA Associates" />
       </a>
       <nav class="site-nav">
-        <button class="nav-close" aria-label="Close menu" type="button">&#8594;</button>
+        <button class="nav-close" data-i18n-attr="aria-label:a11y.closeMenu" aria-label="${I18N.t("a11y.closeMenu")}" type="button">&#8594;</button>
         ${links}
         <button class="btn nav-quote" type="button" data-quote-open
           data-i18n="quote.cta">${I18N.t("quote.cta")}</button>
@@ -259,7 +274,7 @@ function buildHeader() {
         <button class="lang-toggle" type="button"
           data-i18n="lang.toggle"
           data-i18n-attr="aria-label:lang.toggleLabel">${I18N.t("lang.toggle")}</button>
-        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+        <button class="nav-toggle" data-i18n-attr="aria-label:a11y.toggleMenu" aria-label="${I18N.t("a11y.toggleMenu")}" aria-expanded="false">&#9776;</button>
       </div>
     </div>
     <div class="nav-overlay"></div>
@@ -316,7 +331,7 @@ function buildFooter() {
         <ul class="footer-contact">
           <li>
             ${ficon("pin")}
-            <span><strong>Damascus —</strong> Baramkeh, Syria</span>
+            <span><strong data-i18n="footer.city">Damascus —</strong> <span data-i18n="footer.area">Baramkeh, Syria</span></span>
           </li>
           <li>
             ${ficon("phone")}
@@ -338,7 +353,7 @@ function buildFooter() {
       </div>
 
       <div class="footer-section">
-        <h3>International</h3>
+        <h3 data-i18n="footer.international">International</h3>
         <ul class="footer-contact">
           <li>
             ${ficon("globe")}
@@ -368,7 +383,7 @@ function buildFooter() {
         &copy; <span id="year"></span> AKA Associates. <span data-i18n="footer.rights">All rights reserved.</span>
       </div>
       <div class="footer-bottom-right">
-        <span>Est. 1998 — Damascus, Syria</span>
+        <span data-i18n="footer.est">Est. 1998 — Damascus, Syria</span>
       </div>
     </div>
   </footer>`;
@@ -441,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
     if (close) close.addEventListener("click", () => setOpen(false));
     if (overlay) overlay.addEventListener("click", () => setOpen(false));
-    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    nav.querySelectorAll("a, [data-quote-open]").forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") setOpen(false);
     });
@@ -457,9 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // If the logo is clicked while already on the homepage, smooth-scroll to top
   // instead of doing a full page reload.
   const logo = document.querySelector(".site-title");
-  const onHome =
-    document.body.dataset.page === "index.html" ||
-    document.body.dataset.page === "";
+  const onHome = document.body.dataset.page === "index.html";
   if (logo && onHome) {
     logo.addEventListener("click", (e) => {
       e.preventDefault();
@@ -602,9 +615,14 @@ function initQuoteModal() {
     const facility = get("facility");
     const name = get("name");
     const email = get("email");
-    if (!facility || !name || !email) {
+    const invalid = !facility || !name || !email
+      ? "form.required"
+      : !window.AKA_validEmail(email)
+        ? "form.invalidEmail"
+        : null;
+    if (invalid) {
       status.className = "form-status form-status--err";
-      status.textContent = I18N.t("form.error");
+      status.textContent = I18N.t(invalid);
       return;
     }
 
@@ -614,7 +632,7 @@ function initQuoteModal() {
         const sel = row.querySelector(".quote-item__cat");
         const cat = sel.value ? sel.options[sel.selectedIndex].textContent.trim() : "";
         const product = row.querySelector(".quote-item__product").value.trim();
-        const qty = row.querySelector(".quote-item__qty").value.trim() || "1";
+        const qty = Math.max(1, parseInt(row.querySelector(".quote-item__qty").value, 10) || 1);
         if (!cat && !product) return null;
         return `• ${[cat, product].filter(Boolean).join(" — ")} × ${qty}`;
       })
@@ -650,7 +668,8 @@ function initQuoteModal() {
         status.className = "form-status form-status--ok";
         status.textContent = I18N.t("quote.success");
       } else {
-        throw new Error("request failed");
+        status.className = "form-status form-status--err";
+        status.textContent = I18N.t(window.AKA_formErrorKey(res, data));
       }
     } catch (err) {
       status.className = "form-status form-status--err";
@@ -778,6 +797,12 @@ function initNgoSlideshow() {
   if (nextBtn) nextBtn.addEventListener("click", () => { next(); stopAutoplay(); startAutoplay(); });
   root.addEventListener("mouseenter", stopAutoplay);
   root.addEventListener("mouseleave", startAutoplay);
+
+  // Slide direction depends on the page direction, which the language toggle flips.
+  new MutationObserver(render).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["dir"],
+  });
 
   render();
   startAutoplay();

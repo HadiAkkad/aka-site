@@ -137,7 +137,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const videoWrap = modal.querySelector(".lecture-modal__video-wrap");
   const titleEl = modal.querySelector(".lecture-modal__title");
 
+  let lastFocused = null;
+
   function openVideo(trigger) {
+    lastFocused = trigger;
     const src = trigger.dataset.videoSrc;
     const type = trigger.dataset.videoType || "video";
 
@@ -147,6 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       iframe.src = src;
       iframe.allow = "autoplay; fullscreen; picture-in-picture";
       iframe.allowFullscreen = true;
+      iframe.title = trigger.dataset.videoTitle || "";
       videoWrap.appendChild(iframe);
     } else {
       const video = document.createElement("video");
@@ -159,6 +163,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+    modal.querySelector(".lecture-modal__close")?.focus();
   }
 
   function closeVideo() {
@@ -166,6 +171,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal.setAttribute("aria-hidden", "true");
     videoWrap.innerHTML = ""; // stops playback
     document.body.style.overflow = "";
+    if (lastFocused) lastFocused.focus();
   }
 
   document.addEventListener("click", (e) => {
