@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1d2b36" />
   <title>About Us — AKA</title>
   <meta name="description" content="Learn about AKA (Al-Akkad) — a medical-equipment agencies group established in Damascus in 1998. Find our location, phone numbers, and contact details." />
-  <link rel="stylesheet" href="css/style.css?v=40" />
+  <link rel="stylesheet" href="css/style.css?v=41" />
   <!-- Social sharing & SEO (update base URL when the custom domain is live) -->
   <link rel="canonical" href="https://aka1.hadi-alakkadd.workers.dev/about.html" />
   <meta property="og:type" content="website" />
@@ -243,33 +243,58 @@
       </div>
     </section>
 
-    <!-- WHY AKA -->
-    <section class="section">
+    <!-- WHY AKA: connected carousel, built by js/why-carousel.js. Each <li> is
+         one reason; copy one to add another. Without JavaScript they show as
+         a grid. -->
+    <section class="section why-section">
       <div class="container">
         <p class="eyebrow center" data-i18n="about.why.eyebrow">Why choose us</p>
         <h2 class="center heading-accent" data-i18n="about.why.title">Why choose AKA</h2>
-        <div class="grid grid--3 grid--gap-top">
-          <div class="feature center">
-            <div class="icon-circle">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
-            </div>
-            <h3 data-i18n="about.why.certified.title">Certified products</h3>
-            <p data-i18n="about.why.certified.text">Genuine, certified equipment and supplies sourced from trusted international manufacturers.</p>
-          </div>
-          <div class="feature center">
-            <div class="icon-circle">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            </div>
-            <h3 data-i18n="about.why.local.title">Local service</h3>
-            <p data-i18n="about.why.local.text">Installation, training, maintenance, and after-sales support delivered on the ground in Syria.</p>
-          </div>
-          <div class="feature center">
-            <div class="icon-circle">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
-            </div>
-            <h3 data-i18n="about.why.reliable.title">Reliable partner</h3>
-            <p data-i18n="about.why.reliable.text">Years of dependable supply to healthcare providers who count on us for the long term.</p>
-          </div>
+        <div class="why-carousel grid--gap-top" data-why-carousel role="region" aria-roledescription="carousel" aria-label="Why choose AKA" data-i18n-attr="aria-label:about.why.title" tabindex="0">
+          <ol class="why-carousel__list">
+          <li class="why-item">
+            <img src="images/why/certified.webp" alt="" width="760" height="428" loading="lazy" decoding="async" />
+            <span class="why-item__index" aria-hidden="true">01</span>
+            <p class="why-item__stat"><span class="why-item__num">24</span> <span class="why-item__label" data-i18n="about.stat.partners">International partners</span></p>
+            <p class="why-item__text" data-i18n="about.why.certified.text">Genuine, certified equipment and supplies sourced from trusted international manufacturers.</p>
+            <p class="why-item__tags"><span data-i18n="about.why.certified.title">Certified products</span><span>AKA Group</span></p>
+          </li>
+          <li class="why-item">
+            <img src="images/why/local.webp" alt="" width="760" height="507" loading="lazy" decoding="async" />
+            <span class="why-item__index" aria-hidden="true">02</span>
+            <p class="why-item__stat"><span class="why-item__label" data-i18n="why.stat.local">Service on the ground in Syria</span></p>
+            <p class="why-item__text" data-i18n="about.why.local.text">Installation, training, maintenance, and after-sales support delivered on the ground in Syria.</p>
+            <p class="why-item__tags"><span data-i18n="about.why.local.title">Local service</span><span>AKA Group</span></p>
+          </li>
+          <li class="why-item">
+            <img src="images/why/reliable.webp" alt="" width="760" height="507" loading="lazy" decoding="async" />
+            <span class="why-item__index" aria-hidden="true">03</span>
+            <p class="why-item__stat"><span class="why-item__num"><span data-years-since="1998">28</span>+</span> <span class="why-item__label" data-i18n="about.stat.years">Years serving Syria</span></p>
+            <p class="why-item__text" data-i18n="about.why.reliable.text">Years of dependable supply to healthcare providers who count on us for the long term.</p>
+            <p class="why-item__tags"><span data-i18n="about.why.reliable.title">Reliable partner</span><span>AKA Group</span></p>
+          </li>
+          <li class="why-item">
+            <img src="images/why/hospitals.webp" alt="Latakia National Hospital" data-i18n-attr="alt:proj.hosp.latakia.name" width="760" height="489" loading="lazy" decoding="async" />
+            <span class="why-item__index" aria-hidden="true">04</span>
+            <p class="why-item__stat"><span class="why-item__num">50+</span> <span class="why-item__label" data-i18n="about.stat.hospitals">Hospitals equipped</span></p>
+            <p class="why-item__text" data-i18n="home.featured.lead">A selection of hospitals AKA Group has built and/or equipped across Syria.</p>
+            <p class="why-item__tags"><span data-i18n="home.featured.title">Hospitals we've equipped</span><span>AKA Group</span></p>
+          </li>
+          <li class="why-item">
+            <img src="images/why/countries.webp" alt="" width="760" height="405" loading="lazy" decoding="async" />
+            <span class="why-item__index" aria-hidden="true">05</span>
+            <p class="why-item__stat"><span class="why-item__num">3</span> <span class="why-item__label" data-i18n="why.stat.countries">Countries</span></p>
+            <p class="why-item__text" data-i18n="about.global.lead">From our headquarters in Damascus, AKA Group serves hospitals across Syria and works internationally through FutureMed in Sweden and Albania.</p>
+            <p class="why-item__tags"><span data-i18n="about.global.title">Where we operate</span><span>AKA Group</span></p>
+          </li>
+          <li class="why-item">
+            <img src="images/why/turnkey.webp" alt="" width="760" height="507" loading="lazy" decoding="async" />
+            <span class="why-item__index" aria-hidden="true">06</span>
+            <p class="why-item__stat"><span class="why-item__label" data-i18n="why.stat.turnkey">From planning to commissioning</span></p>
+            <p class="why-item__text" data-i18n="sector.projects.text">Turnkey healthcare infrastructure — from planning and design to installation and commissioning of complete hospitals and medical centers.</p>
+            <p class="why-item__tags"><span data-i18n="sector.projects.title">Projects (Turnkey)</span><span>AKA Group</span></p>
+          </li>
+          </ol>
         </div>
       </div>
     </section>
@@ -482,9 +507,10 @@
   </main>
 
   <div id="site-footer"></div>
-  <script src="js/i18n.js?v=17"></script>
+  <script src="js/i18n.js?v=18"></script>
   <script src="js/vendor/motion.min.js?v=1"></script>
   <script src="js/components.js?v=21"></script>
   <script src="js/about.js?v=4"></script>
+  <script src="js/why-carousel.js?v=2"></script>
 </body>
 </html>

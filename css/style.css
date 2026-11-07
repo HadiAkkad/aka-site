@@ -4525,3 +4525,272 @@ html[lang="ar"] .heading-accent { padding-bottom: 1.1rem; }
   .about-logos__row img { width: 92px; height: 36px; }
   .about-intro--hero .hero__actions { flex-wrap: wrap; }
 }
+
+/* -------------------------------------------------------------------------
+   WHY CHOOSE AKA — connected carousel (About page), see js/why-carousel.js
+   Each card's place comes from its data-offset: 0 is the large card, ±1 and
+   ±2 the side cards, ±3/±4 the hidden spots cards slide in from and out to.
+   Sizes are worked out from the carousel's own width (container units).
+   ------------------------------------------------------------------------- */
+main > .why-section {
+  background:
+    radial-gradient(900px 500px at 8% 0%, rgba(34, 139, 192, 0.07), transparent 60%),
+    radial-gradient(900px 500px at 92% 100%, rgba(74, 168, 216, 0.08), transparent 60%),
+    var(--color-white);
+}
+.why-carousel { container-type: inline-size; outline: none; }
+.why-carousel:focus-visible { outline: 3px solid var(--color-cta-dark); outline-offset: 6px; border-radius: 16px; }
+
+/* Plain grid before the script runs (or without JavaScript) */
+.why-carousel__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.why-item {
+  padding: 1rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+}
+.why-item > img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 10px; margin-bottom: 0.8rem; }
+.why-carousel.is-ready .why-carousel__list { display: none; }
+
+/* Shared text styles (grid and cards) */
+.why-item__index {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-text);
+}
+.why-item__stat {
+  margin: 0.4rem 0 0.8rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+.why-item__num { display: block; font-size: 1.9em; line-height: 1; color: var(--color-cta-dark); }
+.why-item__text { margin: 0 0 1rem; color: var(--color-text-soft); line-height: 1.6; }
+.why-item__tags { display: flex; flex-direction: column; align-items: flex-start; margin: 0; }
+.why-item__tags span {
+  position: relative;
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  background: #e8f2f8;
+  color: var(--color-ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+/* Little bridge joining the two tags */
+.why-item__tags span + span { margin-top: 6px; color: var(--color-text-muted); font-weight: 500; }
+.why-item__tags span + span::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  inset-inline-start: 0.9rem;
+  width: 14px;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -2 14 12' preserveAspectRatio='none'%3E%3Cpath fill='%23e8f2f8' d='M0 -2V0C0 0 5.09 .5 5.09 4C5.09 7.5 0 8 0 8V10H14V8C14 8 8.91 7.5 8.91 4C8.91 .5 14 0 14 0V-2Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+html[lang="ar"] .why-item__stat { text-transform: none; font-weight: 700; }
+
+/* ---- the stage ---------------------------------------------------------- */
+.why-carousel__stage {
+  --why-ms: 700ms;
+  --why-ease: cubic-bezier(0.22, 1.1, 0.36, 1); /* soft settle, like a spring */
+  --g1: 18px;  --s1w: 92px; --s1h: 310px;
+  --g2: 16px;  --s2w: 64px; --s2h: 190px;
+  --aw: min(700px, calc(100cqi - 380px));
+  --ah: 480px;
+  --dir: 1;
+  position: relative;
+  height: calc(var(--ah) + 48px);
+  overflow: hidden;
+}
+[dir="rtl"] .why-carousel__stage { --dir: -1; }
+
+.why-card {
+  --x: 0px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: var(--w, var(--s2w));
+  height: var(--h, var(--s2h));
+  border-radius: 28px;
+  background: var(--color-white);
+  box-shadow: 0 10px 30px rgba(16, 32, 44, 0.08), 0 4px 12px rgba(16, 32, 44, 0.06);
+  opacity: var(--o, 1);
+  transform: translate(calc(-50% + var(--x) * var(--dir)), -50%);
+  transition:
+    transform var(--why-ms) var(--why-ease),
+    width var(--why-ms) var(--why-ease),
+    height var(--why-ms) var(--why-ease),
+    opacity 0.45s ease;
+  cursor: pointer;
+}
+.why-card[data-offset="0"] { --w: var(--aw); --h: var(--ah); z-index: 1; cursor: default; }
+.why-card[data-offset="1"],
+.why-card[data-offset="-1"] { --w: var(--s1w); --h: var(--s1h); }
+.why-card[data-offset="1"]  { --x: calc(var(--aw) / 2 + var(--g1) + var(--s1w) / 2); }
+.why-card[data-offset="-1"] { --x: calc(-1 * (var(--aw) / 2 + var(--g1) + var(--s1w) / 2)); }
+.why-card[data-offset="2"]  { --x: calc(var(--aw) / 2 + var(--g1) + var(--s1w) + var(--g2) + var(--s2w) / 2); }
+.why-card[data-offset="-2"] { --x: calc(-1 * (var(--aw) / 2 + var(--g1) + var(--s1w) + var(--g2) + var(--s2w) / 2)); }
+.why-card[data-offset="3"]  { --x: calc(var(--aw) / 2 + var(--g1) + var(--s1w) + var(--g2) + var(--s2w) * 1.5 + 70px); --o: 0; pointer-events: none; }
+.why-card[data-offset="-3"] { --x: calc(-1 * (var(--aw) / 2 + var(--g1) + var(--s1w) + var(--g2) + var(--s2w) * 1.5 + 70px)); --o: 0; pointer-events: none; }
+.why-card[data-offset="4"]  { --x: calc(var(--aw) / 2 + var(--g1) + var(--s1w) + var(--g2) + var(--s2w) * 1.5 + 180px); --o: 0; pointer-events: none; }
+.why-card[data-offset="-4"] { --x: calc(-1 * (var(--aw) / 2 + var(--g1) + var(--s1w) + var(--g2) + var(--s2w) * 1.5 + 180px)); --o: 0; pointer-events: none; }
+
+/* Curved connectors joining each side card to its neighbour nearer the middle */
+.why-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 42px;
+  transform: translateY(-50%);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 37.33' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0 0C0 0 1.24 13.58 10 13.58C18.76 13.58 20 0 20 0V37.33C20 37.33 18.76 23.76 10 23.76C1.24 23.76 0 37.33 0 37.33Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.why-card[data-offset="-1"]::after,
+.why-card[data-offset="-2"]::after { inset-inline-start: calc(100% - 1px); opacity: 1; }
+.why-card[data-offset="1"]::after,
+.why-card[data-offset="2"]::after { inset-inline-end: calc(100% - 1px); opacity: 1; }
+.why-card[data-offset="-2"]::after,
+.why-card[data-offset="2"]::after { width: 18px; height: 28px; }
+
+.why-card__clip { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+
+/* Side cards show just the photo */
+.why-card__peek {
+  position: absolute;
+  inset: 8px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e8f2f8;
+  transition: opacity 0.3s ease;
+}
+.why-card__peek img,
+.why-card__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.why-card.is-active .why-card__peek { opacity: 0; }
+
+/* The large card: drawn at its full size and centred, so its content never
+   reflows while the card grows or shrinks; the card's edge just reveals it. */
+.why-card__body {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 44%);
+  gap: 1.75rem;
+  width: var(--aw);
+  height: var(--ah);
+  padding: 1.75rem;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.why-card.is-active .why-card__body { opacity: 1; pointer-events: auto; transition-delay: 0.15s; }
+.why-card__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  padding-block: 0.25rem;
+  text-align: start;
+}
+.why-card__photo { overflow: hidden; border-radius: 22px; background: #e8f2f8; }
+.why-card .why-item__stat { margin: 0; font-size: clamp(1.35rem, 2.6cqi, 1.9rem); }
+.why-card .why-item__text {
+  margin: 0;
+  padding-inline-start: 1rem;
+  border-inline-start: 3px solid #d6e6f1;
+  font-size: 1rem;
+}
+
+/* ---- progress tabs + pause --------------------------------------------- */
+.why-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.why-carousel__tabs { display: flex; align-items: center; gap: 2px; }
+.why-carousel__tab {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 32px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.why-carousel__tab:focus-visible { outline: 3px solid var(--color-cta-dark); outline-offset: 2px; border-radius: 6px; }
+.why-carousel__bar {
+  display: block;
+  width: 8px;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #d4dee6;
+  transition: width 0.3s ease, background-color 0.2s ease;
+}
+.why-carousel__tab:hover .why-carousel__bar { background: #b8c7d3; }
+.why-carousel__tab.is-active .why-carousel__bar { width: 80px; }
+.why-carousel__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color-cta-dark);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+[dir="rtl"] .why-carousel__fill { transform-origin: right; }
+.why-carousel__tab.is-active .why-carousel__fill { animation: why-progress 6s linear forwards; }
+.why-carousel.is-paused .why-carousel__fill { animation-play-state: paused; }
+.why-carousel.is-static .why-carousel__tab.is-active .why-carousel__fill { animation: none; transform: none; }
+@keyframes why-progress { to { transform: scaleX(1); } }
+
+/* ---- tablet: one side card each way ------------------------------------- */
+@container (max-width: 900px) {
+  .why-carousel__stage {
+    --g1: 14px; --s1w: 70px; --s1h: 290px;
+    --aw: calc(100cqi - 2 * (14px + 70px) - 16px);
+    --ah: 460px;
+  }
+  .why-card[data-offset="2"]  { --x: calc(var(--aw) / 2 + var(--g1) + var(--s1w) + 70px); --o: 0; pointer-events: none; }
+  .why-card[data-offset="-2"] { --x: calc(-1 * (var(--aw) / 2 + var(--g1) + var(--s1w) + 70px)); --o: 0; pointer-events: none; }
+  .why-card__body { grid-template-columns: 1fr 40%; gap: 1.25rem; padding: 1.25rem; }
+}
+
+/* ---- phone: photo on top, text below, slim slivers at the sides --------- */
+@container (max-width: 600px) {
+  .why-carousel__stage {
+    --g1: 8px; --s1w: 22px; --s1h: 380px;
+    --aw: calc(100cqi - 2 * (8px + 22px) - 8px);
+    --ah: 580px;
+  }
+  .why-card { border-radius: 22px; }
+  .why-card::after { width: 12px; height: 30px; }
+  .why-card__peek { inset: 4px; border-radius: 16px; }
+  .why-card__body { grid-template-columns: 1fr; grid-template-rows: 190px 1fr; gap: 0.9rem; padding: 12px; }
+  .why-card__photo { order: -1; border-radius: 16px; }
+  .why-card__text { justify-content: flex-start; gap: 0.8rem; padding: 0 0.4rem 0.4rem; }
+  .why-card .why-item__stat { font-size: 1.3rem; }
+  .why-card .why-item__text { font-size: 0.95rem; line-height: 1.55; }
+}
